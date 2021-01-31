@@ -2,6 +2,7 @@ import Head from "next/head";
 import React from "react";
 
 import BackgroundWrapper from "../components/BackgroundWrapper";
+import Navigation from "../components/Navigation/index";
 
 const Home = React.memo(
   (): JSX.Element => {
@@ -11,7 +12,7 @@ const Home = React.memo(
           <title>Vimea</title>
         </Head>
         <BackgroundWrapper>
-          <h1>Starter</h1>
+          <Navigation />
         </BackgroundWrapper>
       </>
     );

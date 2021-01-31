@@ -20,6 +20,10 @@ a {
   padding: 0;
 }
 
+ul, li {
+  list-style: none;
+}
+
 `;
 
 export default GlobalStyle;

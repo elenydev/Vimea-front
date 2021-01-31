@@ -8,11 +8,14 @@ export const BackgroundWrapper = styled.div`
   width: 100vw;
   height: 100%;
 
-  background: url("images/backgroundImage.jpg");
-  background-repeat: no-repeat;
+  background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 100%),
+    url("/images/bg.jpg") no-repeat center;
   background-size: cover;
-  background-position: center;
-  filter: brightness(65%);
 `;
 
 const index = ({ children }): JSX.Element => {
