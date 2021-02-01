@@ -32,7 +32,7 @@ const index = (): JSX.Element => {
           <div onClick={handleNavClick}>
             <Link href='/'>
               <a>
-                <img src='images/logo.png' alt='Logo' />
+                <img src='/images/logo.png' alt='Logo' />
               </a>
             </Link>
           </div>
@@ -57,7 +57,7 @@ const index = (): JSX.Element => {
             </li>
 
             <li onClick={handleNavClick}>
-              <Link href='/joinUs'>
+              <Link href='/auth/signIn'>
                 <a>Join Us</a>
               </Link>
             </li>
