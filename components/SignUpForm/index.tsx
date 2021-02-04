@@ -16,9 +16,11 @@ import {
   CheckBox,
 } from "./signUpForm.styles";
 import { CHECK_IF_EMAIL_REGEX, DATABASE_URL } from "@/../constants";
-import { AddUserFormData } from "@/../interfaces/UserInterfaces/user";
+import { User } from "@/../infrastructure/interfaces/UserInterfaces/user";
+import { handleRegistration } from "@/../requests/auth/authRequests";
+import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
 
-const defaultValues: AddUserFormData = {
+const defaultValues = {
   firstName: null,
   lastName: null,
   email: null,
@@ -31,14 +33,28 @@ const RegisterForm = (): JSX.Element => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
   });
-
   const router = useRouter();
+
+  const signIn = handleSubmit(
+    async (user: User): Promise<void> => {
+      try {
+        const query = await handleRegistration(user);
+        if (query.responseStatus === ResponseStatus.SUCCESS) {
+          console.log("created"); // success notification
+          router.push("/auth/singIn");
+        }
+        //error notification
+      } catch (err) {
+        console.log(err); // error notification
+      }
+    }
+  );
 
   return (
     <Wrapper>
       <Header>Create an account</Header>
 
-      <Form>
+      <Form onSubmit={signIn}>
         <FormLabel>
           <InputElement
             type='text'

@@ -19,7 +19,6 @@ export const Form = styled.form`
   width: 100%;
   height: 100%;
   flex-direction: column;
-  font-style: italic;
   justify-content: space-between;
   align-items: center;
   color: ${({ theme }) => theme.colors.white};
@@ -62,7 +61,6 @@ export const ErrorSpan = styled.span`
 export const Header = styled.h2`
   display: flex;
   font-weight: ${({ theme }) => theme.font.weight.bold};
-  font-style: italic;
 `;
 
 export const InputElement = styled(Input)`

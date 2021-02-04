@@ -12,10 +12,11 @@ import {
   LoginDiv,
   InputElement,
 } from "./signInForm.styles";
+import RemindPasswordForm from "@/../components/RemindPasswordForm";
 import { CHECK_IF_EMAIL_REGEX, DATABASE_URL } from "../../constants";
-import { AddUserFormData, User } from "../../interfaces/UserInterfaces/user";
+import { User } from "../../infrastructure/interfaces/UserInterfaces/user";
 
-const defaultValues: AddUserFormData = {
+const defaultValues = {
   firstName: null,
   lastName: null,
   email: null,
@@ -83,6 +84,7 @@ const index = () => {
           </Link>
         </LoginDiv>
       </Form>
+      <RemindPasswordForm />
     </Wrapper>
   );
 };

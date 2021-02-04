@@ -1,8 +1,8 @@
 import Head from "next/head";
 import React from "react";
 
-import BackgroundWrapper from "../components/BackgroundWrapper";
-import Navigation from "../components/Navigation/index";
+import BackgroundWrapper from "@/../components/BackgroundWrapper";
+import Navigation from "@/../components/Navigation/index";
 
 const Home = React.memo(
   (): JSX.Element => {

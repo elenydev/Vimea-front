@@ -1,3 +1,3 @@
 export const BASE_API_URL = "https://api.themoviedb.org/3/";
-export const DATABASE_URL = "http://localhost:3000";
+export const DATABASE_URL = "http://localhost:8080";
 export const CHECK_IF_EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;

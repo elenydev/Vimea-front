@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
-  font-style: italic;
   min-width: 35vw;
   max-width: 500px;
   padding: 10px;

@@ -78,7 +78,6 @@ export const NavList = styled.ul`
     margin: 10px 0;
     cursor: pointer;
     transition: 0.2s all linear;
-    font-style: italic;
 
     &:hover,
     :focus {
