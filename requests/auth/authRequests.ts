@@ -9,13 +9,19 @@ import {
 export const handleRegistration = async (
   user: User
 ): Promise<AuthRequestResult> => {
+   const { firstName, lastName, email, password, avatar, policy } = user;
+   const newUser = new FormData();
+   newUser.append("firstName", firstName.toLowerCase());
+   newUser.append("lastName", lastName.toLowerCase());
+   newUser.append("email", email);
+   newUser.append("password", password);
+   newUser.append("avatar", avatar[0]);
+   newUser.append("policy", policy);
+
   try {
     const request = await fetch(`${DATABASE_URL}/auth/signUp`, {
       method: "POST",
-      body: JSON.stringify(user),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      body: newUser,
     });
     const response: AuthResponse = await request.json();
     return databaseResponse(response);

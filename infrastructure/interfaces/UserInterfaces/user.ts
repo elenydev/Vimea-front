@@ -3,6 +3,7 @@ import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
 export interface User {
   firstName: string;
   lastName: string;
+  password: string;
   email: string;
   avatar: string;
   userId: string;
