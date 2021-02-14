@@ -10,12 +10,17 @@ export interface User {
   policy: string | Blob;
 }
 
-export interface AuthRequestResult {
+export interface RegistrationRequestResult {
   responseStatus: ResponseStatus;
   responseMessage: string;
   user?: User;
 }
 
-export interface AuthResponse extends AuthRequestResult, Response {
+export interface UserCredentials {
+  email: string;
+  password: string;
+}
+
+export interface AuthResponse extends RegistrationRequestResult, Response {
   message?: string;
 }

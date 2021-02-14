@@ -35,7 +35,7 @@ const RegisterForm = (): JSX.Element => {
   });
   const router = useRouter();
 
-  const signIn = handleSubmit(
+  const signUp = handleSubmit(
     async (user: User): Promise<void> => {
       try {
         const query = await handleRegistration(user);
@@ -54,7 +54,7 @@ const RegisterForm = (): JSX.Element => {
     <Wrapper>
       <Header>Create an account</Header>
 
-      <Form onSubmit={signIn}>
+      <Form onSubmit={signUp}>
         <FormLabel>
           <InputElement
             type='text'

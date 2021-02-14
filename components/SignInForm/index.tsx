@@ -14,7 +14,9 @@ import {
 } from "./signInForm.styles";
 import RemindPasswordForm from "@/../components/RemindPasswordForm";
 import { CHECK_IF_EMAIL_REGEX, DATABASE_URL } from "../../constants";
-import { User } from "../../infrastructure/interfaces/UserInterfaces/user";
+import { UserCredentials } from "../../infrastructure/interfaces/UserInterfaces/user";
+import { handleAuthorization } from "@/../requests/auth/authRequests";
+import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
 
 const defaultValues = {
   firstName: null,
@@ -30,13 +32,28 @@ const index = () => {
     defaultValues,
   });
 
+  const signIn = handleSubmit(
+    async (userCredentials: UserCredentials): Promise<void> => {
+      try {
+        const query = await handleAuthorization(userCredentials);
+        if (query.responseStatus === ResponseStatus.SUCCESS) {
+          console.log("logged in"); // success notification
+          // router.push("/auth/singIn"); // push for logged in route
+        }
+        //error notification
+      } catch (err) {
+        console.log(err); // error notification
+      }
+    }
+  );
+
   const router = useRouter();
 
   return (
     <Wrapper>
       <Header>Sign in</Header>
 
-      <Form>
+      <Form onSubmit={signIn}>
         <FormLabel>
           <InputElement
             type='text'
