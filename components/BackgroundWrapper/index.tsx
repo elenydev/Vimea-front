@@ -10,11 +10,11 @@ export const BackgroundWrapper = styled.div`
 
   background: linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0) 100%
+      rgba(0, 0, 0, 0.9) 0,
+      rgba(0, 0, 0, 0) 60%,
+      rgba(0, 0, 0, 0.9) 100%
     ),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 100%),
-    url("/images/bg.jpg") no-repeat center;
+    url("/images/bg.jpg") no-repeat center, rgba(0,  0,  0,  0.3);
   background-size: cover;
 `;
 
