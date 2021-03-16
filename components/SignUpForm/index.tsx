@@ -16,7 +16,7 @@ import {
   CheckBox,
 } from "./signUpForm.styles";
 import { CHECK_IF_EMAIL_REGEX, DATABASE_URL } from "@/../constants";
-import { User } from "@/../infrastructure/interfaces/UserInterfaces/user";
+import { User } from "@/../infrastructure/interfaces/User/user";
 import { handleRegistration } from "@/../requests/auth/authRequests";
 import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
 

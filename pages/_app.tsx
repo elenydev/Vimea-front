@@ -1,6 +1,9 @@
 import { Provider } from "react-redux";
-import store from "@/../store/store";
+import store from "@/../store/configureStore";
 import Layout from "@/../layout/Layout";
+import rootSaga from "@/../store/sagas";
+
+store.runSaga(rootSaga);
 
 function MyApp({ Component, pageProps }): JSX.Element {
   return (

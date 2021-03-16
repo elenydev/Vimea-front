@@ -5,7 +5,7 @@ import {
   AuthResponse,
   User,
   UserCredentials,
-} from "@/../infrastructure/interfaces/UserInterfaces/user";
+} from "@/../infrastructure/interfaces/User/user";
 
 export const handleRegistration = async (
   user: User

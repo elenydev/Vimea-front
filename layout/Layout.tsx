@@ -3,6 +3,7 @@ import { ThemeProvider } from "styled-components";
 
 import { theme } from "../theme/theme";
 import GlobalStyle from "../theme/globalStyles";
+import Notifications from "@/../components/Notifications/index";
 
 const Layout = ({ children }): JSX.Element => {
   return (
@@ -10,6 +11,7 @@ const Layout = ({ children }): JSX.Element => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         {children}
+        <Notifications />
       </ThemeProvider>
     </>
   );

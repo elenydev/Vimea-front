@@ -1,4 +1,4 @@
-import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
+import { ResponseStatus } from "@/../infrastructure/enums/Request/request";
 
 export interface User {
   firstName: string;
@@ -8,6 +8,8 @@ export interface User {
   avatar: string;
   userId: string;
   policy: string | Blob;
+  accessToken: string;
+  favouriteMovies: string[];
 }
 
 export interface RegistrationRequestResult {

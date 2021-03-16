@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -14,9 +14,9 @@ import {
 } from "./signInForm.styles";
 import RemindPasswordForm from "@/../components/RemindPasswordForm";
 import { CHECK_IF_EMAIL_REGEX, DATABASE_URL } from "../../constants";
-import { UserCredentials } from "../../infrastructure/interfaces/UserInterfaces/user";
+import { UserCredentials } from "../../infrastructure/interfaces/User/user";
 import { handleAuthorization } from "@/../requests/auth/authRequests";
-import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
+import { ResponseStatus } from "@/../infrastructure/enums/Request/request";
 
 const defaultValues = {
   firstName: null,
