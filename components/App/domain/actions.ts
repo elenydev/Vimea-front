@@ -1,8 +1,15 @@
-import { UserCredentials } from "@/../infrastructure/interfaces/User/user";
-import { createAction } from "redux-actions";
+import {
+  User,
+  UserCredentials,
+} from "@/../infrastructure/interfaces/User/user";
+import { createAction, getOneAction } from "@/../utils/redux/index";
 import UserManager from "../UserManager";
 
 export const setUserManager = createAction<UserManager | undefined>(
   "setUserManager"
 );
-export const authorization = createAction<UserCredentials>("authorization");
+export const authorization = getOneAction<UserCredentials, User>(
+  
+  "authorization"
+
+);

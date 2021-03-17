@@ -14,21 +14,23 @@ const initialState: UserStore = {
 };
 
 const reducerMap: ReducerMap<UserStore, any> = {
-  [actions.setUserManager as any]: (
+  [actions.setUserManager]: (
     state,
     action: Action<UserManager>
   ): UserStore => ({
     ...state,
     userManager: action.payload,
   }),
-  [actions.authorization as any]: (
+  [actions.authorization.trigger]: (
     state,
     action: Action<UserCredentials>
   ): UserStore => ({
     ...state,
-    userManager: action.payload,
   }),
-  [actions.authorization as any]: (state, action: Action<User>): UserStore => ({
+  [actions.authorization.success]: (
+    state,
+    action: Action<User>
+  ): UserStore => ({
     ...state,
     user: action.payload,
   }),
