@@ -5,14 +5,14 @@ declare module "redux-saga-routines" {
     type IAction<Tparams> = Action<TParams> & {
       payload: TParams;
     };
-    type IRoutineState<TParams, TResult> = undefined extends TParams
-      ? ActionFunction0<Result> & string
+    type IRoutineStage<TParams, TResult> = undefined extends TParams
+      ? ActionFunction0<TResult> & string
       : ActionFunction1<TParams, TResult> & string;
     type routineStages = "trigger" | "success" | "failure";
     type Routine<TParams, TResult, TError = Error> = {
-      trigger: IRoutineState<TParams, IAction<TParams>>;
-      success: IRoutineState<TResult, IAction<TResult>>;
-      failure: IRoutineState<TError, IAction<TError>>;
+      trigger: IRoutineStage<TParams, IAction<TParams>>;
+      success: IRoutineStage<TResult, IAction<TResult>>;
+      failure: IRoutineStage<TError, IAction<TError>>;
     };
     function createRoutine<TParams, TResult, TError = Error>(
       actionType: string

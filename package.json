@@ -35,7 +35,6 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
-    "@types/react-redux": "^7.1.14",
-    "babel-runtime": "^6.26.0"
+    "@types/react-redux": "^7.1.14"
   }
 }

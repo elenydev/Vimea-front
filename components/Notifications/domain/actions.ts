@@ -1,5 +1,5 @@
 import { Notification } from "@/../infrastructure/interfaces/Notification/notification";
-import { createAction } from "@/../utils/redux/index";
+import { createAction } from "@/../utils/Redux/index";
 
 export const setNotification = createAction<Notification>("setNotification");
 export const setNotificationsManager = createAction<Notification>(

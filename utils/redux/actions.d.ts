@@ -1,4 +1,4 @@
-/// <reference path="./reduxSagaRoutines.d.ts" />
+/// <reference path="reduxSagaRoutines.d.ts" />
 import { ActionCreator } from "@/../utils/redux/reduxActions";
 export declare const createAction: <TParams = undefined>(
   actionName: string
@@ -7,7 +7,7 @@ export declare const createAsyncAction: <TParams, TResult, TError = Error>(
   actionName: string
 ) => import("redux-saga-routines").Routine<TParams, TResult, TError>;
 export declare const GET_ONE = "getOne";
-export declare const GET_List = "getList";
+export declare const GET_LIST = "getList";
 export declare const CREATE = "create";
 export declare const UPDATE = "update";
 export declare const DELETE = "delete";

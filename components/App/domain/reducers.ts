@@ -1,4 +1,4 @@
-import { handleActions, Action } from "redux-actions";
+import { handleActions, Action } from "@/../utils/Redux";
 import * as actions from "@/../components/App/domain/actions";
 import { ReducerMap } from "redux-actions";
 import UserManager from "@/../components/App/UserManager";
@@ -34,6 +34,10 @@ const reducerMap: ReducerMap<UserStore, any> = {
     ...state,
     user: action.payload,
   }),
+  [actions.removeUser]: (state): UserStore =>  ({
+    ...state,
+    user: undefined
+  })
 };
 
 export default handleActions(reducerMap, initialState);

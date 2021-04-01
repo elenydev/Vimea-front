@@ -18,7 +18,7 @@ import {
 import { CHECK_IF_EMAIL_REGEX, DATABASE_URL } from "@/../constants";
 import { User } from "@/../infrastructure/interfaces/User/user";
 import { handleRegistration } from "@/../requests/auth/authRequests";
-import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
+import { ResponseStatus } from "@/../infrastructure/enums/Request/request";
 
 const defaultValues = {
   firstName: null,

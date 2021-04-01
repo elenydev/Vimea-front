@@ -1,4 +1,4 @@
-/// <reference path="./reduxSagaRoutines.d.ts" />
+/// <reference path="reduxSagaRoutines.d.ts" />
 import { Routine } from "redux-saga-routines";
 import { Action } from "./reduxActions";
 export declare function fetchSaga<TParams, TResult>(

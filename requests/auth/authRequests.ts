@@ -1,5 +1,5 @@
 import { DATABASE_URL } from "@/../constants";
-import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
+import { ResponseStatus } from "@/../infrastructure/enums/Request/request";
 import {
   RegistrationRequestResult,
   AuthResponse,
