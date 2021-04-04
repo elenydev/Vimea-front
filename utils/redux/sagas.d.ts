@@ -7,7 +7,7 @@ export declare function fetchSaga<TParams, TResult>(
   fullActionType: Routine<TParams, TResult>
 ): Generator<
   Generator<
-    | Tresult
+    | TResult
     | Promise<TResult>
     | import("redux-saga/effects").PutEffect<
         import("redux-saga-routines").IAction<Error>
@@ -16,7 +16,7 @@ export declare function fetchSaga<TParams, TResult>(
         import("redux-saga-routines").IAction<TResult>
       >,
     void,
-    Tresult
+    TResult
   >,
   void,
   unkown
