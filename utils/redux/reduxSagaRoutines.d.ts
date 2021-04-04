@@ -6,8 +6,8 @@ declare module "redux-saga-routines" {
       payload: TParams;
     };
     type IRoutineStage<TParams, TResult> = undefined extends TParams
-      ? ActionFunction0<TResult> & string
-      : ActionFunction1<TParams, TResult> & string;
+      ? ActionFunction1<TParams, TResult> & string
+      : ActionFunction0<TResult> & string;
     type routineStages = "trigger" | "success" | "failure";
     type Routine<TParams, TResult, TError = Error> = {
       trigger: IRoutineStage<TParams, IAction<TParams>>;

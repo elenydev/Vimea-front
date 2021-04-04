@@ -13,7 +13,7 @@ function* setUser(action: Action<UserCredentials>) {
     const response: RegistrationRequestResult = yield handleAuthorization(user);
     yield put(authorization.success(response.user));
   } catch (e) {
-    yield put(authorization.failure());
+    yield put(authorization.failure(e));
   }
 }
 
