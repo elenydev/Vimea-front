@@ -5,6 +5,7 @@ import { deleteCookie } from "@/../services/cookieService";
 import { USER_COOKIE } from "@/../constants";
 
 export default class UserManager {
+
   public setUser(userCredentials: UserCredentials): void {
     Store.dispatch(authorization.trigger(userCredentials));
   }

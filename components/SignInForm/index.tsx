@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 
@@ -13,10 +12,10 @@ import {
   InputElement,
 } from "./signInForm.styles";
 import RemindPasswordForm from "@/../components/RemindPasswordForm";
-import { CHECK_IF_EMAIL_REGEX, DATABASE_URL } from "../../constants";
+import { CHECK_IF_EMAIL_REGEX } from "../../constants";
 import { UserCredentials } from "../../infrastructure/interfaces/User/user";
-import { handleAuthorization } from "@/../requests/auth/authRequests";
-import { ResponseStatus } from "@/../infrastructure/enums/Request/request";
+import { useSelector } from "react-redux";
+import { getUserManager } from "../App/domain/selectors";
 
 const defaultValues = {
   firstName: null,
@@ -31,23 +30,13 @@ const index = () => {
   const { register, handleSubmit, errors, reset } = useForm({
     defaultValues,
   });
+  const userManager = useSelector(getUserManager);
 
   const signIn = handleSubmit(
     async (userCredentials: UserCredentials): Promise<void> => {
-      try {
-        const query = await handleAuthorization(userCredentials);
-        if (query.responseStatus === ResponseStatus.SUCCESS) {
-          console.log("logged in"); // success notification
-          // router.push("/auth/singIn"); // push for logged in route
-        }
-        //error notification
-      } catch (err) {
-        console.log(err); // error notification
-      }
+      userManager.setUser(userCredentials);
     }
   );
-
-  const router = useRouter();
 
   return (
     <Wrapper>

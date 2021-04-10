@@ -46,7 +46,7 @@ export const handleAuthorization = async (
       body: JSON.stringify(userCredentials),
     });
     const response: AuthResponse = await request.json();
-    return databaseResponse(response);
+    return databaseResponse(request.ok, response);
   } catch (error) {
     return {
       responseMessage: error,
@@ -56,9 +56,10 @@ export const handleAuthorization = async (
 };
 
 export const databaseResponse = (
+  isSuccesfullResponse: boolean,
   response: AuthResponse
 ): RegistrationRequestResult => {
-  if (response.ok) {
+  if (isSuccesfullResponse) {
     return {
       user: response.user,
       responseStatus: ResponseStatus.SUCCESS,

@@ -1,4 +1,4 @@
-import { put, takeLatest, ForkEffect } from "redux-saga/effects";
+import { put, takeLatest, ForkEffect, select } from "redux-saga/effects";
 import { Action } from "@/../utils/Redux";
 import { handleAuthorization } from "@/../requests/auth/authRequests";
 import {
@@ -8,15 +8,20 @@ import {
 import { authorization } from "@/../components/App/domain/actions";
 import { setCookie } from "@/../services/cookieService";
 import { USER_COOKIE } from "@/../constants";
+import { getNotificationManager } from "../../Notifications/domain/selectors";
+import NotificationsManager from "../../Notifications/NotificationsManager";
 
 function* setUser(action: Action<UserCredentials>) {
   const user = action.payload;
+  const notificationsManager: NotificationsManager = yield select(getNotificationManager);
   try {
     const response: RegistrationRequestResult = yield handleAuthorization(user);
-    setCookie(USER_COOKIE, response.user.userId);
+    setCookie(USER_COOKIE, response.user.accessToken);
+    notificationsManager.setSuccesfullNotifications(response.responseMessage);
     yield put(authorization.success(response.user));
-  } catch (e) {
-    yield put(authorization.failure(e));
+  } catch (errorMessage) {
+    notificationsManager.setErrorNotifications(errorMessage);
+    yield put(authorization.failure(errorMessage));
   }
 }
 
