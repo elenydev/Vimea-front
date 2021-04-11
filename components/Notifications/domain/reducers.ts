@@ -32,7 +32,11 @@ const reducerMap: ReducerMap<NotificationsStore, any> = {
   }),
   [actions.clearNotification]: (state): NotificationsStore => ({
     ...state,
-    notification: undefined,
+    notification: {
+      message: '',
+      shouldOpen: false,
+      variant: NotificationVariant.ERROR
+    }
   }),
 };
 

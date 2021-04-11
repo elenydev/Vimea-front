@@ -16,12 +16,16 @@ function* setUser(action: Action<UserCredentials>) {
   const notificationsManager: NotificationsManager = yield select(getNotificationManager);
   try {
     const response: RegistrationRequestResult = yield handleAuthorization(user);
-    setCookie(USER_COOKIE, response.user.accessToken);
-    notificationsManager.setSuccesfullNotifications(response.responseMessage);
-    yield put(authorization.success(response.user));
+    if (response.user) {
+      yield put(authorization.success(response.user));
+      setCookie(USER_COOKIE, response.user?.accessToken);
+      notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      return;
+    }
+    notificationsManager.setErrorNotifications(response.responseMessage);
   } catch (errorMessage) {
-    notificationsManager.setErrorNotifications(errorMessage);
     yield put(authorization.failure(errorMessage));
+    notificationsManager.setErrorNotifications(errorMessage);
   }
 }
 
