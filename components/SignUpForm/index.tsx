@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import { FormLabel, Button, Checkbox } from "@material-ui/core";
@@ -17,8 +16,8 @@ import {
 } from "./signUpForm.styles";
 import { CHECK_IF_EMAIL_REGEX, DATABASE_URL } from "@/../constants";
 import { User } from "@/../infrastructure/interfaces/User/user";
-import { handleRegistration } from "@/../requests/auth/authRequests";
-import { ResponseStatus } from "@/../infrastructure/enums/Request/request";
+import { useSelector } from "react-redux";
+import { getUserManager } from "../App/domain/selectors";
 
 const defaultValues = {
   firstName: null,
@@ -33,20 +32,11 @@ const RegisterForm = (): JSX.Element => {
   const { register, handleSubmit, errors, setError, reset } = useForm({
     defaultValues,
   });
-  const router = useRouter();
+  const userManager = useSelector(getUserManager);
 
   const signUp = handleSubmit(
-    async (user: User): Promise<void> => {
-      try {
-        const query = await handleRegistration(user);
-        if (query.responseStatus === ResponseStatus.SUCCESS) {
-          console.log("created"); // success notification
-          router.push("/auth/singIn");
-        }
-        //error notification
-      } catch (err) {
-        console.log(err); // error notification
-      }
+    (user: User): void => {
+      userManager.registerUser(user);
     }
   );
 

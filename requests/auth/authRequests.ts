@@ -25,7 +25,7 @@ export const handleRegistration = async (
       body: newUser,
     });
     const response: AuthResponse = await request.json();
-    return databaseResponse(response);
+    return databaseResponse(request.ok, response);
   } catch (error) {
     return {
       responseMessage: error,

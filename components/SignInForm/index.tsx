@@ -33,7 +33,7 @@ const index = () => {
   const userManager = useSelector(getUserManager);
 
   const signIn = handleSubmit(
-    async (userCredentials: UserCredentials): Promise<void> => {
+    (userCredentials: UserCredentials): void => {
       userManager.setUser(userCredentials);
     }
   );
