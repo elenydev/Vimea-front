@@ -35,6 +35,7 @@ const index = () => {
   const signIn = handleSubmit(
     (userCredentials: UserCredentials): void => {
       userManager.setUser(userCredentials);
+      reset();
     }
   );
 

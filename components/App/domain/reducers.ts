@@ -1,4 +1,4 @@
-import { handleActions, Action } from "@/../utils/Redux";
+import { handleActions, Action } from "@/../utils/redux";
 import * as actions from "@/../components/App/domain/actions";
 import { ReducerMap } from "redux-actions";
 import UserManager from "@/../components/App/UserManager";

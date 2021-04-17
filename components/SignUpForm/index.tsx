@@ -29,7 +29,7 @@ const defaultValues = {
 };
 
 const RegisterForm = (): JSX.Element => {
-  const { register, handleSubmit, errors, setError, reset } = useForm({
+  const { register, handleSubmit, errors, reset } = useForm({
     defaultValues,
   });
   const userManager = useSelector(getUserManager);
@@ -37,6 +37,7 @@ const RegisterForm = (): JSX.Element => {
   const signUp = handleSubmit(
     (user: User): void => {
       userManager.registerUser(user);
+      reset();
     }
   );
 

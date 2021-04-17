@@ -13,16 +13,25 @@ import {
   Form,
 } from "./remindPasswordForm.styles";
 import { CHECK_IF_EMAIL_REGEX, DATABASE_URL } from "@/../constants";
-import { User } from "@/../infrastructure/interfaces/User/user";
+import { useSelector } from "react-redux";
+import { getUserManager } from "@/../components/App/domain/selectors";
 
 const defaultValues: { email: string } = {
   email: null,
 };
 
 const index = (): JSX.Element => {
-  const { register, handleSubmit, errors, setError, reset } = useForm({
+  const { register, handleSubmit, errors, reset } = useForm({
     defaultValues,
   });
+  const userManager = useSelector(getUserManager);
+
+  const remindPassword = handleSubmit(
+    (value: { email: string }): void => {
+      userManager.remindPassword(value.email);
+      reset()
+    }
+  );
 
   return (
     <LoginDiv>
@@ -36,7 +45,7 @@ const index = (): JSX.Element => {
         </AccordionSummary>
 
         <AccordionDetails>
-          <Form>
+          <Form onSubmit={remindPassword}>
             <FormLabel>
               <InputElement
                 type='text'

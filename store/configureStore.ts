@@ -17,7 +17,7 @@ const store = {
     composeWithDevTools(applyMiddleware(sagaMiddleware))
   ),
   runSaga: runSagaMiddleware,
-  isSagarunning: false
+  isSagaRunning: false
 };
 
 export default store;

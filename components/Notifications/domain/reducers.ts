@@ -1,4 +1,4 @@
-import { Action, handleActions } from "@/../utils/Redux";
+import { Action, handleActions } from "@/../utils/redux";
 import { ReducerMap } from "redux-actions";
 import * as actions from "@/../components/Notifications/domain/actions";
 import { NotificationsStore } from "./interfaces";

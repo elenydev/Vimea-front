@@ -1,15 +1,16 @@
 import { DATABASE_URL } from "@/../constants";
-import { ResponseStatus } from "@/../infrastructure/enums/Request/request";
+import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
 import {
-  RegistrationRequestResult,
   AuthResponse,
   User,
   UserCredentials,
+  RemindPasswordResult,
+  AuthorizationRequestResult,
 } from "@/../infrastructure/interfaces/User/user";
 
 export const handleRegistration = async (
   user: User
-): Promise<RegistrationRequestResult> => {
+): Promise<AuthorizationRequestResult> => {
   const { firstName, lastName, email, password, avatar, policy } = user;
   const newUser = new FormData();
   newUser.append("firstName", firstName.toLowerCase());
@@ -20,7 +21,7 @@ export const handleRegistration = async (
   newUser.append("policy", policy);
 
   try {
-    const request = await fetch(`${DATABASE_URL}/auth/signUp`, {
+    const request = await fetch(`${DATABASE_URL}/user/signUp`, {
       method: "POST",
       body: newUser,
     });
@@ -36,9 +37,9 @@ export const handleRegistration = async (
 
 export const handleAuthorization = async (
   userCredentials: UserCredentials
-): Promise<RegistrationRequestResult> => {
+): Promise<AuthorizationRequestResult> => {
   try {
-    const request = await fetch(`${DATABASE_URL}/auth/signIn`, {
+    const request = await fetch(`${DATABASE_URL}/user/signIn`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,10 +56,29 @@ export const handleAuthorization = async (
   }
 };
 
+export const handleRemindPassword = async (userEmail: string): Promise<RemindPasswordResult>  => {
+  try {
+    const request = await fetch(`${DATABASE_URL}/user/password/remind`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userEmail)
+    });
+    const response: RemindPasswordResult = await request.json();
+    return databaseResponse(request.ok, response);
+  } catch (error) {
+    return {
+      responseMessage: error,
+      responseStatus: ResponseStatus.FAILED
+    }
+  }
+}
+
 export const databaseResponse = (
   isSuccesfullResponse: boolean,
-  response: AuthResponse
-): RegistrationRequestResult => {
+  response: AuthResponse | RemindPasswordResult
+): AuthorizationRequestResult => {
   if (isSuccesfullResponse) {
     return {
       user: response.user,
