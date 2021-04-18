@@ -1,9 +1,8 @@
 import Store from "@/../store/configureStore";
-import { User, UserCredentials, UserFavouriteMovie } from "@/../infrastructure/interfaces/User/user";
-import { authorization, removeUser, registration, remindPassword, addFavourite, removeFavourite } from "./domain/actions";
+import { ChangePasswordUserCredentials, User, UserCredentials, UserFavouriteMovie } from "@/../infrastructure/interfaces/User/user";
+import { authorization, removeUser, registration, remindPassword, addFavourite, removeFavourite, changePassword } from "./domain/actions";
 import { deleteCookie } from "@/../services/cookieService";
 import { USER_COOKIE } from "@/../constants";
-import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
 
 export default class UserManager {
 
@@ -22,6 +21,10 @@ export default class UserManager {
 
   public remindPassword(userEmail: string): void {
     Store.dispatch(remindPassword.trigger(userEmail));
+  }
+  
+  public changePassword(userCredentials: ChangePasswordUserCredentials): void {
+    Store.dispatch(changePassword.trigger(userCredentials));
   }
 
   public addFavourite(movie: UserFavouriteMovie): void {

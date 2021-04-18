@@ -1,7 +1,8 @@
 import { put, takeLatest, ForkEffect, select } from "redux-saga/effects";
 import { Action } from "@/../utils/redux";
-import { handleAuthorization, handleRegistration, handleRemindPassword } from "@/../requests/auth/authRequests";
+import { handleAuthorization, handleChangePassword, handleRegistration, handleRemindPassword } from "@/../requests/auth/authRequests";
 import {
+  ChangePasswordUserCredentials,
   RegistrationRequestResult,
   RemindPasswordResult,
   User,
@@ -9,7 +10,7 @@ import {
   UserFavouriteMovie,
   UserMovieActionResult,
 } from "@/../infrastructure/interfaces/User/user";
-import { addFavourite, authorization, registration, remindPassword, removeFavourite } from "@/../components/App/domain/actions";
+import { addFavourite, authorization, changePassword, registration, remindPassword, removeFavourite } from "@/../components/App/domain/actions";
 import { setCookie } from "@/../services/cookieService";
 import { USER_COOKIE } from "@/../constants";
 import { getNotificationManager } from "../../Notifications/domain/selectors";
@@ -104,6 +105,24 @@ function* removeFavouriteMovie(action: Action<string>) {
   }
 }
 
+function* changeUserPassword(action: Action<ChangePasswordUserCredentials>) {
+  const userCredentials = action.payload;
+  const notificationsManager: NotificationsManager = yield select(getNotificationManager);
+  try {
+    const response: RegistrationRequestResult = yield handleChangePassword(userCredentials);
+    if (response.user) {
+      yield put(changePassword.success(response.user));
+      setCookie(USER_COOKIE, response.user?.accessToken);
+      notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      return;
+    }
+    notificationsManager.setErrorNotifications(response.responseMessage);
+  } catch (errorMessage) {
+    yield put(changePassword.failure(errorMessage));
+    notificationsManager.setErrorNotifications(errorMessage);
+  }
+}
+
 export default function* userSagas(): Generator<
   ForkEffect<never>,
   void,
@@ -112,6 +131,7 @@ export default function* userSagas(): Generator<
   yield takeLatest(authorization.trigger, setUser);
   yield takeLatest(registration.trigger, registerUser);
   yield takeLatest(remindPassword.trigger, remindUserPassword);
+  yield takeLatest(changePassword.trigger, changeUserPassword);
   yield takeLatest(addFavourite.trigger, addFavouriteMovie);
   yield takeLatest(removeFavourite.trigger, removeFavouriteMovie)
 }

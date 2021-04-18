@@ -1,4 +1,5 @@
 import {
+  ChangePasswordUserCredentials,
   User,
   UserCredentials,
   UserFavouriteMovie,
@@ -12,4 +13,5 @@ export const authorization = getOneAction<UserCredentials, User>("authorization"
 export const removeUser = createAction<undefined>("removeUser");
 export const remindPassword = createInApiAction<string, undefined>('remindPassword');
 export const addFavourite = createInApiAction<UserFavouriteMovie, UserFavouriteMovie[]>('addFavourite');
-export const removeFavourite=createInApiAction<string, UserFavouriteMovie[]>('removeFavourite')
+export const removeFavourite = createInApiAction<string, UserFavouriteMovie[]>('removeFavourite')
+export const changePassword = createInApiAction<ChangePasswordUserCredentials, User>('changePassword');

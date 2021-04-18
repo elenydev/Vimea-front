@@ -9,7 +9,7 @@ export interface User {
   userId: string;
   policy: string | Blob;
   accessToken: string;
-  favouriteMovies: string[];
+  favouriteMovies: UserFavouriteMovie[];
 }
 
 export interface BaseRequestResponse {
@@ -28,6 +28,10 @@ export interface AuthorizationRequestResult extends Omit<RegistrationRequestResu
 export interface UserCredentials {
   email: string;
   password: string;
+}
+
+export interface ChangePasswordUserCredentials extends UserCredentials {
+  newPassword: string;
 }
 
 export interface AuthResponse extends RegistrationRequestResult, Response {
