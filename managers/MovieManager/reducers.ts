@@ -4,7 +4,6 @@ import * as actions from '@/../managers/MovieManager/actions';
 import { MovieStore, } from "./interfaces";
 import MovieManager from "./MovieManager";
 import { Movie } from "@/../infrastructure/interfaces/Movie/movie";
-import { getMappedMovies } from "@/../utils/getMappedMovies";
 
 const initialState: MovieStore = {
   movieManager: undefined,
@@ -24,7 +23,7 @@ const reducerMap: ReducerMap<MovieStore, any> = {
     action: Action<Movie[]>
   ): MovieStore => ({
     ...state,
-    upcomingMovies: getMappedMovies(action.payload)
+    upcomingMovies: action.payload
   }),
 };
 

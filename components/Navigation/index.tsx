@@ -45,7 +45,7 @@ const index = (): JSX.Element => {
             </li>
 
             <li onClick={handleNavClick}>
-              <Link href='/latest'>
+              <Link href='#latest'>
                 <a>Latest</a>
               </Link>
             </li>
