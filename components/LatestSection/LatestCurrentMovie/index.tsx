@@ -23,7 +23,7 @@ const index = (props: ComponentProps): JSX.Element => {
                     emptyIcon={<StarBorderIcon fontSize="inherit" />}
                 />({vote_count})
             </RatingWrapper>
-            <label onClick={() => console.log('dupsko')}>
+            <label>
                 <Button
                     color="secondary"
                     variant="contained"

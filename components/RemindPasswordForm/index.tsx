@@ -42,7 +42,7 @@ const index = (): JSX.Element => {
           aria-controls='panel1a-content'
           id='panel1a-header'
         >
-          {Text.app.main.forms.labels.remind_password}
+          {Text.app.main.forms.labels.remind__password}
         </AccordionSummary>
 
         <AccordionDetails>

@@ -33,10 +33,27 @@ flex: 1;
 flex-direction: column;
 justify-content: center;
 align-items: flex-end;
+padding-top: 40%;
 
 ${({ theme }) => theme.mq.md} {
     max-width: 80%;
+    padding-top: 25%;
 }
 `
 
-export { Wrapper, BackgroundWrapper, Container }
+const MoviesWrapper = styled.div`
+display: grid;
+width: 100%;
+align-items: center;
+grid-template-columns: repeat(auto-fit, 200px);
+grid-template-rows: repeat(auto-fit, 250px);
+grid-gap: 30px;
+
+
+${({ theme }) => theme.mq.md} {
+    grid-gap: 50px;
+}
+`
+
+
+export { Wrapper, BackgroundWrapper, Container, MoviesWrapper }

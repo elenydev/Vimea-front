@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { BackgroundWrapper, Wrapper, Container } from './latestsection.styles';
+import { BackgroundWrapper, Wrapper, Container, MoviesWrapper } from './latestsection.styles';
 import { Movie } from '@/../infrastructure/interfaces/Movie/movie';
 import LatestCurrentMovie from '@/../components/LatestSection/LatestCurrentMovie/';
+import MovieCard from '@/../components/LatestSection/MovieCard/';
 
 interface ComponentProps {
     upcomingMovies: Movie[]
 }
 
-const index = (props: ComponentProps): JSX.Element => {
+const index = React.memo((props: ComponentProps): JSX.Element => {
     const { upcomingMovies } = props;
     const [currentRandomUpcomingMovie, setCurrentRandomUpcomingMovie] = useState<Movie>(undefined);
     const [randomMovieId, setRandomMovieId] = useState<number>(undefined);
@@ -36,10 +37,19 @@ const index = (props: ComponentProps): JSX.Element => {
             <BackgroundWrapper backgroundImage={currentRandomUpcomingMovie?.backdrop_path}>
                 <Container>
                     {currentRandomUpcomingMovie && <LatestCurrentMovie currentMovie={currentRandomUpcomingMovie} />}
+                    <MoviesWrapper>
+                        {upcomingMovies.map(movie => (
+                            <MovieCard
+                                movie={movie}
+                                setRandomMovie={setRandomMovie}
+                                key={movie.id}
+                            />
+                        ))}
+                    </MoviesWrapper>
                 </Container>
             </BackgroundWrapper>
         </Wrapper>
     )
-}
+});
 
 export default index
