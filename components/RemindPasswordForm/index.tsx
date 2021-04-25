@@ -12,9 +12,10 @@ import {
   ErrorSpan,
   Form,
 } from "./remindPasswordForm.styles";
-import { CHECK_IF_EMAIL_REGEX, DATABASE_URL } from "@/../constants";
+import { CHECK_IF_EMAIL_REGEX } from "@/../constants";
 import { useSelector } from "react-redux";
 import { getUserManager } from "@/../components/App/domain/selectors";
+import {Text} from '@/../dictionary/text';
 
 const defaultValues: { email: string } = {
   email: null,
@@ -41,7 +42,7 @@ const index = (): JSX.Element => {
           aria-controls='panel1a-content'
           id='panel1a-header'
         >
-          Remind Password
+          {Text.app.main.forms.labels.remind_password}
         </AccordionSummary>
 
         <AccordionDetails>
@@ -55,20 +56,20 @@ const index = (): JSX.Element => {
                   required: true,
                   pattern: {
                     value: CHECK_IF_EMAIL_REGEX,
-                    message: "invalid email address",
+                    message: Text.app.main.forms.validationErrors.errors.email,
                   },
                 })}
               />
             </FormLabel>
             {errors.email && errors.email.type === "required" && (
-              <ErrorSpan>Please provide a email</ErrorSpan>
+              <ErrorSpan>{Text.app.main.forms.validationErrors.required.email}</ErrorSpan>
             )}
             {errors.email && errors.email.type === "pattern" && (
-              <ErrorSpan>Please provide a correct email</ErrorSpan>
+              <ErrorSpan>{Text.app.main.forms.validationErrors.pattern.email}</ErrorSpan>
             )}
             <label>
               <Button type='submit' variant='contained' color='secondary'>
-                Remind
+                {Text.app.main.forms.labels.remind}
               </Button>
             </label>
           </Form>

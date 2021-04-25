@@ -7,9 +7,9 @@ import {
   HamburgerInner,
   NavigationWrapper,
   Nav,
-  NavList,
-  LinksWrapper,
+  NavList
 } from "./navigation.styles";
+import { Text } from '@/../dictionary/text';
 
 const index = (): JSX.Element => {
   const handleNavClick = (): void => {
@@ -40,25 +40,25 @@ const index = (): JSX.Element => {
           <NavList>
             <li onClick={handleNavClick}>
               <Link href='/about'>
-                <a>About Us</a>
+                <a>{Text.app.main.navigation.about}</a>
               </Link>
             </li>
 
             <li onClick={handleNavClick}>
               <Link href='#latest'>
-                <a>Latest</a>
+                <a>{Text.app.main.navigation.latest}</a>
               </Link>
             </li>
 
             <li onClick={handleNavClick}>
               <Link href='#contact'>
-                <a>Contact</a>
+                <a>{Text.app.main.navigation.contact}</a>
               </Link>
             </li>
 
             <li onClick={handleNavClick}>
               <Link href='/auth/signIn'>
-                <a>Join Us</a>
+                <a>{Text.app.main.navigation.join__us}</a>
               </Link>
             </li>
           </NavList>

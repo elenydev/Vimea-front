@@ -14,10 +14,11 @@ import {
   InputElement,
   CheckBox,
 } from "./signUpForm.styles";
-import { CHECK_IF_EMAIL_REGEX, DATABASE_URL } from "@/../constants";
+import { CHECK_IF_EMAIL_REGEX } from "@/../constants";
 import { User } from "@/../infrastructure/interfaces/User/user";
 import { useSelector } from "react-redux";
 import { getUserManager } from "../App/domain/selectors";
+import { Text } from '@/../dictionary/text';
 
 const defaultValues = {
   firstName: null,
@@ -43,64 +44,64 @@ const RegisterForm = (): JSX.Element => {
 
   return (
     <Wrapper>
-      <Header>Create an account</Header>
+      <Header>{Text.app.main.forms.labels.create__account}</Header>
 
       <Form onSubmit={signUp}>
         <FormLabel>
           <InputElement
             type='text'
             name='firstName'
-            placeholder='First Name'
+            placeholder={Text.app.main.forms.labels.first__name}
             inputRef={register({ required: true })}
           />
         </FormLabel>
         {errors.firstName && errors.firstName.type === "required" && (
-          <ErrorSpan>Please provide a first name</ErrorSpan>
+          <ErrorSpan>{Text.app.main.forms.validationErrors.required.first__name}</ErrorSpan>
         )}
 
         <FormLabel>
           <InputElement
             type='text'
             name='lastName'
-            placeholder='Last Name'
+            placeholder={Text.app.main.forms.labels.last__name}
             inputRef={register({ required: true })}
           />
         </FormLabel>
         {errors.lastName && errors.lastName.type === "required" && (
-          <ErrorSpan>Please provide a last name</ErrorSpan>
+          <ErrorSpan>{Text.app.main.forms.validationErrors.required.last__name}</ErrorSpan>
         )}
 
         <FormLabel>
           <InputElement
             type='text'
             name='email'
-            placeholder='Enter email'
+            placeholder={Text.app.main.forms.labels.email}
             inputRef={register({
               required: true,
               pattern: {
                 value: CHECK_IF_EMAIL_REGEX,
-                message: "invalid email address",
+                message: Text.app.main.forms.validationErrors.errors.email
               },
             })}
           />
         </FormLabel>
         {errors.email && errors.email.type === "required" && (
-          <ErrorSpan>Please provide a email</ErrorSpan>
+          <ErrorSpan>{Text.app.main.forms.validationErrors.required.email}</ErrorSpan>
         )}
         {errors.email && errors.email.type === "pattern" && (
-          <ErrorSpan>Please provide a correct email</ErrorSpan>
+          <ErrorSpan>{Text.app.main.forms.validationErrors.pattern.email}</ErrorSpan>
         )}
 
         <FormLabel>
           <InputElement
             type='password'
             name='password'
-            placeholder='Enter Password'
+            placeholder={Text.app.main.forms.labels.password}
             inputRef={register({ required: true })}
           />
         </FormLabel>
         {errors.password && errors.password.type === "required" && (
-          <ErrorSpan>Please provide a password</ErrorSpan>
+          <ErrorSpan>{Text.app.main.forms.validationErrors.required.password}</ErrorSpan>
         )}
 
         <input
@@ -121,31 +122,31 @@ const RegisterForm = (): JSX.Element => {
           </IconButton>
         </label>
         {errors.avatar && errors.avatar.type === "required" && (
-          <ErrorSpan>Please provide an avatar</ErrorSpan>
+          <ErrorSpan>{Text.app.main.forms.validationErrors.required.avatar}</ErrorSpan>
         )}
 
         <CheckBox>
-          You have to accept our
+          {Text.app.main.forms.labels.accept__policy}
           <Link href='/auth/policy'>
             <ErrorSpan>
-              <a>Privacy Policy</a>
+              <a>{Text.app.main.forms.labels.privacy__policy}</a>
             </ErrorSpan>
           </Link>
           <Checkbox name='policy' inputRef={register({ required: true })} />
           {errors.policy && errors.policy.type === "required" && (
-            <ErrorSpan>Please accept our privacy policy</ErrorSpan>
+            <ErrorSpan>{Text.app.main.forms.validationErrors.required.policy}</ErrorSpan>
           )}
         </CheckBox>
         <label>
           <Button type='submit' variant='contained' color='secondary'>
-            Create
+            {Text.app.main.forms.labels.create}
           </Button>
         </label>
       </Form>
 
       <LoginDiv>
         <Link href='/auth/signIn'>
-          <a>Back to sign in</a>
+          <a>{Text.app.main.forms.labels.back__to__sign__in}</a>
         </Link>
       </LoginDiv>
     </Wrapper>
