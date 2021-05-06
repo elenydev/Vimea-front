@@ -13,6 +13,7 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
     const [currentRandomUpcomingMovie, setCurrentRandomUpcomingMovie] = useState<Movie>(undefined);
     const [randomMovieId, setRandomMovieId] = useState<number>(undefined);
     const randomIndex = Math.floor(Math.random() * 19);
+    const randomUpcomingMovies = [...(new Set(upcomingMovies.sort(() => Math.random() - 0.5)))];
 
     const setRandomMovie = useCallback((movieId: number): void => {
         const newRandomMovie = upcomingMovies.find(({ id }) => id === movieId);
@@ -38,7 +39,7 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
                 <Container>
                     {currentRandomUpcomingMovie && <LatestCurrentMovie currentMovie={currentRandomUpcomingMovie} />}
                     <MoviesWrapper>
-                        {upcomingMovies.map(movie => (
+                        {randomUpcomingMovies.slice(0, 4).map(movie => (
                             <MovieCard
                                 movie={movie}
                                 setRandomMovie={setRandomMovie}

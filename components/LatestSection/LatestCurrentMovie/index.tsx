@@ -18,7 +18,8 @@ const index = (props: ComponentProps): JSX.Element => {
             <Heading>{original_title}</Heading>
             <SubHeading>{overview}</SubHeading>
             <RatingWrapper>
-                <Rating name="read-only"
+                <Rating
+                    readOnly
                     value={movieRate}
                     emptyIcon={<StarBorderIcon fontSize="inherit" />}
                 />({vote_count})

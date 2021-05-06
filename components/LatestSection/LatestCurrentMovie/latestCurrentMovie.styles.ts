@@ -6,6 +6,8 @@ flex-direction: column;
 text-align: right;
 width: 100%;
 color: ${({ theme }) => theme.colors.white};
+padding-bottom: 40px;
+box-sizing: border-box;
 
 ${({ theme }) => theme.mq.md} {
     width: 70%;
@@ -15,7 +17,7 @@ ${({ theme }) => theme.mq.lg} {
     width: 60%;
 }
 ${({ theme }) => theme.mq.xlg}{
-    width: 50$;
+    width: 50%;
 
 }
 

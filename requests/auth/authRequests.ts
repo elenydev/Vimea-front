@@ -81,11 +81,11 @@ export const handleChangePassword = async (
 ): Promise<AuthorizationRequestResult> => {
   try {
     const request = await fetch(`${DATABASE_URL}/user/password/change`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userCredentials),
+      body:  JSON.stringify(userCredentials)
     });
     const response: AuthResponse = await request.json();
     return databaseResponse(request.ok, response);

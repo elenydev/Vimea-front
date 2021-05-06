@@ -33,26 +33,37 @@ flex: 1;
 flex-direction: column;
 justify-content: center;
 align-items: flex-end;
-padding-top: 40%;
+padding-top: 10%;
 
 ${({ theme }) => theme.mq.md} {
     max-width: 80%;
-    padding-top: 25%;
 }
+
+${({ theme }) => theme.mq.lg} {
+    height: 100%;
+}
+
+
 `
 
 const MoviesWrapper = styled.div`
 display: grid;
 width: 100%;
+height: 100%;
+grid-template-columns: 1;
 align-items: center;
-grid-template-columns: repeat(auto-fit, 200px);
-grid-template-rows: repeat(auto-fit, 250px);
-grid-gap: 30px;
-
+grid-gap: 25px;
+place-content: center;
+cursor: pointer;
 
 ${({ theme }) => theme.mq.md} {
-    grid-gap: 50px;
+    grid-template-columns: repeat(2, 1fr);
 }
+
+${({ theme }) => theme.mq.lg} {
+    grid-template-columns: repeat(4, 1fr);
+}
+
 `
 
 

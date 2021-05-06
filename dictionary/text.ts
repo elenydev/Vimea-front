@@ -5,7 +5,7 @@ export const Text = {
         about: "About Us",
         latest: "Latest",
         contact: "Contact",
-        join__us:"Join Us"
+        join__us: "Join Us"
       },
       components: {
         hero: {
