@@ -69,7 +69,6 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   max-height: 50%;
   justify-content: space-between;
-  z-index: 99;
 
   & > h3 {
     color: ${({ theme }) => theme.colors.white};
