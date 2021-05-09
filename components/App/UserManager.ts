@@ -1,13 +1,27 @@
 import Store from "@/../store/configureStore";
-import { ChangePasswordUserCredentials, User, UserCredentials, UserFavouriteMovie } from "@/../infrastructure/interfaces/User/user";
-import { authorization, removeUser, registration, remindPassword, addFavourite, removeFavourite, changePassword } from "./domain/actions";
+import {
+  ChangePasswordUserCredentials,
+  GetCurrentUser,
+  User,
+  UserCredentials,
+  UserFavouriteMovie,
+} from "@/../infrastructure/interfaces/User/user";
+import {
+  authorization,
+  removeUser,
+  registration,
+  remindPassword,
+  addFavourite,
+  removeFavourite,
+  changePassword,
+  getCurrentUser,
+} from "./domain/actions";
 import { deleteCookie } from "@/../services/cookieService";
 import { USER_COOKIE } from "@/../constants";
 
 export default class UserManager {
-
   public registerUser(userCredentials: User): void {
-    Store.dispatch(registration.trigger(userCredentials))
+    Store.dispatch(registration.trigger(userCredentials));
   }
 
   public setUser(userCredentials: UserCredentials): void {
@@ -22,7 +36,7 @@ export default class UserManager {
   public remindPassword(userEmail: string): void {
     Store.dispatch(remindPassword.trigger(userEmail));
   }
-  
+
   public changePassword(userCredentials: ChangePasswordUserCredentials): void {
     Store.dispatch(changePassword.trigger(userCredentials));
   }
@@ -33,5 +47,9 @@ export default class UserManager {
 
   public removeFavourite(movieId: string): void {
     Store.dispatch(removeFavourite.trigger(movieId));
+  }
+
+  public getCurrentUser(credentials: GetCurrentUser): void {
+    Store.dispatch(getCurrentUser.trigger(credentials));
   }
 }

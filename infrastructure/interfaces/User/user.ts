@@ -59,3 +59,7 @@ export interface UserMovieActionResponse {
 export interface UserMovieActionResult extends BaseRequestResponse {
   favouriteMovies?: UserFavouriteMovie[]
 }
+
+export interface GetCurrentUser {
+  email: string;
+}

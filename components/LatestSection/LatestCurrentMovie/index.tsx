@@ -1,10 +1,15 @@
 import { Movie } from '@/../infrastructure/interfaces/Movie/movie'
-import React from 'react'
+import React, {SyntheticEvent} from 'react'
 import Rating from '@material-ui/lab/Rating';
 import { Wrapper, Heading, SubHeading, RatingWrapper } from './latestCurrentMovie.styles';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Button from '@material-ui/core/Button';
 import { Text } from '@/../dictionary/text';
+import { getCookie } from '@/../services/cookieService';
+import { useSelector } from 'react-redux';
+import { CURRENT_USER_EMAIL, USER_COOKIE } from '@/../constants';
+import { getUserManager } from '../../App/domain/selectors';
+import { getMappedFavouriteMovie } from '@/../utils/getMappedFavouriteMovie';
 
 interface ComponentProps {
     currentMovie: Movie
@@ -13,6 +18,15 @@ interface ComponentProps {
 const index = (props: ComponentProps): JSX.Element => {
     const { vote_average, vote_count, overview, original_title } = props.currentMovie;
     const movieRate = +(vote_average / 2).toFixed();
+
+    const isAddingDisabled = !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL);
+    const userManager = useSelector(getUserManager);
+
+    const addToFavourites = (e: SyntheticEvent): void => {
+      e.stopPropagation();
+      const mappedFavouriteMovie = getMappedFavouriteMovie(props.currentMovie);
+      userManager.addFavourite(mappedFavouriteMovie);
+    };
     return (
         <Wrapper>
             <Heading>{original_title}</Heading>
@@ -28,6 +42,8 @@ const index = (props: ComponentProps): JSX.Element => {
                 <Button
                     color="secondary"
                     variant="contained"
+                    disabled={isAddingDisabled}
+                    onClick={addToFavourites}
                 >
                     {Text.app.main.components.latest.add__favourite}
                 </Button>

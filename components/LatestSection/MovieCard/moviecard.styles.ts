@@ -28,7 +28,6 @@ const Wrapper = styled.div`
     rgba(0, 0, 0, 0.3);
   background-size: cover;
   transition: 0.3s linear;
-  
 
   & > div {
     display: flex;
@@ -83,6 +82,10 @@ const ContentWrapper = styled.div`
       background-color: ${({ theme }) => theme.colors.crimsonRed};
       font-size: 8px;
       margin-left: auto;
+    }
+    .MuiButton-contained:hover.Mui-disabled {
+      background-color: ${({ theme }) => theme.colors.crimsonRed};
+      color: rgba(0, 0, 0, 0.26);
     }
   }
 `;

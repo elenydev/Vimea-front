@@ -25,7 +25,13 @@ ${({ theme }) => theme.mq.xlg}{
     margin-top: ${({ theme }) => theme.padding.sm};
     background-color:${({ theme }) => theme.colors.crimsonRed};
     font-size: ${({ theme }) => theme.font.size.xxs};
+
+    
 }
+.MuiButton-contained:hover.Mui-disabled {
+      background-color: ${({ theme }) => theme.colors.crimsonRed};
+      color: rgba(0, 0, 0, 0.26);
+    }
 `;
 
 const Heading = styled.h2`

@@ -7,6 +7,7 @@ import {
   RemindPasswordResult,
   AuthorizationRequestResult,
   ChangePasswordUserCredentials,
+  GetCurrentUser,
 } from "@/../infrastructure/interfaces/User/user";
 
 export const handleRegistration = async (
@@ -57,24 +58,26 @@ export const handleAuthorization = async (
   }
 };
 
-export const handleRemindPassword = async (userEmail: string): Promise<RemindPasswordResult>  => {
+export const handleRemindPassword = async (
+  userEmail: string
+): Promise<RemindPasswordResult> => {
   try {
     const request = await fetch(`${DATABASE_URL}/user/password/remind`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userEmail)
+      body: JSON.stringify(userEmail),
     });
     const response: RemindPasswordResult = await request.json();
     return databaseResponse(request.ok, response);
   } catch (error) {
     return {
       responseMessage: error,
-      responseStatus: ResponseStatus.FAILED
-    }
+      responseStatus: ResponseStatus.FAILED,
+    };
   }
-}
+};
 
 export const handleChangePassword = async (
   userCredentials: ChangePasswordUserCredentials
@@ -85,7 +88,24 @@ export const handleChangePassword = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body:  JSON.stringify(userCredentials)
+      body: JSON.stringify(userCredentials),
+    });
+    const response: AuthResponse = await request.json();
+    return databaseResponse(request.ok, response);
+  } catch (error) {
+    return {
+      responseMessage: error,
+      responseStatus: ResponseStatus.FAILED,
+    };
+  }
+};
+
+export const getCurrentUser = async (
+  UserCredential: GetCurrentUser
+): Promise<AuthorizationRequestResult> => {
+  try {
+    const request = await fetch(`${DATABASE_URL}/user/getCurrent?email=${UserCredential.email}`, {
+      method: "GET",
     });
     const response: AuthResponse = await request.json();
     return databaseResponse(request.ok, response);

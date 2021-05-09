@@ -53,6 +53,13 @@ const reducerMap: ReducerMap<UserStore, any> = {
       favouriteMovies: action.payload
     }
   }),
+  [actions.getCurrentUser.success]: (
+    state,
+    action: Action<User>
+  ): UserStore => ({
+    ...state,
+    user: action.payload,
+  }),
 };
 
 export default handleActions(reducerMap, initialState);

@@ -4,16 +4,15 @@ import Store from "@/../store/configureStore";
 import Layout from "@/../layout/Layout";
 import rootSaga from "@/../store/sagas";
 import { getCookie } from "@/../../services/cookieService";
-import { USER_COOKIE } from "@/../../constants";
+import { CURRENT_USER_EMAIL, USER_COOKIE } from "@/../../constants";
 import { PROTECTED_ROUTES } from "@/../../routes";
 import RouterInstance from "@/../utils/routerInstance";
 import { RedirectTo } from "@/../utils/redirectTo";
 import { setUserManager } from "@/../components/App/domain/actions";
-import UserManager from '@/../components/App/UserManager';
-import NotificationsManager from '@/../components/Notifications/NotificationsManager';
+import UserManager from "@/../components/App/UserManager";
+import NotificationsManager from "@/../components/Notifications/NotificationsManager";
 import { Store as StoreInterface } from "../store/interfaces";
 import { setNotificationsManager } from "../components/Notifications/domain/actions";
-
 
 Store.runSaga(rootSaga);
 
@@ -22,8 +21,11 @@ function MyApp({ Component, pageProps }): JSX.Element {
   const isProtectedRoute = PROTECTED_ROUTES.some(
     (route) => route === currentRoutePath
   );
-  const userManager = (Store.getState() as StoreInterface).userStore?.userManager;
-  const notificationsManager = (Store.getState() as StoreInterface).notificationsStore?.notificationsManager;
+  const userManager = (Store.getState() as StoreInterface).userStore
+    ?.userManager;
+  const currentUser = (Store.getState() as StoreInterface).userStore?.user;
+  const notificationsManager = (Store.getState() as StoreInterface)
+    .notificationsStore?.notificationsManager;
 
   useEffect(() => {
     if (!userManager) {
@@ -35,13 +37,17 @@ function MyApp({ Component, pageProps }): JSX.Element {
   }, []);
 
   useEffect(() => {
-    const currentUser = getCookie(USER_COOKIE);
+    const currentUserToken = getCookie(USER_COOKIE);
+    const currentUserEmail = getCookie(CURRENT_USER_EMAIL);
+    if (userManager && currentUserToken && currentUserEmail) {
+      userManager.getCurrentUser({ email: currentUserEmail });
+    }
     if (!currentUser) {
       if (isProtectedRoute) {
         RedirectTo(RouterInstance());
       }
     }
-  }, []);
+  }, [currentUser, userManager]);
   return (
     <>
       <Provider store={Store}>

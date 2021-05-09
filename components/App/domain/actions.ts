@@ -1,5 +1,6 @@
 import {
   ChangePasswordUserCredentials,
+  GetCurrentUser,
   User,
   UserCredentials,
   UserFavouriteMovie,
@@ -10,6 +11,7 @@ import UserManager from "../UserManager";
 export const setUserManager = createAction<UserManager>("setUserManager");
 export const registration = createInApiAction<User, undefined>("registration");
 export const authorization = getOneAction<UserCredentials, User>("authorization");
+export const getCurrentUser = getOneAction<GetCurrentUser, User>("getCurrentUser");
 export const removeUser = createAction<undefined>("removeUser");
 export const remindPassword = createInApiAction<string, undefined>('remindPassword');
 export const addFavourite = createInApiAction<UserFavouriteMovie, UserFavouriteMovie[]>('addFavourite');
