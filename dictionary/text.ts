@@ -5,7 +5,7 @@ export const Text = {
         about: "About Us",
         latest: "Latest",
         contact: "Contact",
-        join__us: "Join Us"
+        join__us: "Join Us",
       },
       components: {
         hero: {
@@ -15,8 +15,8 @@ export const Text = {
           upcoming: "Upcoming",
         },
         latest: {
-          add__favourite: "Add to Favourites"
-        }
+          add__favourite: "Add to Favourites",
+        },
       },
       forms: {
         labels: {
@@ -32,7 +32,7 @@ export const Text = {
           accept__policy: "You have to accept our",
           privacy__policy: "Privacy Policy",
           create: "Create",
-          back__to__sign__in: " Back to sign in"
+          back__to__sign__in: " Back to sign in",
         },
         validationErrors: {
           required: {
@@ -41,17 +41,20 @@ export const Text = {
             first__name: "Please provide a first name",
             last__name: "Please provide a last name",
             avatar: "Please provide an avatar",
-            policy: "Please accept our privacy policy"
+            policy: "Please accept our privacy policy",
           },
           pattern: {
             email: "Please provide a correct email",
-            password: "Please provide a correct password"
+            password: "Please provide a correct password",
           },
           errors: {
-            email: "Invalid email adress"
-          }
-        }
-      }
+            email: "Invalid email adress",
+          },
+        },
+      },
+      common: {
+        havent__logged__in: "You haven't logged in",
+      },
     },
   },
 };

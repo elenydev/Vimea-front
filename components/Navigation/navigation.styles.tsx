@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+interface NavigationWrapperProps {
+  isVisible: boolean;
+  transformHeight: number;
+}
+
 export const NavigationWrapper = styled.div`
   display: flex;
   position: fixed;
@@ -19,18 +24,30 @@ export const NavigationWrapper = styled.div`
   background-size: cover;
   right: 50%;
   height: 100vh;
-  transform: translateX(100%);
-  transition: transform 0.3s 0.1s ease-in-out;
+  transform: translate(
+    100%,
+    ${(props: NavigationWrapperProps) =>
+      props.isVisible ? "0px" : -props.transformHeight + "px"}
+  );
+  transition: 0.3s 0.1s ease-in-out;
 
   ${({ theme }) => theme.mq.md} {
-    transform: translateX(-50%);
+    transform: translate(
+      -50%,
+      ${(props: NavigationWrapperProps) =>
+        props.isVisible ? "0px" : -props.transformHeight + "px"}
+    );
     height: fit-content;
     background: transparent;
     background-image: none;
   }
 
   &.active {
-    transform: translateX(-50%) !important;
+    transform: translate(
+      -50%,
+      ${(props: NavigationWrapperProps) =>
+        props.isVisible ? "0px" : -props.transformHeight + "px"}
+    ) !important;
   }
 `;
 
@@ -119,7 +136,12 @@ export const Hamburger = styled.button`
   z-index: 100;
   border: 0;
   margin: 0;
-  transition: transform 0.3s 0.1s ease-in-out;
+  transform: translate(
+    0%,
+    ${(props: NavigationWrapperProps) =>
+      props.isVisible ? "0px" : -props.transformHeight + "px"}
+  );
+  transition: 0.3s 0.1s ease-in-out;
   &:hover,
   &:focus {
     outline: 1px solid ${({ theme }) => theme.colors.bittersweet};

@@ -11,6 +11,7 @@ import { USER_COOKIE, CURRENT_USER_EMAIL } from "@/../constants";
 import { useSelector } from "react-redux";
 import { getUserManager } from "../../App/domain/selectors";
 import { getMappedFavouriteMovie } from "@/../utils/getMappedFavouriteMovie";
+import { Tooltip } from "@material-ui/core";
 
 interface ComponentProps {
   movie: Movie;
@@ -23,7 +24,8 @@ const index = React.memo(
     const setCurrentRandomMovie = (): void => {
       setRandomMovie(movie.id as number);
     };
-    const isAddingDisabled = !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL);
+    const isAddingDisabled =
+      !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL);
     const userManager = useSelector(getUserManager);
 
     const addToFavourites = (e: SyntheticEvent): void => {
@@ -39,16 +41,22 @@ const index = React.memo(
       >
         <ContentWrapper>
           <h3>{movie.title}</h3>
-          <label>
-            <Button
-              color="secondary"
-              variant="contained"
-              disabled={isAddingDisabled}
-              onClick={addToFavourites}
-            >
-              {Text.app.main.components.latest.add__favourite}
-            </Button>
-          </label>
+          <Tooltip
+            title={Text.app.main.common.havent__logged__in}
+            disableHoverListener={!isAddingDisabled}
+            placement="bottom-end"
+          >
+            <label>
+              <Button
+                color="secondary"
+                variant="contained"
+                disabled={isAddingDisabled}
+                onClick={addToFavourites}
+              >
+                {Text.app.main.components.latest.add__favourite}
+              </Button>
+            </label>
+          </Tooltip>
         </ContentWrapper>
       </Wrapper>
     );
