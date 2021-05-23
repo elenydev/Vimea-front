@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 
 import {
@@ -8,8 +8,10 @@ import {
   NavigationWrapper,
   Nav,
   NavList,
+  ArrowButton,
 } from "./navigation.styles";
 import { Text } from "@/../dictionary/text";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
 const index = (): JSX.Element => {
   const [isNavVisible, setIsNavVisible] = useState(true);
@@ -24,13 +26,19 @@ const index = (): JSX.Element => {
   };
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);
-  const handleScrollPosition = () => setHandleScroll(window.scrollY);
+  const handleScrollPosition = useCallback(
+    () => setHandleScroll(window.scrollY),
+    []
+  );
+  const scrollTop = useCallback(() => window.scrollTo(0, 0), []);
 
   useEffect(() => {
-    if (navHeight > window.scrollY) {
-      setIsNavVisible(true);
-    } else {
-      setIsNavVisible(false);
+    if (typeof window !== "undefined") {
+      if (navHeight > window.scrollY) {
+        setIsNavVisible(true);
+      } else {
+        setIsNavVisible(false);
+      }
     }
   }, [handleScroll]);
 
@@ -105,6 +113,11 @@ const index = (): JSX.Element => {
           </NavList>
         </Nav>
       </NavigationWrapper>
+      {!isNavVisible && (
+        <ArrowButton onClick={scrollTop}>
+          <ArrowUpwardIcon />
+        </ArrowButton>
+      )}
     </>
   );
 };
