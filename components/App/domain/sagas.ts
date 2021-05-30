@@ -50,6 +50,7 @@ function* setUser(action: Action<UserCredentials>) {
       setCookie(USER_COOKIE, response.user?.accessToken);
       setCookie(CURRENT_USER_EMAIL, response.user?.email);
       notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      Router.replace(ROUTES.USER.HOME)
       return;
     }
     notificationsManager.setErrorNotifications(response.responseMessage);
@@ -68,7 +69,7 @@ function* registerUser(action: Action<User>) {
     const response: RegistrationRequestResult = yield handleRegistration(user);
     if (response.user) {
       notificationsManager.setSuccesfullNotifications(response.responseMessage);
-      Router.push(ROUTES.AUTH.SIGN_IN);
+      Router.replace(ROUTES.AUTH.SIGN_IN);
       return;
     }
     notificationsManager.setErrorNotifications(response.responseMessage);

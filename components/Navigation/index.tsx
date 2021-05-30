@@ -40,7 +40,7 @@ const index = (): JSX.Element => {
         setIsNavVisible(false);
       }
     }
-  }, [handleScroll]);
+  }, [handleScroll, navHeight]);
 
   useEffect(() => {
     setNavHeight(navRef?.current?.scrollHeight);

@@ -39,7 +39,6 @@ const Home = React.memo(
           <title>Vimea</title>
         </Head>
         <BackgroundWrapper>
-          <Navigation />
           <Hero />
           {upcomingMovies.length && <LatestSection upcomingMovies={upcomingMovies}/>}
         </BackgroundWrapper>

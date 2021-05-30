@@ -13,6 +13,7 @@ import UserManager from "@/../components/App/UserManager";
 import NotificationsManager from "@/../components/Notifications/NotificationsManager";
 import { Store as StoreInterface } from "../store/interfaces";
 import { setNotificationsManager } from "../components/Notifications/domain/actions";
+import Navigation from "@/../components/Navigation/index";
 
 Store.runSaga(rootSaga);
 
@@ -52,6 +53,7 @@ function MyApp({ Component, pageProps }): JSX.Element {
     <>
       <Provider store={Store}>
         <Layout>
+          <Navigation />
           <Component {...pageProps} />
         </Layout>
       </Provider>
