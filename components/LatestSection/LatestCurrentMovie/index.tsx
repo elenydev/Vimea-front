@@ -52,7 +52,7 @@ const index = (props: ComponentProps): JSX.Element => {
         ({vote_count})
       </RatingWrapper>
       <Tooltip
-        title={Text.app.main.common.havent__logged__in}
+        title={Text.app.main.common.havent_logged_in}
         disableHoverListener={!isAddingDisabled}
         placement="bottom-end"
       >
@@ -63,7 +63,7 @@ const index = (props: ComponentProps): JSX.Element => {
             disabled={isAddingDisabled}
             onClick={addToFavourites}
           >
-            {Text.app.main.components.latest.add__favourite}
+            {Text.app.main.components.latest.add_favourite}
           </Button>
         </label>
       </Tooltip>

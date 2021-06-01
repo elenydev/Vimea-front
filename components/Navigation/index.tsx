@@ -12,20 +12,32 @@ import {
 } from "./navigation.styles";
 import { Text } from "@/../dictionary/text";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import { useSelector } from "react-redux";
+import { getUser, getUserManager } from "@/../components/App/domain/selectors";
 
 const index = (): JSX.Element => {
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [handleScroll, setHandleScroll] = useState(0);
   const [hamburgerHeight, setHamburgerHeight] = useState(null);
   const [navHeight, setNavHeight] = useState(null);
+  const [isUserSigned, setIsUserSigned] = useState(false);
+  const navRef = useRef(null);
+  const hamburgerRef = useRef(null);
+  const currentUser = useSelector(getUser);
+  const userManager = useSelector(getUserManager);
+
+  const removeCurrentUser = useCallback(() => {
+    handleNavClick();
+    userManager.removeUser();
+  }, []);
+
   const handleNavClick = (): void => {
-    const hamburger = document.querySelector(".hamburger__inner");
+    const hamburger = document.querySelector(".hamburger_inner");
     const nav = document.querySelector(".nav");
     hamburger.classList.toggle("hamburger--active");
     nav.classList.toggle("active");
   };
-  const navRef = useRef(null);
-  const hamburgerRef = useRef(null);
+
   const handleScrollPosition = useCallback(
     () => setHandleScroll(window.scrollY),
     []
@@ -51,6 +63,10 @@ const index = (): JSX.Element => {
   }, [hamburgerRef]);
 
   useEffect(() => {
+    setIsUserSigned(currentUser ? true : false);
+  },[currentUser]);
+
+  useEffect(() => {
     window.addEventListener("scroll", handleScrollPosition);
 
     return () => {
@@ -67,8 +83,8 @@ const index = (): JSX.Element => {
         ref={hamburgerRef}
         transformHeight={hamburgerHeight}
       >
-        <HamburgerBox className="hamburger__box">
-          <HamburgerInner className="hamburger__inner"></HamburgerInner>
+        <HamburgerBox className="hamburger_box">
+          <HamburgerInner className="hamburger_inner"></HamburgerInner>
         </HamburgerBox>
       </Hamburger>
       <NavigationWrapper
@@ -105,11 +121,19 @@ const index = (): JSX.Element => {
               </Link>
             </li>
 
-            <li onClick={handleNavClick}>
-              <Link href="/auth/signIn">
-                <a>{Text.app.main.navigation.join__us}</a>
-              </Link>
-            </li>
+            {!isUserSigned ? (
+              <li onClick={handleNavClick}>
+                <Link href="/auth/signIn">
+                  <a>{Text.app.main.navigation.join_us}</a>
+                </Link>
+              </li>
+            ) : (
+              <li onClick={removeCurrentUser}>
+                <Link href="/">
+                  <a>{Text.app.main.navigation.sign_out}</a>
+                </Link>
+              </li>
+            )}
           </NavList>
         </Nav>
       </NavigationWrapper>

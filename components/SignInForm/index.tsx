@@ -42,7 +42,7 @@ const index = () => {
 
   return (
     <Wrapper>
-      <Header>{Text.app.main.forms.labels.sign__in}</Header>
+      <Header>{Text.app.main.forms.labels.sign_in}</Header>
 
       <Form onSubmit={signIn}>
         <FormLabel>
@@ -82,13 +82,13 @@ const index = () => {
         )}
         <label>
           <Button type='submit' variant='contained' color='secondary'>
-            {Text.app.main.forms.labels.sign__in}
+            {Text.app.main.forms.labels.sign_in}
           </Button>
         </label>
 
         <LoginDiv>
           <Link href='/auth/signUp'>
-            <a>{Text.app.main.forms.labels.sign__up}</a>
+            <a>{Text.app.main.forms.labels.sign_up}</a>
           </Link>
         </LoginDiv>
       </Form>

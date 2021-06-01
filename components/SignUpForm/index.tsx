@@ -44,31 +44,31 @@ const RegisterForm = (): JSX.Element => {
 
   return (
     <Wrapper>
-      <Header>{Text.app.main.forms.labels.create__account}</Header>
+      <Header>{Text.app.main.forms.labels.create_account}</Header>
 
       <Form onSubmit={signUp}>
         <FormLabel>
           <InputElement
             type='text'
             name='firstName'
-            placeholder={Text.app.main.forms.labels.first__name}
+            placeholder={Text.app.main.forms.labels.first_name}
             inputRef={register({ required: true })}
           />
         </FormLabel>
         {errors.firstName && errors.firstName.type === "required" && (
-          <ErrorSpan>{Text.app.main.forms.validationErrors.required.first__name}</ErrorSpan>
+          <ErrorSpan>{Text.app.main.forms.validationErrors.required.first_name}</ErrorSpan>
         )}
 
         <FormLabel>
           <InputElement
             type='text'
             name='lastName'
-            placeholder={Text.app.main.forms.labels.last__name}
+            placeholder={Text.app.main.forms.labels.last_name}
             inputRef={register({ required: true })}
           />
         </FormLabel>
         {errors.lastName && errors.lastName.type === "required" && (
-          <ErrorSpan>{Text.app.main.forms.validationErrors.required.last__name}</ErrorSpan>
+          <ErrorSpan>{Text.app.main.forms.validationErrors.required.last_name}</ErrorSpan>
         )}
 
         <FormLabel>
@@ -126,10 +126,10 @@ const RegisterForm = (): JSX.Element => {
         )}
 
         <CheckBox>
-          {Text.app.main.forms.labels.accept__policy}
+          {Text.app.main.forms.labels.accept_policy}
           <Link href='/auth/policy'>
             <ErrorSpan>
-              <a>{Text.app.main.forms.labels.privacy__policy}</a>
+              <a>{Text.app.main.forms.labels.privacy_policy}</a>
             </ErrorSpan>
           </Link>
           <Checkbox name='policy' inputRef={register({ required: true })} />
@@ -146,7 +146,7 @@ const RegisterForm = (): JSX.Element => {
 
       <LoginDiv>
         <Link href='/auth/signIn'>
-          <a>{Text.app.main.forms.labels.back__to__sign__in}</a>
+          <a>{Text.app.main.forms.labels.back_to_sign_in}</a>
         </Link>
       </LoginDiv>
     </Wrapper>

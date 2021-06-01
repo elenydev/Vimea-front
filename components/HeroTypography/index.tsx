@@ -7,8 +7,8 @@ const index = (): JSX.Element => {
   return (
     <>
       <Header>
-        <MainHeading>{Text.app.main.components.hero.main__heading}</MainHeading>
-        <SubHeading>{Text.app.main.components.hero.sub__heading}</SubHeading>
+        <MainHeading>{Text.app.main.components.hero.main_heading}</MainHeading>
+        <SubHeading>{Text.app.main.components.hero.sub_heading}</SubHeading>
       </Header>
     </>
   );

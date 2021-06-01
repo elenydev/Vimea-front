@@ -5,41 +5,42 @@ export const Text = {
         about: "About Us",
         latest: "Latest",
         contact: "Contact",
-        join__us: "Join Us",
+        join_us: "Join Us",
+        sign_out: "Sign Out"
       },
       components: {
         hero: {
-          main__heading: "Welcome at your movie center. Welcome at Vimea.",
-          sub__heading:
+          main_heading: "Welcome at your movie center. Welcome at Vimea.",
+          sub_heading:
             "We provide best quality movies,  series and TV shows. Watch anytime you want.",
           upcoming: "Upcoming",
         },
         latest: {
-          add__favourite: "Add to Favourites",
+          add_favourite: "Add to Favourites",
         },
       },
       forms: {
         labels: {
-          sign__in: "Sign In",
-          sign__up: "Sign Up",
-          create__account: "Create an account",
-          first__name: "First name",
-          last__name: "Last name",
-          remind__password: "Remind Password",
+          sign_in: "Sign In",
+          sign_up: "Sign Up",
+          create_account: "Create an account",
+          first_name: "First name",
+          last_name: "Last name",
+          remind_password: "Remind Password",
           email: "Enter email",
           password: "Enter password",
           remind: "Remind",
-          accept__policy: "You have to accept our",
-          privacy__policy: "Privacy Policy",
+          accept_policy: "You have to accept our",
+          privacy_policy: "Privacy Policy",
           create: "Create",
-          back__to__sign__in: " Back to sign in",
+          back_to_sign_in: " Back to sign in",
         },
         validationErrors: {
           required: {
             email: "Please provide a email",
             password: "Please provide a password",
-            first__name: "Please provide a first name",
-            last__name: "Please provide a last name",
+            first_name: "Please provide a first name",
+            last_name: "Please provide a last name",
             avatar: "Please provide an avatar",
             policy: "Please accept our privacy policy",
           },
@@ -53,7 +54,7 @@ export const Text = {
         },
       },
       common: {
-        havent__logged__in: "You haven't logged in",
+        havent_logged_in: "You haven't logged in",
       },
     },
   },
