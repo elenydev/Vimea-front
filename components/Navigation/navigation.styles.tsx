@@ -45,9 +45,8 @@ export const NavigationWrapper = styled.div`
   &.active {
     transform: translate(
       -50%,
-      ${(props: NavigationWrapperProps) =>
-        props.isVisible ? "0px" : -props.transformHeight + "px"}
-    ) !important;
+      0%
+    )
   }
 `;
 
@@ -139,7 +138,7 @@ export const Hamburger = styled.button`
   transform: translate(
     0%,
     ${(props: NavigationWrapperProps) =>
-      props.isVisible ? "0px" : -props.transformHeight + "px"}
+      props.isVisible ? "0px" : -props.transformHeight * 2 + "px"}
   );
   transition: 0.3s 0.1s ease-in-out;
   &:hover,
