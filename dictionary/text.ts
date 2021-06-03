@@ -6,7 +6,9 @@ export const Text = {
         latest: "Latest",
         contact: "Contact",
         join_us: "Join Us",
-        sign_out: "Sign Out"
+        sign_out: "Sign Out",
+        favourites: "Favourites",
+        account: "Account"
       },
       components: {
         hero: {

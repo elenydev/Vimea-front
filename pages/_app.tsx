@@ -8,7 +8,7 @@ import { CURRENT_USER_EMAIL, USER_COOKIE } from "@/../../constants";
 import { PROTECTED_ROUTES } from "@/../../routes";
 import RouterInstance from "@/../utils/routerInstance";
 import { RedirectTo } from "@/../utils/redirectTo";
-import { setUserManager } from "@/../components/App/domain/actions";
+import { getCurrentUser, setUserManager } from "@/../components/App/domain/actions";
 import UserManager from "@/../components/App/UserManager";
 import NotificationsManager from "@/../components/Notifications/NotificationsManager";
 import { Store as StoreInterface } from "../store/interfaces";
@@ -29,26 +29,28 @@ function MyApp({ Component, pageProps }): JSX.Element {
     .notificationsStore?.notificationsManager;
 
   useEffect(() => {
+    const currentUserToken = getCookie(USER_COOKIE);
+    const currentUserEmail = getCookie(CURRENT_USER_EMAIL);
+
     if (!userManager) {
       Store.dispatch(setUserManager(new UserManager()));
     }
+
     if (!notificationsManager) {
       Store.dispatch(setNotificationsManager(new NotificationsManager()));
     }
-  }, []);
 
-  useEffect(() => {
-    const currentUserToken = getCookie(USER_COOKIE);
-    const currentUserEmail = getCookie(CURRENT_USER_EMAIL);
-    if (userManager && currentUserToken && currentUserEmail) {
-      userManager.getCurrentUser({ email: currentUserEmail });
+    if (currentUserToken && currentUserEmail && !currentUser) {
+      Store.dispatch(getCurrentUser.trigger({email: currentUserEmail}))
     }
+
     if (!currentUser) {
       if (isProtectedRoute) {
         RedirectTo(RouterInstance());
       }
     }
   }, [currentUser, userManager]);
+
   return (
     <>
       <Provider store={Store}>

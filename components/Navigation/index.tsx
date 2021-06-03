@@ -29,7 +29,7 @@ const index = (): JSX.Element => {
   const removeCurrentUser = useCallback(() => {
     handleNavClick();
     userManager.removeUser();
-  }, []);
+  }, [userManager]);
 
   const handleNavClick = (): void => {
     const hamburger = document.querySelector(".hamburger_inner");
@@ -114,13 +114,27 @@ const index = (): JSX.Element => {
                 <a>{Text.app.main.navigation.latest}</a>
               </Link>
             </li>
-
-            <li onClick={handleNavClick}>
+            {!isUserSigned ? (
+              <li onClick={handleNavClick}>
               <Link href="#contact">
                 <a>{Text.app.main.navigation.contact}</a>
               </Link>
+              </li>
+            ) : (
+              <li onClick={handleNavClick}>
+              <Link href="/user/home">
+                <a>{Text.app.main.navigation.account}</a>
+              </Link>
+              </li>
+            )}
+            
+            {isUserSigned && (
+              <li onClick={handleNavClick}>
+              <Link href="/user/favourites">
+                <a>{Text.app.main.navigation.favourites}</a>
+              </Link>
             </li>
-
+            )}
             {!isUserSigned ? (
               <li onClick={handleNavClick}>
                 <Link href="/auth/signIn">
@@ -134,6 +148,7 @@ const index = (): JSX.Element => {
                 </Link>
               </li>
             )}
+            
           </NavList>
         </Nav>
       </NavigationWrapper>
