@@ -9,58 +9,58 @@ import { Text } from "@/../dictionary/text";
 import { getCookie } from "@/../services/cookieService";
 import { USER_COOKIE, CURRENT_USER_EMAIL } from "@/../constants";
 import { useSelector } from "react-redux";
-import { getUserManager } from "../../App/domain/selectors";
+import { getUserManager, getUser } from "../../App/domain/selectors";
 import { getMappedFavouriteMovie } from "@/../utils/getMappedFavouriteMovie";
 import { Tooltip } from "@material-ui/core";
 
 interface ComponentProps {
   movie: Movie;
-  setRandomMovie: (movieId: number) => void;
+  setRandomMovie?: (movieId: number) => void;
 }
 
-const index = React.memo(
-  (props: ComponentProps): JSX.Element => {
-    const { movie, setRandomMovie } = props;
-    const setCurrentRandomMovie = (): void => {
-      setRandomMovie(movie.id as number);
-    };
-    const isAddingDisabled =
-      !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL);
-    const userManager = useSelector(getUserManager);
+const index = React.memo((props: ComponentProps): JSX.Element => {
+  const { movie, setRandomMovie } = props;
+  const setCurrentRandomMovie = (): void => {
+    setRandomMovie(movie.id as number);
+  };
+  const currentUser = useSelector(getUser);
+  const userManager = useSelector(getUserManager);
 
-    const addToFavourites = (e: SyntheticEvent): void => {
-      e.stopPropagation();
-      const mappedFavouriteMovie = getMappedFavouriteMovie(movie);
-      userManager.addFavourite(mappedFavouriteMovie);
-    };
+  const isAddingDisabled =
+    !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL) && !currentUser;
 
-    return (
-      <Wrapper
-        onClick={setCurrentRandomMovie}
-        backgroundImage={movie.backdrop_path}
-      >
-        <ContentWrapper>
-          <h3>{movie.title}</h3>
-          <Tooltip
-            title={Text.app.main.common.havent_logged_in}
-            disableHoverListener={!isAddingDisabled}
-            placement="bottom-end"
-          >
-            <label>
-              <Button
-                color="secondary"
-                variant="contained"
-                disabled={isAddingDisabled}
-                onClick={addToFavourites}
-              >
-                {Text.app.main.components.latest.add_favourite}
-              </Button>
-            </label>
-          </Tooltip>
-        </ContentWrapper>
-      </Wrapper>
-    );
-  }
-);
+  const addToFavourites = (e: SyntheticEvent): void => {
+    e.stopPropagation();
+    const mappedFavouriteMovie = getMappedFavouriteMovie(movie);
+    userManager.addFavourite(mappedFavouriteMovie);
+  };
+
+  return (
+    <Wrapper
+      onClick={setCurrentRandomMovie}
+      backgroundImage={movie.backdrop_path}
+    >
+      <ContentWrapper>
+        <h3>{movie.title}</h3>
+        <Tooltip
+          title={Text.app.main.common.havent_logged_in}
+          disableHoverListener={!isAddingDisabled}
+          placement="bottom-end"
+        >
+          <label>
+            <Button
+              color="secondary"
+              variant="contained"
+              disabled={isAddingDisabled}
+              onClick={addToFavourites}
+            >
+              {Text.app.main.components.latest.add_favourite}
+            </Button>
+          </label>
+        </Tooltip>
+      </ContentWrapper>
+    </Wrapper>
+  );
+});
 
 export default index;

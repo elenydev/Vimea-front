@@ -1,4 +1,5 @@
 import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
+import { Movie } from "../Movie/movie";
 
 export interface User {
   firstName: string;
@@ -43,12 +44,12 @@ export interface RemindPasswordResult extends BaseRequestResponse {
   message?: string
 }
 
-export interface UserFavouriteMovie {
-  movieId: string,
-  movieTitle: string,
-  movieAvatarUrl: string,
-  movieDescription: string,
-  movieRate: string | number
+export interface UserFavouriteMovie extends Movie {
+  id: string,
+  title: string,
+  backdrop_path: string,
+  overview: string,
+  vote_average: number
 }
 
 export interface UserMovieActionResponse {

@@ -1,7 +1,6 @@
 import Head from "next/head";
 import React, { useEffect } from "react";
 import BackgroundWrapper from "@/../components/BackgroundWrapper";
-import Navigation from "@/../components/Navigation/index";
 import Hero from "@/../components/Hero/index";
 import { getLatestMovies } from "../requests/movies/moviesRequests";
 import { Movie } from "../infrastructure/interfaces/Movie/movie";
