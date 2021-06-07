@@ -55,6 +55,28 @@ export const removeUserFavouriteMovie = async (
   }
 };
 
+export const fetchUserFavouriteMovies = async (
+  email: string
+): Promise<UserMovieActionResult> => {
+  try {
+    const token = getCookie(USER_COOKIE);
+    const request = await fetch(`${DATABASE_URL}/user/favourites/current?email=${email}`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      }
+    });
+    const response: UserMovieActionResponse = await request.json();
+    return databaseResponse(request.ok, response);
+  } catch (error) {
+    return {
+      responseMessage: error,
+      responseStatus: ResponseStatus.FAILED,
+    };
+  }
+}
+
 export const databaseResponse = (
   isSuccesfullResponse: boolean,
   response: UserMovieActionResponse

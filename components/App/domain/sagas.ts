@@ -25,6 +25,7 @@ import {
   remindPassword,
   removeFavourite,
   getCurrentUser,
+  getUserFavourites,
 } from "@/../components/App/domain/actions";
 import { setCookie } from "@/../services/cookieService";
 import { CURRENT_USER_EMAIL, USER_COOKIE } from "@/../constants";
@@ -34,6 +35,7 @@ import Router from "next/router";
 import { ROUTES } from "@/../routes";
 import {
   addUserFavouriteMovie,
+  fetchUserFavouriteMovies,
   removeUserFavouriteMovie,
 } from "@/../requests/userDetails/userDetailsRequests";
 import { getUser } from "./selectors";
@@ -185,6 +187,28 @@ function* getCurrent(action: Action<GetCurrentUser>) {
   }
 }
 
+function* getFavouriteMovies(action: Action<string>) {
+  const userEmail = action.payload;
+  const notificationsManager: NotificationsManager = yield select(
+    getNotificationManager
+  );
+  try {
+    const response: UserMovieActionResult = yield fetchUserFavouriteMovies(
+      userEmail
+    );
+    if (response.favouriteMovies) {
+      notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      getUserFavourites.success(response.favouriteMovies);
+      return;
+    }
+    notificationsManager.setErrorNotifications(response.responseMessage);
+  } catch (errorMessage) {
+    yield put(getUserFavourites.failure(errorMessage));
+    notificationsManager.setErrorNotifications(errorMessage);
+  }
+}
+
+
 export default function* userSagas(): Generator<
   ForkEffect<never>,
   void,
@@ -197,4 +221,5 @@ export default function* userSagas(): Generator<
   yield takeLatest(addFavourite.trigger, addFavouriteMovie);
   yield takeLatest(removeFavourite.trigger, removeFavouriteMovie);
   yield takeLatest(getCurrentUser.trigger, getCurrent);
+  yield takeLatest(getUserFavourites.trigger, getFavouriteMovies);
 }

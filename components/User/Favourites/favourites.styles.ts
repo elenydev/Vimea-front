@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 export const MoviesWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 25px;
-  place-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15% 5%;
+
 `;

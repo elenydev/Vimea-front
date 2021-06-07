@@ -15,6 +15,7 @@ import {
   removeFavourite,
   changePassword,
   getCurrentUser,
+  getUserFavourites
 } from "./domain/actions";
 import { deleteCookie } from "@/../services/cookieService";
 import { USER_COOKIE } from "@/../constants";
@@ -51,5 +52,9 @@ export default class UserManager {
 
   public getCurrentUser(credentials: GetCurrentUser): void {
     Store.dispatch(getCurrentUser.trigger(credentials));
+  }
+
+  public getCurrentUserFavourites(email: string): void {
+    Store.dispatch(getUserFavourites.trigger(email));
   }
 }

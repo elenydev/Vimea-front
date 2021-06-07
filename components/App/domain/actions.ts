@@ -5,7 +5,7 @@ import {
   UserCredentials,
   UserFavouriteMovie,
 } from "@/../infrastructure/interfaces/User/user";
-import { createAction, createInApiAction, getOneAction } from "@/../utils/redux";
+import { createAction, createInApiAction, getListAction, getOneAction } from "@/../utils/redux";
 import UserManager from "../UserManager";
 
 export const setUserManager = createAction<UserManager>("setUserManager");
@@ -17,3 +17,4 @@ export const remindPassword = createInApiAction<string, undefined>('remindPasswo
 export const addFavourite = createInApiAction<UserFavouriteMovie, UserFavouriteMovie[]>('addFavourite');
 export const removeFavourite = createInApiAction<string, UserFavouriteMovie[]>('removeFavourite')
 export const changePassword = createInApiAction<ChangePasswordUserCredentials, User>('changePassword');
+export const getUserFavourites = getListAction<string, UserFavouriteMovie[]>('getUserFavourites');
