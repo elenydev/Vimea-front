@@ -3,19 +3,19 @@ import React, { SyntheticEvent, useState, useEffect, useCallback } from "react";
 import {
   Wrapper,
   ContentWrapper,
+  VideoWrapper,
 } from "@/../components/LatestSection/MovieCard/moviecard.styles";
 import Button from "@material-ui/core/Button";
 import { Text } from "@/../dictionary/text";
 import { getCookie } from "@/../services/cookieService";
 import { USER_COOKIE, CURRENT_USER_EMAIL } from "@/../constants";
 import { useSelector } from "react-redux";
-import {
-  getUserManager,
-  getUser,
-  getUserMovies,
-} from "../../App/domain/selectors";
+import { getUserManager, getUser } from "../../App/domain/selectors";
 import { getMappedFavouriteMovie } from "@/../utils/getMappedFavouriteMovie";
 import { Tooltip } from "@material-ui/core";
+import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
+import IconButton from "@material-ui/core/IconButton";
+import { getCurrentMovieTrailer } from "@/../requests/movies/moviesRequests";
 
 interface ComponentProps {
   movie: Movie;
@@ -30,13 +30,13 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
   const currentUser = useSelector(getUser);
   const userManager = useSelector(getUserManager);
   const userMovies = currentUser?.favouriteMovies;
-  const isInFavourites = !!(userMovies?.find(({ id }) => id === movie.id));
+  const isInFavourites = !!userMovies?.find(({ id }) => id === movie.id);
   const [isMovieFavourite, setIsMovieFavourite] = useState(isInFavourites);
+  const [movieTrailerUrl, setMovieTrailerUrl] = useState("");
+  const [isTrailerVisible, setIsTrailerVisible] = useState(false);
 
   const isAddingDisabled =
-    !getCookie(USER_COOKIE) &&
-    !getCookie(CURRENT_USER_EMAIL) &&
-    !currentUser;
+    !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL) && !currentUser;
 
   const addToFavourites = useCallback((e: SyntheticEvent): void => {
     e.stopPropagation();
@@ -49,9 +49,20 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
     userManager.removeFavourite(movie.id);
   }, []);
 
-  const handleButtonClick = useCallback((e: SyntheticEvent) => {
-    isMovieFavourite ? removeFromFavourites(e) : addToFavourites(e);
-  }, [isMovieFavourite]);
+  const handleButtonClick = useCallback(
+    (e: SyntheticEvent) => {
+      isMovieFavourite ? removeFromFavourites(e) : addToFavourites(e);
+    },
+    [isMovieFavourite]
+  );
+
+  const toggleTrailerVisibility = useCallback(
+    (e: SyntheticEvent) => {
+      e.stopPropagation();
+      setIsTrailerVisible(visible => !visible);
+    },
+    [movieTrailerUrl]
+  );
 
   useEffect(() => {
     userMovies?.find(({ id }) => movie.id === id)
@@ -59,31 +70,60 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
       : setIsMovieFavourite(false);
   }, [userMovies]);
 
+  useEffect(() => {
+    (async () => {
+      const currentMovieTrailer = await getCurrentMovieTrailer(movie.id);
+      if (currentMovieTrailer.site === "YouTube") {
+        setMovieTrailerUrl(
+          `https://www.youtube.com/embed/${currentMovieTrailer.key}`
+        );
+      } else {
+        setMovieTrailerUrl(`https://vimeo.com/${currentMovieTrailer.key}`);
+      }
+    })();
+  }, []);
+
   return (
-    <Wrapper
-      onClick={setCurrentRandomMovie}
-      backgroundImage={movie.backdrop_path}
-    >
-      <ContentWrapper>
-        <h3>{movie.title}</h3>
-        <Tooltip
-          title={isInFavourites ? Text.app.main.common.already_added : Text.app.main.common.havent_logged_in}
-          disableHoverListener={!isAddingDisabled}
-          placement="bottom-end"
-        >
-          <label>
-            <Button
-              color="secondary"
-              variant="contained"
-              disabled={isAddingDisabled}
-              onClick={handleButtonClick}
-            >
-              {isMovieFavourite ? Text.app.main.components.latest.remove_favourite : Text.app.main.components.latest.add_favourite}
-            </Button>
-          </label>
-        </Tooltip>
-      </ContentWrapper>
-    </Wrapper>
+    <>
+      {isTrailerVisible && (
+        <VideoWrapper onClick={toggleTrailerVisibility}>
+          <iframe frameBorder="0" src={movieTrailerUrl}></iframe>
+        </VideoWrapper>
+      )}
+      <Wrapper
+        onClick={setCurrentRandomMovie}
+        backgroundImage={movie.backdrop_path}
+      >
+        <ContentWrapper>
+          <IconButton onClick={toggleTrailerVisibility}>
+            <PlayCircleFilledIcon />
+          </IconButton>
+          <h3>{movie.title}</h3>
+          <Tooltip
+            title={
+              isInFavourites
+                ? Text.app.main.common.already_added
+                : Text.app.main.common.havent_logged_in
+            }
+            disableHoverListener={!isAddingDisabled}
+            placement="bottom-end"
+          >
+            <label>
+              <Button
+                color="secondary"
+                variant="contained"
+                disabled={isAddingDisabled}
+                onClick={handleButtonClick}
+              >
+                {isMovieFavourite
+                  ? Text.app.main.components.latest.remove_favourite
+                  : Text.app.main.components.latest.add_favourite}
+              </Button>
+            </label>
+          </Tooltip>
+        </ContentWrapper>
+      </Wrapper>
+    </>
   );
 });
 

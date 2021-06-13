@@ -68,10 +68,22 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   max-height: 50%;
   justify-content: space-between;
+  position: relative;
 
   & > h3 {
     color: ${({ theme }) => theme.colors.white};
     text-align: right;
+  }
+
+  & > .MuiButtonBase-root {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    padding: 0px;
+
+    & .MuiSvgIcon-root {
+      fill: ${({ theme }) => theme.colors.white};
+    }
   }
 
   & > label {
@@ -90,4 +102,22 @@ const ContentWrapper = styled.div`
   }
 `;
 
-export { Wrapper, ContentWrapper };
+const VideoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.8);
+
+  & > iframe {
+    width: 80%;
+    height: 50%;
+  }
+`;
+
+export { Wrapper, ContentWrapper, VideoWrapper };
