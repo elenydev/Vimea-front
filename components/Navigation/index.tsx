@@ -110,13 +110,13 @@ const index = (): JSX.Element => {
             </li>
 
             <li onClick={handleNavClick}>
-              <Link href="#latest">
+              <Link href="/#latest">
                 <a>{Text.app.main.navigation.latest}</a>
               </Link>
             </li>
             {!isUserSigned ? (
               <li onClick={handleNavClick}>
-              <Link href="#contact">
+              <Link href="/#contact">
                 <a>{Text.app.main.navigation.contact}</a>
               </Link>
               </li>

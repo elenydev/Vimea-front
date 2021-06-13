@@ -115,7 +115,7 @@ function* addFavouriteMovie(action: Action<UserFavouriteMovie>) {
     );
     if (response.favouriteMovies) {
       notificationsManager.setSuccesfullNotifications(response.responseMessage);
-      addFavourite.success(response.favouriteMovies);
+      yield put(addFavourite.success(response.favouriteMovies));
       return;
     }
     notificationsManager.setErrorNotifications(response.responseMessage);
@@ -138,7 +138,7 @@ function* removeFavouriteMovie(action: Action<string>) {
     );
     if (response.favouriteMovies) {
       notificationsManager.setSuccesfullNotifications(response.responseMessage);
-      removeFavourite.success(response.favouriteMovies);
+      yield put(removeFavourite.success(response.favouriteMovies));
       return;
     }
     notificationsManager.setErrorNotifications(response.responseMessage);
@@ -189,22 +189,16 @@ function* getCurrent(action: Action<GetCurrentUser>) {
 
 function* getFavouriteMovies(action: Action<string>) {
   const userEmail = action.payload;
-  const notificationsManager: NotificationsManager = yield select(
-    getNotificationManager
-  );
   try {
     const response: UserMovieActionResult = yield fetchUserFavouriteMovies(
       userEmail
     );
     if (response.favouriteMovies) {
-      notificationsManager.setSuccesfullNotifications(response.responseMessage);
-      getUserFavourites.success(response.favouriteMovies);
+      yield put(getUserFavourites.success(response.favouriteMovies));
       return;
     }
-    notificationsManager.setErrorNotifications(response.responseMessage);
   } catch (errorMessage) {
     yield put(getUserFavourites.failure(errorMessage));
-    notificationsManager.setErrorNotifications(errorMessage);
   }
 }
 

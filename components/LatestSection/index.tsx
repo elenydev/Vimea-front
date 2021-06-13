@@ -27,10 +27,10 @@ const index = React.memo(
     ];
 
     const setRandomMovie = useCallback(
-      (movieId: number): void => {
-        const newRandomMovie = upcomingMovies.find(({ id }) => id === movieId);
+      (movieId: number | string): void => {
+        const newRandomMovie = upcomingMovies.find(({ id }) => +id === movieId);
         setCurrentRandomUpcomingMovie(newRandomMovie);
-        setRandomMovieId(movieId);
+        setRandomMovieId(+movieId);
       },
       [randomMovieId]
     );
@@ -40,7 +40,7 @@ const index = React.memo(
       if (mounted) {
         const randomMovie = upcomingMovies[randomIndex];
         setCurrentRandomUpcomingMovie(randomMovie);
-        setRandomMovieId(randomMovie.id as number);
+        setRandomMovieId(+randomMovie.id);
       }
       return () => {
         mounted = false;

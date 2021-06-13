@@ -19,6 +19,12 @@ const index = () => {
     setCurrentMovies(userMovies);
   }, [userMovies]);
 
+  useEffect(() => {
+    const userEmail = getCookie(CURRENT_USER_EMAIL);
+    userManager?.getCurrentUserFavourites(userEmail);
+    setCurrentMovies(userMovies);
+  }, []);
+
   return (
     <BackgroundWrapper>
       <MoviesWrapper>

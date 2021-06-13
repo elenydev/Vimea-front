@@ -7,4 +7,7 @@ export const MoviesWrapper = styled.div`
   align-items: center;
   padding: 15% 5%;
 
+  & > div {
+    margin: ${({theme}) => theme.padding.lg};
+  }
 `;

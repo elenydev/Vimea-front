@@ -6,21 +6,20 @@ import rootSaga from "@/../store/sagas";
 import { getCookie } from "@/../../services/cookieService";
 import { CURRENT_USER_EMAIL, USER_COOKIE } from "@/../../constants";
 import { PROTECTED_ROUTES } from "@/../../routes";
-import RouterInstance from "@/../utils/routerInstance";
-import { RedirectTo } from "@/../utils/redirectTo";
 import { getCurrentUser, setUserManager } from "@/../components/App/domain/actions";
 import UserManager from "@/../components/App/UserManager";
 import NotificationsManager from "@/../components/Notifications/NotificationsManager";
 import { Store as StoreInterface } from "@/../store/interfaces";
 import { setNotificationsManager } from "../components/Notifications/domain/actions";
 import Navigation from "@/../components/Navigation/index";
+import Router from "next/router";
 
 Store.runSaga(rootSaga);
 
 function MyApp({ Component, pageProps }): JSX.Element {
-  const currentRoutePath = RouterInstance().pathname;
+  const currentRoutePath = typeof window !== "undefined" ? window.location.href : "";
   const isProtectedRoute = PROTECTED_ROUTES.some(
-    (route) => route === currentRoutePath
+    (route) => currentRoutePath.includes(route)
   );
   const userManager = (Store.getState() as StoreInterface).userStore
     ?.userManager;
@@ -44,9 +43,9 @@ function MyApp({ Component, pageProps }): JSX.Element {
       Store.dispatch(getCurrentUser.trigger({email: currentUserEmail}))
     }
 
-    if (!currentUser) {
+    if (!currentUserToken) {
       if (isProtectedRoute) {
-        RedirectTo(RouterInstance());
+        Router.push('/')
       }
     }
   }, [currentUser, userManager]);

@@ -19,6 +19,7 @@ export const Text = {
         },
         latest: {
           add_favourite: "Add to Favourites",
+          remove_favourite: "Remove from Favourites"
         },
       },
       forms: {
@@ -57,6 +58,7 @@ export const Text = {
       },
       common: {
         havent_logged_in: "You haven't logged in",
+        already_added: "Already added"
       },
     },
   },

@@ -46,13 +46,16 @@ const reducerMap: ReducerMap<UserStore, any> = {
       favouriteMovies: action.payload
     }
   }),
-  [actions.removeFavourite.success]: (state, action: Action<UserFavouriteMovie[]>): UserStore => ({
+  [actions.removeFavourite.success]: (state, action: Action<UserFavouriteMovie[]>): UserStore => { 
+    console.log(action.payload)
+    
+    return ({
     ...state,
     user: {
       ...state.user,
       favouriteMovies: action.payload
     }
-  }),
+  })},
   [actions.getCurrentUser.success]: (
     state,
     action: Action<User>
