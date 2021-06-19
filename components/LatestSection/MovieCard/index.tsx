@@ -8,7 +8,12 @@ import {
 import Button from "@material-ui/core/Button";
 import { Text } from "@/../dictionary/text";
 import { getCookie } from "@/../services/cookieService";
-import { USER_COOKIE, CURRENT_USER_EMAIL } from "@/../constants";
+import {
+  USER_COOKIE,
+  CURRENT_USER_EMAIL,
+  YOUTUBE_MOVIE_URL,
+  VIMEO_MOVIE_URL,
+} from "@/../constants";
 import { useSelector } from "react-redux";
 import { getUserManager, getUser } from "../../App/domain/selectors";
 import { getMappedFavouriteMovie } from "@/../utils/getMappedFavouriteMovie";
@@ -59,7 +64,7 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
   const toggleTrailerVisibility = useCallback(
     (e: SyntheticEvent) => {
       e.stopPropagation();
-      setIsTrailerVisible(visible => !visible);
+      setIsTrailerVisible((visible) => !visible);
     },
     [movieTrailerUrl]
   );
@@ -74,11 +79,9 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
     (async () => {
       const currentMovieTrailer = await getCurrentMovieTrailer(movie.id);
       if (currentMovieTrailer.site === "YouTube") {
-        setMovieTrailerUrl(
-          `https://www.youtube.com/embed/${currentMovieTrailer.key}`
-        );
+        setMovieTrailerUrl(`${YOUTUBE_MOVIE_URL}${currentMovieTrailer.key}`);
       } else {
-        setMovieTrailerUrl(`https://vimeo.com/${currentMovieTrailer.key}`);
+        setMovieTrailerUrl(`${VIMEO_MOVIE_URL}${currentMovieTrailer.key}`);
       }
     })();
   }, []);
@@ -95,9 +98,12 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
         backgroundImage={movie.backdrop_path}
       >
         <ContentWrapper>
-          <IconButton onClick={toggleTrailerVisibility}>
-            <PlayCircleFilledIcon />
-          </IconButton>
+          <label className="view__trailer">
+            <IconButton onClick={toggleTrailerVisibility}>
+              <PlayCircleFilledIcon />
+            </IconButton>
+          </label>
+
           <h3>{movie.title}</h3>
           <Tooltip
             title={

@@ -75,7 +75,7 @@ const ContentWrapper = styled.div`
     text-align: right;
   }
 
-  & > .MuiButtonBase-root {
+  & > .view__trailer {
     position: absolute;
     left: 0px;
     bottom: 0px;
