@@ -44,6 +44,11 @@ input:-internal-autofill {
   -webkit-text-fill-color: #fff !important;
 }
 
+input:-internal-autofill-selected {
+  background-color: transparent !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
 
 `;
 

@@ -78,7 +78,7 @@ const ContentWrapper = styled.div`
   & > .view__trailer {
     position: absolute;
     left: 0px;
-    bottom: 0px;
+    bottom: -10px;
     padding: 0px;
 
     & .MuiSvgIcon-root {
