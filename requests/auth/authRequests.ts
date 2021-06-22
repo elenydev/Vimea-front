@@ -61,13 +61,14 @@ export const handleAuthorization = async (
 export const handleRemindPassword = async (
   userEmail: string
 ): Promise<RemindPasswordResult> => {
+  const body = { email: userEmail };
   try {
     const request = await fetch(`${DATABASE_URL}/user/password/remind`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userEmail),
+      body: JSON.stringify(body),
     });
     const response: RemindPasswordResult = await request.json();
     return databaseResponse(request.ok, response);
@@ -104,9 +105,12 @@ export const getCurrentUser = async (
   UserCredential: GetCurrentUser
 ): Promise<AuthorizationRequestResult> => {
   try {
-    const request = await fetch(`${DATABASE_URL}/user/getCurrent?email=${UserCredential.email}`, {
-      method: "GET",
-    });
+    const request = await fetch(
+      `${DATABASE_URL}/user/getCurrent?email=${UserCredential.email}`,
+      {
+        method: "GET",
+      }
+    );
     const response: AuthResponse = await request.json();
     return databaseResponse(request.ok, response);
   } catch (error) {

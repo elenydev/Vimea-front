@@ -104,7 +104,7 @@ const index = (): JSX.Element => {
 
           <NavList>
             <li onClick={handleNavClick}>
-              <Link href="/about">
+              <Link href="#about">
                 <a>{Text.app.main.navigation.about}</a>
               </Link>
             </li>
