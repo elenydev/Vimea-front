@@ -1,4 +1,4 @@
-import { DATABASE_URL } from "@/../constants";
+import { CURRENT_USER_EMAIL, DATABASE_URL, USER_COOKIE } from "@/../constants";
 import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
 import {
   AuthResponse,
@@ -9,6 +9,7 @@ import {
   ChangePasswordUserCredentials,
   GetCurrentUser,
 } from "@/../infrastructure/interfaces/User/user";
+import { getCookie } from "@/../services/cookieService";
 
 export const handleRegistration = async (
   user: User
@@ -83,13 +84,18 @@ export const handleRemindPassword = async (
 export const handleChangePassword = async (
   userCredentials: ChangePasswordUserCredentials
 ): Promise<AuthorizationRequestResult> => {
+  const { password, newPassword } = userCredentials;
+  const email = getCookie(CURRENT_USER_EMAIL);
+  const body = { password, newPassword, email };
+  const token = getCookie(USER_COOKIE);
   try {
     const request = await fetch(`${DATABASE_URL}/user/password/change`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
-      body: JSON.stringify(userCredentials),
+      body: JSON.stringify(body),
     });
     const response: AuthResponse = await request.json();
     return databaseResponse(request.ok, response);

@@ -1,12 +1,16 @@
-import React from 'react'
-import { BackgroundWrapper } from '@/../components/BackgroundWrapper/index'
+import React from "react";
+import { BackgroundWrapper } from "@/../components/BackgroundWrapper/index";
+import ChangePasswordForm from "@/../components/User/ChangePasswordForm/index";
+import { Wrapper } from "./home.styles";
 
 const index = () => {
-    return (
-        <BackgroundWrapper>
-            <h1>test</h1>
-        </BackgroundWrapper>
-    )
-}
+  return (
+    <BackgroundWrapper>
+      <Wrapper>
+        <ChangePasswordForm />
+      </Wrapper>
+    </BackgroundWrapper>
+  );
+};
 
-export default index
+export default index;

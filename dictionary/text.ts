@@ -36,7 +36,12 @@ export const Text = {
           accept_policy: "You have to accept our",
           privacy_policy: "Privacy Policy",
           create: "Create",
-          back_to_sign_in: " Back to sign in",
+          back_to_sign_in: "Back to sign in",
+          change_password:"Change Password",
+          current_password: "Current password",
+          new_password: "New password",
+          confirm_new_password: "Confirm new password",
+          change: "Change"
         },
         validationErrors: {
           required: {
@@ -46,6 +51,9 @@ export const Text = {
             last_name: "Please provide a last name",
             avatar: "Please provide an avatar",
             policy: "Please accept our privacy policy",
+            current_password: "Please provide current password",
+            new_password: "Please provide new password",
+            confirm_new_password: "Please confirm new password"
           },
           pattern: {
             email: "Please provide a correct email",
@@ -53,6 +61,7 @@ export const Text = {
           },
           errors: {
             email: "Invalid email adress",
+            confirm_new_password: "Provided new passwords are not the same. Confirm with the correct password"
           },
         },
       },

@@ -31,8 +31,9 @@ export interface UserCredentials {
   password: string;
 }
 
-export interface ChangePasswordUserCredentials extends UserCredentials {
+export interface ChangePasswordUserCredentials extends Omit<UserCredentials, "email"> {
   newPassword: string;
+  newPasswordConfirmation: string;
 }
 
 export interface AuthResponse extends RegistrationRequestResult, Response {
@@ -63,4 +64,10 @@ export interface UserMovieActionResult extends BaseRequestResponse {
 
 export interface GetCurrentUser {
   email: string;
+}
+
+export interface RemindPasswordCredentials {
+  email: string | null,
+  password: string | null,
+  passwordConfirm: string | null
 }

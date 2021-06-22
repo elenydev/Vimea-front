@@ -44,6 +44,13 @@ export const theme = {
     lg: '16px',
     xlg: '32px',
   },
+  spacing: {
+    xs: '6px',
+    sm: '8px',
+    md: '12px',
+    lg: '16px',
+    xlg: '32px',
+  },
   boxShadow: {
     light: "rgba(0, 0, 0, 0.6) 2px 2px 8px 0px",
     dark: "0 15px 10px #000",
