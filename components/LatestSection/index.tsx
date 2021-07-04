@@ -22,8 +22,9 @@ const index = React.memo(
     ] = useState<Movie>(undefined);
     const [randomMovieId, setRandomMovieId] = useState<number>(undefined);
     const randomIndex = Math.floor(Math.random() * 19);
+    const filteredUpcomingMovies = upcomingMovies.filter(({id}) => id !== currentRandomUpcomingMovie?.id || '');
     const randomUpcomingMovies = [
-      ...new Set(upcomingMovies.sort(() => Math.random() - 0.5)),
+      ...new Set(filteredUpcomingMovies.sort(() => Math.random() - 0.5)),
     ];
 
     const setRandomMovie = useCallback(
