@@ -16,7 +16,7 @@ import {
   changePassword,
   getCurrentUser,
   getUserFavourites
-} from "./domain/actions";
+} from "../../components/App/domain/actions";
 import { deleteCookie } from "@/../services/cookieService";
 import { USER_COOKIE } from "@/../constants";
 

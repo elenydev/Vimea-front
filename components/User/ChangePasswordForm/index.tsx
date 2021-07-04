@@ -8,11 +8,14 @@ import {
   Form,
   Header,
 } from "./changePasswordForm.styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUserManager } from "@/../components/App/domain/selectors";
 import { Text } from "@/../dictionary/text";
 import { ChangePasswordUserCredentials } from "@/../infrastructure/interfaces/User/user";
 import { getNotificationManager } from "@/../components/Notifications/domain/selectors";
+import { setFormManager } from "@/../managers/FormManager/actions";
+import FormManager from "@/../managers/FormManager/FormManager";
+import { FORM_INSTANCE_NAME } from "@/../infrastructure/enums/Form/form";
 
 const defaultValues: ChangePasswordUserCredentials = {
   password: null,
@@ -21,11 +24,12 @@ const defaultValues: ChangePasswordUserCredentials = {
 };
 
 const index = (): JSX.Element => {
-  const { register, handleSubmit, errors, reset } = useForm({
-    defaultValues,
-  });
+  const formInstance = useForm({ defaultValues });
+  const { register, handleSubmit, errors } = formInstance;
   const userManager = useSelector(getUserManager);
   const notificationManager = useSelector(getNotificationManager);
+  const dispatch = useDispatch();
+  dispatch(setFormManager(new FormManager({ formName: FORM_INSTANCE_NAME.CHANGE_PASSWORD, formInstance })));
 
   const changePassword = handleSubmit(
     (credentials: ChangePasswordUserCredentials): void => {

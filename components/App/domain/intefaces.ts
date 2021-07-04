@@ -1,7 +1,7 @@
-import UserManager from "@/../components/App/UserManager";
+import UserManager from "@/../managers/UserManager/UserManager";
 import { User } from "@/../infrastructure/interfaces/User/user";
 
 export interface UserStore {
-  userManager: UserManager;
+  manager: UserManager;
   user: User;
 }

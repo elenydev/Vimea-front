@@ -14,9 +14,12 @@ import {
 import RemindPasswordForm from "@/../components/RemindPasswordForm";
 import { CHECK_IF_EMAIL_REGEX } from "../../constants";
 import { UserCredentials } from "../../infrastructure/interfaces/User/user";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUserManager } from "../App/domain/selectors";
 import { Text } from '@/../dictionary/text';
+import { setFormManager } from "@/../managers/FormManager/actions";
+import FormManager from "@/../managers/FormManager/FormManager";
+import { FORM_INSTANCE_NAME } from "@/../infrastructure/enums/Form/form";
 
 const defaultValues = {
   firstName: null,
@@ -28,15 +31,16 @@ const defaultValues = {
 };
 
 const index = () => {
-  const { register, handleSubmit, errors, reset } = useForm({
-    defaultValues,
-  });
+  const formInstance = useForm({ defaultValues });
+  const { register, handleSubmit, errors } = formInstance;
   const userManager = useSelector(getUserManager);
+  const dispatch = useDispatch();
+  dispatch(setFormManager(new FormManager({formName: FORM_INSTANCE_NAME.AUTHORIZATION, formInstance })));
 
   const signIn = handleSubmit(
     (userCredentials: UserCredentials): void => {
+
       userManager.setUser(userCredentials);
-      reset();
     }
   );
 

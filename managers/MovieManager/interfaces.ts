@@ -1,7 +1,7 @@
 import { Movie } from "@/../infrastructure/interfaces/Movie/movie";
-import MovieManager from "./MovieManager";
+import MovieManager from "@/../managers/MovieManager/MovieManager";
 
 export interface MovieStore {
-  movieManager: MovieManager,
+  manager: MovieManager,
   upcomingMovies: Movie[]
 };

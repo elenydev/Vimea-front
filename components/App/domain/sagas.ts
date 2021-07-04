@@ -39,18 +39,22 @@ import {
   removeUserFavouriteMovie,
 } from "@/../requests/userDetails/userDetailsRequests";
 import { getUser } from "./selectors";
+import FormManager from "@/../managers/FormManager/FormManager";
+import { getFormManager } from "@/../managers/FormManager/selectors";
 
 function* setUser(action: Action<UserCredentials>) {
   const user = action.payload;
   const notificationsManager: NotificationsManager = yield select(
     getNotificationManager
   );
+  const formManager: FormManager = yield select(getFormManager);
   try {
     const response: RegistrationRequestResult = yield handleAuthorization(user);
     if (response.user) {
       yield put(authorization.success(response.user));
       setCookie(USER_COOKIE, response.user?.accessToken);
       setCookie(CURRENT_USER_EMAIL, response.user?.email);
+      formManager.clearCurrentForm();
       notificationsManager.setSuccesfullNotifications(response.responseMessage);
       Router.replace(ROUTES.USER.HOME)
       return;
@@ -67,10 +71,12 @@ function* registerUser(action: Action<User>) {
   const notificationsManager: NotificationsManager = yield select(
     getNotificationManager
   );
+  const formManager: FormManager = yield select(getFormManager);
   try {
     const response: RegistrationRequestResult = yield handleRegistration(user);
     if (response.user) {
       notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      formManager.clearCurrentForm();
       Router.replace(ROUTES.AUTH.SIGN_IN);
       return;
     }
@@ -86,12 +92,14 @@ function* remindUserPassword(action: Action<string>) {
   const notificationsManager: NotificationsManager = yield select(
     getNotificationManager
   );
+  const formManager: FormManager = yield select(getFormManager);
   try {
     const response: RemindPasswordResult = yield handleRemindPassword(
       userEmail
     );
     if (response.user) {
       notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      formManager.clearCurrentForm();
       Router.push(ROUTES.AUTH.SIGN_IN);
       return;
     }
@@ -153,6 +161,7 @@ function* changeUserPassword(action: Action<ChangePasswordUserCredentials>) {
   const notificationsManager: NotificationsManager = yield select(
     getNotificationManager
   );
+  const formManager: FormManager = yield select(getFormManager);
   try {
     const response: RegistrationRequestResult = yield handleChangePassword(
       userCredentials
@@ -160,6 +169,7 @@ function* changeUserPassword(action: Action<ChangePasswordUserCredentials>) {
     if (response.user) {
       yield put(changePassword.success(response.user));
       setCookie(USER_COOKIE, response.user?.accessToken);
+      formManager.clearCurrentForm();
       notificationsManager.setSuccesfullNotifications(response.responseMessage);
       return;
     }

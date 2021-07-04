@@ -24,7 +24,7 @@ interface ComponentProps {
 
 const Home = React.memo(
   ({ upcomingMovies }: ComponentProps): JSX.Element => {
-    const movieManager = (Store.getState() as StoreInterface).movieStore?.movieManager;
+    const movieManager = (Store.getState() as StoreInterface).movieStore?.manager;
 
     useEffect(() => {
       if (!movieManager) {

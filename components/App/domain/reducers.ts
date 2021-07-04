@@ -1,7 +1,7 @@
 import { handleActions, Action } from "@/../utils/redux";
 import * as actions from "@/../components/App/domain/actions";
 import { ReducerMap } from "redux-actions";
-import UserManager from "@/../components/App/UserManager";
+import UserManager from "@/../managers/UserManager/UserManager";
 import { UserStore } from "@/../components/App/domain/intefaces";
 import {
   User,
@@ -9,7 +9,7 @@ import {
 } from "@/../infrastructure/interfaces/User/user";
 
 const initialState: UserStore = {
-  userManager: undefined,
+  manager: undefined,
   user: undefined,
 };
 
@@ -19,7 +19,7 @@ const reducerMap: ReducerMap<UserStore, any> = {
     action: Action<UserManager>
   ): UserStore => ({
     ...state,
-    userManager: action.payload,
+    manager: action.payload,
   }),
   [actions.authorization.success]: (
     state,

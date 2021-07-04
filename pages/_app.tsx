@@ -7,7 +7,7 @@ import { getCookie } from "@/../../services/cookieService";
 import { CURRENT_USER_EMAIL, USER_COOKIE } from "@/../../constants";
 import { PROTECTED_ROUTES } from "@/../../routes";
 import { getCurrentUser, setUserManager } from "@/../components/App/domain/actions";
-import UserManager from "@/../components/App/UserManager";
+import UserManager from "@/../managers/UserManager/UserManager";
 import NotificationsManager from "@/../components/Notifications/NotificationsManager";
 import { Store as StoreInterface } from "@/../store/interfaces";
 import { setNotificationsManager } from "../components/Notifications/domain/actions";
@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }): JSX.Element {
     (route) => currentRoutePath.includes(route)
   );
   const userManager = (Store.getState() as StoreInterface).userStore
-    ?.userManager;
+    ?.manager;
   const currentUser = (Store.getState() as StoreInterface).userStore?.user;
   const notificationsManager = (Store.getState() as StoreInterface)
     .notificationsStore?.notificationsManager;

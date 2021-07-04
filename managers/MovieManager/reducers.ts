@@ -6,7 +6,7 @@ import MovieManager from "./MovieManager";
 import { Movie } from "@/../infrastructure/interfaces/Movie/movie";
 
 const initialState: MovieStore = {
-  movieManager: undefined,
+  manager: undefined,
   upcomingMovies: []
 };
 
@@ -16,7 +16,7 @@ const reducerMap: ReducerMap<MovieStore, any> = {
     action: Action<MovieManager>
   ): MovieStore => ({
     ...state,
-    movieManager: action.payload
+    manager: action.payload
   }),
   [actions.setUpcomingMovies]: (
     state,
