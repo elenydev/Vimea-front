@@ -10,7 +10,7 @@ import { getCurrentUser, setUserManager } from "@/../components/App/domain/actio
 import UserManager from "@/../managers/UserManager/UserManager";
 import NotificationsManager from "@/../components/Notifications/NotificationsManager";
 import { Store as StoreInterface } from "@/../store/interfaces";
-import { setNotificationsManager } from "../components/Notifications/domain/actions";
+import { setNotificationsManager } from "@/../components/Notifications/domain/actions";
 import Navigation from "@/../components/Navigation/index";
 import Router from "next/router";
 

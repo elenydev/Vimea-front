@@ -1,4 +1,5 @@
 import Store from "@/../store/configureStore";
+import { Store as StoreInterface} from '@/../store/interfaces';
 import {
   ChangePasswordUserCredentials,
   GetCurrentUser,
@@ -19,6 +20,7 @@ import {
 } from "../../components/App/domain/actions";
 import { deleteCookie } from "@/../services/cookieService";
 import { USER_COOKIE } from "@/../constants";
+import { Text } from "@/../dictionary/text";
 
 export default class UserManager {
   public registerUser(userCredentials: User): void {
@@ -39,6 +41,14 @@ export default class UserManager {
   }
 
   public changePassword(userCredentials: ChangePasswordUserCredentials): void {
+    const { newPassword, newPasswordConfirmation } = userCredentials;
+    if (newPassword !== newPasswordConfirmation) {
+      this.getStoreInstance().notificationsStore.notificationsManager.setErrorNotifications(
+        Text.app.main.forms.validationErrors.errors.confirm_new_password
+      );
+      return;
+    }
+
     Store.dispatch(changePassword.trigger(userCredentials));
   }
 
@@ -56,5 +66,9 @@ export default class UserManager {
 
   public getCurrentUserFavourites(email: string): void {
     Store.dispatch(getUserFavourites.trigger(email));
+  }
+
+  public getStoreInstance(): StoreInterface {
+    return Store.getState() as StoreInterface;
   }
 }

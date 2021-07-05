@@ -2,10 +2,10 @@ import { Action, handleActions } from "@/../utils/redux";
 import { ReducerMap } from "redux-actions";
 import * as actions from '@/../managers/FormManager/actions';
 import { FormStore } from "@/../managers/FormManager/interfaces";
-import FormManager from "./FormManager";
+import FormManager from "@/../managers/FormManager/FormManager";
 
 const initialState: FormStore = {
-    manager: undefined
+    manager: new FormManager()
 };
 
 const reducerMap: ReducerMap<FormStore, any> = {

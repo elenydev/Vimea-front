@@ -16,11 +16,11 @@ import {
 } from "./signUpForm.styles";
 import { CHECK_IF_EMAIL_REGEX } from "@/../constants";
 import { User } from "@/../infrastructure/interfaces/User/user";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getUserManager } from "../App/domain/selectors";
 import { Text } from '@/../dictionary/text';
 import { FORM_INSTANCE_NAME } from "@/../infrastructure/enums/Form/form";
-import { setFormManager } from "@/../managers/FormManager/actions";
+import { getFormManager } from "@/../managers/FormManager/selectors";
 
 const defaultValues = {
   firstName: null,
@@ -35,8 +35,8 @@ const RegisterForm = (): JSX.Element => {
   const formInstance = useForm({ defaultValues });
   const { register, handleSubmit, errors } = formInstance;
   const userManager = useSelector(getUserManager);
-  const dispatch = useDispatch();
-  dispatch(setFormManager({ formName: FORM_INSTANCE_NAME.REGISTRATION, formInstance }))
+  const formManager = useSelector(getFormManager);
+  formManager.setFormInstance({ formName: FORM_INSTANCE_NAME.REGISTRATION, formInstance });
 
   const signUp = handleSubmit(
     (user: User): void => {

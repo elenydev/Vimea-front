@@ -41,6 +41,7 @@ import {
 import { getUser } from "./selectors";
 import FormManager from "@/../managers/FormManager/FormManager";
 import { getFormManager } from "@/../managers/FormManager/selectors";
+import { FORM_INSTANCE_NAME } from "@/../infrastructure/enums/Form/form";
 
 function* setUser(action: Action<UserCredentials>) {
   const user = action.payload;
@@ -54,7 +55,7 @@ function* setUser(action: Action<UserCredentials>) {
       yield put(authorization.success(response.user));
       setCookie(USER_COOKIE, response.user?.accessToken);
       setCookie(CURRENT_USER_EMAIL, response.user?.email);
-      formManager.clearCurrentForm();
+      formManager.clearCurrentForm(FORM_INSTANCE_NAME.AUTHORIZATION);
       notificationsManager.setSuccesfullNotifications(response.responseMessage);
       Router.replace(ROUTES.USER.HOME)
       return;
@@ -76,7 +77,7 @@ function* registerUser(action: Action<User>) {
     const response: RegistrationRequestResult = yield handleRegistration(user);
     if (response.user) {
       notificationsManager.setSuccesfullNotifications(response.responseMessage);
-      formManager.clearCurrentForm();
+      formManager.clearCurrentForm(FORM_INSTANCE_NAME.REGISTRATION);
       Router.replace(ROUTES.AUTH.SIGN_IN);
       return;
     }
@@ -99,7 +100,7 @@ function* remindUserPassword(action: Action<string>) {
     );
     if (response.user) {
       notificationsManager.setSuccesfullNotifications(response.responseMessage);
-      formManager.clearCurrentForm();
+      formManager.clearCurrentForm(FORM_INSTANCE_NAME.REMIND_PASSWORD);
       Router.push(ROUTES.AUTH.SIGN_IN);
       return;
     }
@@ -169,7 +170,7 @@ function* changeUserPassword(action: Action<ChangePasswordUserCredentials>) {
     if (response.user) {
       yield put(changePassword.success(response.user));
       setCookie(USER_COOKIE, response.user?.accessToken);
-      formManager.clearCurrentForm();
+      formManager.clearCurrentForm(FORM_INSTANCE_NAME.CHANGE_PASSWORD);
       notificationsManager.setSuccesfullNotifications(response.responseMessage);
       return;
     }

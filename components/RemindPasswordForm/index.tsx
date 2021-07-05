@@ -13,11 +13,11 @@ import {
   Form,
 } from "./remindPasswordForm.styles";
 import { CHECK_IF_EMAIL_REGEX } from "@/../constants";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getUserManager } from "@/../components/App/domain/selectors";
-import {Text} from '@/../dictionary/text';
-import { setFormManager } from "@/../managers/FormManager/actions";
+import { Text } from '@/../dictionary/text';
 import { FORM_INSTANCE_NAME } from "@/../infrastructure/enums/Form/form";
+import { getFormManager } from "@/../managers/FormManager/selectors";
 
 const defaultValues: { email: string } = {
   email: null,
@@ -27,8 +27,8 @@ const index = (): JSX.Element => {
   const formInstance = useForm({ defaultValues });
   const { register, handleSubmit, errors } = formInstance;
   const userManager = useSelector(getUserManager);
-  const dispatch = useDispatch();
-  dispatch(setFormManager({ formName: FORM_INSTANCE_NAME.REMIND_PASSWORD, formInstance }));
+  const formManager = useSelector(getFormManager);
+  formManager.setFormInstance({ formName: FORM_INSTANCE_NAME.REMIND_PASSWORD, formInstance });
 
   const remindPassword = handleSubmit(
     (value: { email: string }): void => {

@@ -1,18 +1,15 @@
-import { FormManagerArgs } from "@/../infrastructure/interfaces/Form/form";
-import { useForm, UseFormMethods } from "react-hook-form";
+import { FormManagerInstance } from "@/../infrastructure/interfaces/Form/form";
 import { FORM_INSTANCE_NAME } from "@/../infrastructure/enums/Form/form";
 
 export default class FormManager {
-    formInstance: UseFormMethods<any>;
-    formName: FORM_INSTANCE_NAME;
+    forms: FormManagerInstance[] = [];
     
-    constructor(args: FormManagerArgs) {
-        const { formName, formInstance } = args;
-        this.formName = formName;
-        this.formInstance = formInstance;
-    }
+    public setFormInstance(formInstance: FormManagerInstance) {
+        this.forms.push(formInstance);
+    };
 
-    clearCurrentForm(): void {
-        this.formInstance.reset();
-    }
+    public clearCurrentForm(currentFormName: FORM_INSTANCE_NAME): void {
+        const currentForm = this.forms.find(({formName}) => formName === currentFormName);
+        currentForm.formInstance.reset();
+    };
 }
