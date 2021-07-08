@@ -100,6 +100,12 @@ export const NavList = styled.ul`
       color: ${({ theme }) => theme.colors.crimsonRed};
       transform: translateY(-5px);
     }
+
+    & > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   ${({ theme }) => theme.mq.md} {

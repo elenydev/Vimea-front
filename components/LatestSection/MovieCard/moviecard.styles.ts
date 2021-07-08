@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   padding: ${({ theme }) => theme.padding.sm};
+  margin: ${({theme}) => theme.spacing.sm};
   border-radius: 5px;
   z-index: 0;
   background: linear-gradient(
