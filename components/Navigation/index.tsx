@@ -13,7 +13,8 @@ import {
 import { Text } from "@/../dictionary/text";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { useSelector } from "react-redux";
-import { getUser, getUserManager } from "@/../components/App/domain/selectors";
+import { getUser } from "@/../components/App/domain/selectors";
+import DropdownMenu from "@/../components/User/DropdownMenu";
 
 const index = (): JSX.Element => {
   const [isNavVisible, setIsNavVisible] = useState(true);
@@ -24,12 +25,6 @@ const index = (): JSX.Element => {
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);
   const currentUser = useSelector(getUser);
-  const userManager = useSelector(getUserManager);
-
-  const removeCurrentUser = useCallback(() => {
-    handleNavClick();
-    userManager.removeUser();
-  }, [userManager]);
 
   const handleNavClick = (): void => {
     const hamburger = document.querySelector(".hamburger_inner");
@@ -64,7 +59,7 @@ const index = (): JSX.Element => {
 
   useEffect(() => {
     setIsUserSigned(currentUser ? true : false);
-  },[currentUser]);
+  }, [currentUser]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScrollPosition);
@@ -116,24 +111,24 @@ const index = (): JSX.Element => {
             </li>
             {!isUserSigned ? (
               <li onClick={handleNavClick}>
-              <Link href="/#contact">
-                <a>{Text.app.main.navigation.contact}</a>
-              </Link>
+                <Link href="/#contact">
+                  <a>{Text.app.main.navigation.contact}</a>
+                </Link>
               </li>
             ) : (
               <li onClick={handleNavClick}>
-              <Link href="/user/home">
-                <a>{Text.app.main.navigation.account}</a>
-              </Link>
+                <Link href="/user/home">
+                  <a>{Text.app.main.navigation.account}</a>
+                </Link>
               </li>
             )}
-            
+
             {isUserSigned && (
               <li onClick={handleNavClick}>
-              <Link href="/user/favourites">
-                <a>{Text.app.main.navigation.favourites}</a>
-              </Link>
-            </li>
+                <Link href="/user/favourites">
+                  <a>{Text.app.main.navigation.favourites}</a>
+                </Link>
+              </li>
             )}
             {!isUserSigned ? (
               <li onClick={handleNavClick}>
@@ -142,13 +137,10 @@ const index = (): JSX.Element => {
                 </Link>
               </li>
             ) : (
-              <li onClick={removeCurrentUser}>
-                <Link href="/">
-                  <a>{Text.app.main.navigation.sign_out}</a>
-                </Link>
+              <li>
+                <DropdownMenu handleNavClick={handleNavClick} />
               </li>
             )}
-            
           </NavList>
         </Nav>
       </NavigationWrapper>
