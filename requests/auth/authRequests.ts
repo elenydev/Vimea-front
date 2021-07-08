@@ -1,4 +1,4 @@
-import { CURRENT_USER_EMAIL, DATABASE_URL, USER_COOKIE } from "@/../constants";
+import { CURRENT_USER_EMAIL_COOKIE, DATABASE_URL, USER_COOKIE } from "@/../constants";
 import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
 import {
   AuthResponse,
@@ -85,7 +85,7 @@ export const handleChangePassword = async (
   userCredentials: ChangePasswordUserCredentials
 ): Promise<AuthorizationRequestResult> => {
   const { password, newPassword } = userCredentials;
-  const email = getCookie(CURRENT_USER_EMAIL);
+  const email = getCookie(CURRENT_USER_EMAIL_COOKIE);
   const body = { password, newPassword, email };
   const token = getCookie(USER_COOKIE);
   try {

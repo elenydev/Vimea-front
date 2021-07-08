@@ -10,7 +10,7 @@ import { Text } from "@/../dictionary/text";
 import { getCookie } from "@/../services/cookieService";
 import {
   USER_COOKIE,
-  CURRENT_USER_EMAIL,
+  CURRENT_USER_EMAIL_COOKIE,
   YOUTUBE_MOVIE_URL,
   VIMEO_MOVIE_URL,
 } from "@/../constants";
@@ -41,7 +41,7 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
   const [isTrailerVisible, setIsTrailerVisible] = useState(false);
 
   const isAddingDisabled =
-    !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL) && !currentUser;
+    !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL_COOKIE) && !currentUser;
 
   const addToFavourites = useCallback((e: SyntheticEvent): void => {
     e.stopPropagation();

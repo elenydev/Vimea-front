@@ -11,7 +11,7 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 import Button from "@material-ui/core/Button";
 import { getCookie } from "@/../services/cookieService";
 import { useSelector } from "react-redux";
-import { CURRENT_USER_EMAIL, USER_COOKIE } from "@/../constants";
+import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "@/../constants";
 import { getUserManager } from "../../App/domain/selectors";
 import { getMappedFavouriteMovie } from "@/../utils/getMappedFavouriteMovie";
 import { Tooltip } from "@material-ui/core";
@@ -31,7 +31,7 @@ const index = (props: ComponentProps): JSX.Element => {
   const movieRate = +(vote_average / 2).toFixed();
 
   const isAddingDisabled =
-    !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL);
+    !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL_COOKIE);
   const userManager = useSelector(getUserManager);
 
   const addToFavourites = (e: SyntheticEvent): void => {

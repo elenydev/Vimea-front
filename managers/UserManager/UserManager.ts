@@ -19,7 +19,7 @@ import {
   getUserFavourites
 } from "../../components/App/domain/actions";
 import { deleteCookie } from "@/../services/cookieService";
-import { USER_COOKIE } from "@/../constants";
+import { USER_COOKIE, CURRENT_USER_EMAIL_COOKIE } from "@/../constants";
 import { Text } from "@/../dictionary/text";
 
 export default class UserManager {
@@ -32,8 +32,9 @@ export default class UserManager {
   }
 
   public removeUser(): void {
-    Store.dispatch(removeUser());
     deleteCookie(USER_COOKIE);
+    deleteCookie(CURRENT_USER_EMAIL_COOKIE)
+    Store.dispatch(removeUser());
   }
 
   public remindPassword(userEmail: string): void {

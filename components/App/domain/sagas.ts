@@ -28,7 +28,7 @@ import {
   getUserFavourites,
 } from "@/../components/App/domain/actions";
 import { setCookie } from "@/../services/cookieService";
-import { CURRENT_USER_EMAIL, USER_COOKIE } from "@/../constants";
+import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "@/../constants";
 import { getNotificationManager } from "../../Notifications/domain/selectors";
 import NotificationsManager from "../../Notifications/NotificationsManager";
 import Router from "next/router";
@@ -54,7 +54,7 @@ function* setUser(action: Action<UserCredentials>) {
     if (response.user) {
       yield put(authorization.success(response.user));
       setCookie(USER_COOKIE, response.user?.accessToken);
-      setCookie(CURRENT_USER_EMAIL, response.user?.email);
+      setCookie(CURRENT_USER_EMAIL_COOKIE, response.user?.email);
       formManager.clearCurrentForm(FORM_INSTANCE_NAME.AUTHORIZATION);
       notificationsManager.setSuccesfullNotifications(response.responseMessage);
       Router.replace(ROUTES.USER.HOME)
@@ -190,7 +190,7 @@ function* getCurrent(action: Action<GetCurrentUser>) {
     if (response.user) {
       yield put(getCurrentUser.success(response.user));
       setCookie(USER_COOKIE, response.user?.accessToken);
-      setCookie(CURRENT_USER_EMAIL, response.user?.email);
+      setCookie(CURRENT_USER_EMAIL_COOKIE, response.user?.email);
       return;
     }
   } catch (errorMessage) {

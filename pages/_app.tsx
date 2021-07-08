@@ -4,7 +4,7 @@ import Store from "@/../store/configureStore";
 import Layout from "@/../layout/Layout";
 import rootSaga from "@/../store/sagas";
 import { getCookie } from "@/../../services/cookieService";
-import { CURRENT_USER_EMAIL, USER_COOKIE } from "@/../../constants";
+import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "@/../../constants";
 import { PROTECTED_ROUTES } from "@/../../routes";
 import { getCurrentUser, setUserManager } from "@/../components/App/domain/actions";
 import UserManager from "@/../managers/UserManager/UserManager";
@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }): JSX.Element {
 
   useEffect(() => {
     const currentUserToken = getCookie(USER_COOKIE);
-    const currentUserEmail = getCookie(CURRENT_USER_EMAIL);
+    const currentUserEmail = getCookie(CURRENT_USER_EMAIL_COOKIE);
 
     if (!userManager) {
       Store.dispatch(setUserManager(new UserManager()));

@@ -6,7 +6,7 @@ import { MoviesWrapper } from "./favourites.styles";
 import MovieCard from "@/../components/LatestSection/MovieCard/";
 import { UserFavouriteMovie } from "@/../infrastructure/interfaces/User/user";
 import { getCookie } from "@/../services/cookieService";
-import { CURRENT_USER_EMAIL } from "@/../constants";
+import { CURRENT_USER_EMAIL_COOKIE } from "@/../constants";
 
 const index = () => {
   const userMovies = useSelector(getUserMovies)
@@ -14,13 +14,13 @@ const index = () => {
   const userManager = useSelector(getUserManager);
 
   useEffect(() => {
-    const userEmail = getCookie(CURRENT_USER_EMAIL);
+    const userEmail = getCookie(CURRENT_USER_EMAIL_COOKIE);
     userManager?.getCurrentUserFavourites(userEmail);
     setCurrentMovies(userMovies);
   }, [userMovies]);
 
   useEffect(() => {
-    const userEmail = getCookie(CURRENT_USER_EMAIL);
+    const userEmail = getCookie(CURRENT_USER_EMAIL_COOKIE);
     userManager?.getCurrentUserFavourites(userEmail);
     setCurrentMovies(userMovies);
   }, []);
