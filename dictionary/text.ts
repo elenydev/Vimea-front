@@ -67,7 +67,8 @@ export const Text = {
       },
       common: {
         havent_logged_in: "You haven't logged in",
-        already_added: "Already added"
+        already_added: "Already added",
+        fetchingLatestMoviesFailed: "Getting latest upcoming movies failed. Please refresh the page or try again later"
       },
     },
   },

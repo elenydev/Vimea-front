@@ -7,7 +7,7 @@ import { Movie } from "../infrastructure/interfaces/Movie/movie";
 import Store from "@/../store/configureStore";
 import { setMovieManager } from "../managers/MovieManager/actions";
 import MovieManager from '@/../managers/MovieManager/MovieManager';
-import { Store as StoreInterface } from "../store/interfaces";
+import { Store as StoreInterface } from "@/../store/interfaces";
 import { CircularProgress } from "@material-ui/core";
 import { getMappedMovies } from "@/../utils/getMappedMovies";
 import dynamic from 'next/dynamic';
@@ -25,7 +25,6 @@ interface ComponentProps {
 const Home = React.memo(
   ({ upcomingMovies }: ComponentProps): JSX.Element => {
     const movieManager = (Store.getState() as StoreInterface).movieStore?.manager;
-
     useEffect(() => {
       if (!movieManager) {
         Store.dispatch(setMovieManager(new MovieManager({ upcomingMovies })));
@@ -39,7 +38,7 @@ const Home = React.memo(
         </Head>
         <BackgroundWrapper>
           <Hero />
-          {upcomingMovies.length && <LatestSection upcomingMovies={upcomingMovies}/>}
+          {Boolean(upcomingMovies.length) && <LatestSection upcomingMovies={upcomingMovies}/>}
         </BackgroundWrapper>
       </>
     );
@@ -48,7 +47,7 @@ const Home = React.memo(
 
 export async function getServerSideProps() {
   const movieRequest = await getLatestMovies();
-  const upcomingMovies = getMappedMovies(movieRequest) ?? [];
+  const upcomingMovies = getMappedMovies(movieRequest);
   return {
     props: {
       upcomingMovies
