@@ -10,11 +10,11 @@ import {
   NavList,
   ArrowButton,
 } from "./navigation.styles";
-import { Text } from "@/../dictionary/text";
+import { Text } from "dictionary/text";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { useSelector } from "react-redux";
-import { getUser } from "@/../components/App/domain/selectors";
-import DropdownMenu from "@/../components/User/DropdownMenu";
+import { getUser } from "components/App/domain/selectors";
+import DropdownMenu from "components/User/DropdownMenu";
 
 const index = (): JSX.Element => {
   const [isNavVisible, setIsNavVisible] = useState(true);

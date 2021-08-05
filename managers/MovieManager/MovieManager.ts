@@ -1,5 +1,5 @@
-import { Movie } from "../../infrastructure/interfaces/Movie/movie";
-import Store from "@/../store/configureStore";
+import { Movie } from "infrastructure/interfaces/Movie/movie";
+import Store from "store/configureStore";
 import { setUpcomingMovies } from "./actions";
 
 interface MovieManagerProps {

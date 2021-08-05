@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { BackgroundWrapper } from "@/../components/BackgroundWrapper/index";
+import { BackgroundWrapper } from "components/BackgroundWrapper/index";
 import { useSelector } from "react-redux";
-import { getUserManager, getUserMovies } from "@/../components/App/domain/selectors";
+import { getUserManager, getUserMovies } from "components/App/domain/selectors";
 import { MoviesWrapper } from "./favourites.styles";
-import MovieCard from "@/../components/LatestSection/MovieCard/";
-import { UserFavouriteMovie } from "@/../infrastructure/interfaces/User/user";
-import { getCookie } from "@/../services/cookieService";
-import { CURRENT_USER_EMAIL_COOKIE } from "@/../constants";
+import MovieCard from "components/LatestSection/MovieCard/";
+import { UserFavouriteMovie } from "infrastructure/interfaces/User/user";
+import { getCookie } from "services/cookieService";
+import { CURRENT_USER_EMAIL_COOKIE } from "utils/constants";
 
 const index = () => {
   const userMovies = useSelector(getUserMovies)

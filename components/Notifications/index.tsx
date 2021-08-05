@@ -3,10 +3,9 @@ import React, { useState, useEffect } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
-import { Notification } from "@/../infrastructure/interfaces/Notification/notification";
-import NotificationsManager from "./NotificationsManager";
+import { Notification } from "infrastructure/interfaces/Notification/notification";
 import { useSelector } from "react-redux";
-import { getNotificationManager } from "./domain/selectors";
+import { getNotificationManager } from "components/Notifications/domain/selectors";
 
 const Alert = (props) => {
   return <MuiAlert elevation={6} variant='filled' {...props} />;

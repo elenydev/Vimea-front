@@ -1,5 +1,5 @@
-import { CURRENT_USER_EMAIL_COOKIE, DATABASE_URL, USER_COOKIE } from "@/../constants";
-import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
+import { CURRENT_USER_EMAIL_COOKIE, DATABASE_URL, USER_COOKIE } from "utils/constants";
+import { ResponseStatus } from "infrastructure/enums/Request/Request";
 import {
   AuthResponse,
   User,
@@ -8,8 +8,8 @@ import {
   AuthorizationRequestResult,
   ChangePasswordUserCredentials,
   GetCurrentUser,
-} from "@/../infrastructure/interfaces/User/user";
-import { getCookie } from "@/../services/cookieService";
+} from "infrastructure/interfaces/User/user";
+import { getCookie } from "services/cookieService";
 
 export const handleRegistration = async (
   user: User

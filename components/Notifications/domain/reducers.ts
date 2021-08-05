@@ -1,10 +1,10 @@
-import { Action, handleActions } from "@/../utils/redux";
+import { Action, handleActions } from "utils/redux";
 import { ReducerMap } from "redux-actions";
-import * as actions from "@/../components/Notifications/domain/actions";
+import * as actions from "components/Notifications/domain/actions";
 import { NotificationsStore } from "./interfaces";
-import NotificationsManager from "../NotificationsManager";
-import { Notification } from "@/../infrastructure/interfaces/Notification/notification";
-import { NotificationVariant } from "@/../infrastructure/enums/Notification/notification";
+import NotificationsManager from "components/Notifications/NotificationsManager";
+import { Notification } from "infrastructure/interfaces/Notification/notification";
+import { NotificationVariant } from "infrastructure/enums/Notification/notification";
 
 const initialState: NotificationsStore = {
   notificationsManager: undefined,

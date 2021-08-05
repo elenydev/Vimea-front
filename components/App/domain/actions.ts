@@ -4,9 +4,9 @@ import {
   User,
   UserCredentials,
   UserFavouriteMovie,
-} from "@/../infrastructure/interfaces/User/user";
-import { createAction, createAsyncAction, getListAction, getOneAction } from "@/../utils/redux";
-import UserManager from "../../../managers/UserManager/UserManager";
+} from "infrastructure/interfaces/User/user";
+import { createAction, createAsyncAction, getListAction, getOneAction } from "utils/redux";
+import UserManager from "managers/UserManager/UserManager";
 
 export const setUserManager = createAction<UserManager>("setUserManager");
 export const registration = createAsyncAction<User, undefined>("registration");

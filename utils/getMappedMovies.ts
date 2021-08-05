@@ -1,4 +1,4 @@
-import { Movie } from "../infrastructure/interfaces/Movie/movie";
+import { Movie } from "infrastructure/interfaces/Movie/movie";
 
 export const getMappedMovies = (movies: Movie[]): Movie[] => {
   const baseMovieBackdropPath = "https://image.tmdb.org/t/p/original";

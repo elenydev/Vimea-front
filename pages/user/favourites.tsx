@@ -1,5 +1,5 @@
 import React from "react";
-import Favourites from "@/../components/User/Favourites";;
+import Favourites from "components/User/Favourites";;
 
 const index = () => {
   return (

@@ -1,5 +1,5 @@
 /// <reference path="reduxSagaRoutines.d.ts" />
-import { ActionCreator } from "@/../utils/redux/reduxActions";
+import { ActionCreator } from "utils/redux/reduxActions";
 export declare const createAction: <TParams = undefined>(
   actionName: string
 ) => ActionCreator<TParams>;

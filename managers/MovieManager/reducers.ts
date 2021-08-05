@@ -1,9 +1,9 @@
-import { Action, handleActions } from "@/../utils/redux";
+import { Action, handleActions } from "utils/redux";
 import { ReducerMap } from "redux-actions";
-import * as actions from '@/../managers/MovieManager/actions';
-import { MovieStore, } from "./interfaces";
-import MovieManager from "./MovieManager";
-import { Movie } from "@/../infrastructure/interfaces/Movie/movie";
+import * as actions from 'managers/MovieManager/actions';
+import { MovieStore, } from "managers/MovieManager/interfaces";
+import MovieManager from "managers/MovieManager/MovieManager";
+import { Movie } from "infrastructure/interfaces/Movie/movie";
 
 const initialState: MovieStore = {
   manager: undefined,

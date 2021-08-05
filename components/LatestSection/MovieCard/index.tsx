@@ -1,29 +1,30 @@
-import { Movie } from "@/../infrastructure/interfaces/Movie/movie";
+import { Movie } from "infrastructure/interfaces/Movie/movie";
 import React, { SyntheticEvent, useState, useEffect, useCallback } from "react";
 import {
   Wrapper,
   ContentWrapper,
   VideoWrapper,
-} from "@/../components/LatestSection/MovieCard/moviecard.styles";
+} from "components/LatestSection/MovieCard/moviecard.styles";
 import Button from "@material-ui/core/Button";
-import { Text } from "@/../dictionary/text";
-import { getCookie } from "@/../services/cookieService";
+import { Text } from "dictionary/text";
+import { getCookie } from "services/cookieService";
 import {
   USER_COOKIE,
   CURRENT_USER_EMAIL_COOKIE,
   YOUTUBE_MOVIE_URL,
   VIMEO_MOVIE_URL,
-} from "@/../constants";
+} from "utils/constants";
 import { useSelector } from "react-redux";
-import { getUserManager, getUser } from "../../App/domain/selectors";
-import { getMappedFavouriteMovie } from "@/../utils/getMappedFavouriteMovie";
+import { getUserManager, getUser } from "components/App/domain/selectors";
+import { getMappedFavouriteMovie } from "utils/getMappedFavouriteMovie";
 import { Tooltip } from "@material-ui/core";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import IconButton from "@material-ui/core/IconButton";
-import { getCurrentMovieTrailer } from "@/../requests/movies/moviesRequests";
+import { getCurrentMovieTrailer } from "requests/movies/moviesRequests";
+import { UserFavouriteMovie } from "infrastructure/interfaces/User/user";
 
 interface ComponentProps {
-  movie: Movie;
+  movie: UserFavouriteMovie;
   setRandomMovie?: (movieId: string) => void;
 }
 

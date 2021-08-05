@@ -2,8 +2,8 @@ import React from "react";
 import Link from "next/link";
 
 import { UpcomingAnhor, Wrapper } from "./hero.styles";
-import HeroTypography from "@/../components/HeroTypography/index";
-import { Text } from "@/../dictionary/text";
+import HeroTypography from "components/HeroTypography/index";
+import { Text } from "dictionary/text";
 
 const index = (): JSX.Element => {
   return (

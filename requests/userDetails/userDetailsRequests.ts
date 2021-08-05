@@ -1,11 +1,11 @@
-import { DATABASE_URL, USER_COOKIE } from "@/../constants";
-import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
+import { DATABASE_URL, USER_COOKIE } from "utils/constants";
+import { ResponseStatus } from "infrastructure/enums/Request/Request";
 import {
   UserFavouriteMovie,
   UserMovieActionResponse,
   UserMovieActionResult,
-} from "@/../infrastructure/interfaces/User/user";
-import { getCookie } from "@/../services/cookieService";
+} from "infrastructure/interfaces/User/user";
+import { getCookie } from "services/cookieService";
 
 export const addUserFavouriteMovie = async (
   movie: UserFavouriteMovie,

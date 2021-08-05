@@ -11,14 +11,14 @@ import {
   LoginDiv,
   InputElement,
 } from "./signInForm.styles";
-import RemindPasswordForm from "@/../components/RemindPasswordForm";
-import { CHECK_IF_EMAIL_REGEX } from "../../constants";
-import { UserCredentials } from "../../infrastructure/interfaces/User/user";
+import RemindPasswordForm from "components/RemindPasswordForm";
+import { CHECK_IF_EMAIL_REGEX } from "utils/constants";
+import { UserCredentials } from "infrastructure/interfaces/User/user";
 import { useSelector } from "react-redux";
-import { getUserManager } from "../App/domain/selectors";
-import { Text } from '@/../dictionary/text';
-import { FORM_INSTANCE_NAME } from "@/../infrastructure/enums/Form/form";
-import { getFormManager } from "@/../managers/FormManager/selectors";
+import { getUserManager } from "components/App/domain/selectors";
+import { Text } from 'dictionary/text';
+import { FORM_INSTANCE_NAME } from "infrastructure/enums/Form/form";
+import { getFormManager } from "managers/FormManager/selectors";
 
 const defaultValues = {
   firstName: null,

@@ -1,5 +1,5 @@
-import { ResponseStatus } from "@/../infrastructure/enums/Request/Request";
-import { Movie } from "../Movie/movie";
+import { ResponseStatus } from "infrastructure/enums/Request/Request";
+import { Movie } from "infrastructure/interfaces/Movie/movie";
 
 export interface User {
   firstName: string;

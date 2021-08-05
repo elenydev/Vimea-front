@@ -1,12 +1,12 @@
-import Store from "@/../store/configureStore";
-import { Store as StoreInterface} from '@/../store/interfaces';
+import Store from "store/configureStore";
+import { Store as StoreInterface} from 'store/interfaces';
 import {
   ChangePasswordUserCredentials,
   GetCurrentUser,
   User,
   UserCredentials,
   UserFavouriteMovie,
-} from "@/../infrastructure/interfaces/User/user";
+} from "infrastructure/interfaces/User/user";
 import {
   authorization,
   removeUser,
@@ -17,10 +17,10 @@ import {
   changePassword,
   getCurrentUser,
   getUserFavourites
-} from "../../components/App/domain/actions";
-import { deleteCookie } from "@/../services/cookieService";
-import { USER_COOKIE, CURRENT_USER_EMAIL_COOKIE } from "@/../constants";
-import { Text } from "@/../dictionary/text";
+} from "components/App/domain/actions";
+import { deleteCookie } from "services/cookieService";
+import { USER_COOKIE, CURRENT_USER_EMAIL_COOKIE } from "utils/constants";
+import { Text } from "dictionary/text";
 
 export default class UserManager {
   public registerUser(userCredentials: User): void {

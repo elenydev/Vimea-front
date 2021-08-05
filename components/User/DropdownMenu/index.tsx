@@ -3,12 +3,12 @@ import { withStyles } from "@material-ui/core/styles";
 import Menu from "@material-ui/core/Menu";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Link from "next/link";
-import { Text } from "@/../dictionary/text";
+import { Text } from "dictionary/text";
 import { useSelector } from "react-redux";
-import { getUserManager } from "@/../components/App/domain/selectors";
+import { getUserManager } from "components/App/domain/selectors";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Icon from "@material-ui/core/Icon";
-import { Menu as MenuComponent } from "@/../components/User/DropdownMenu/dropdownMenu.styles";
+import { Menu as MenuComponent } from "components/User/DropdownMenu/dropdownMenu.styles";
 
 interface StyledMenuProps {
   open: boolean;

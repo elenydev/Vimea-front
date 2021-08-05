@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import BackgroundWrapper from "@/../components/BackgroundWrapper";
-import Navigation from "@/../components/Navigation";
-import SignInForm from "@/../components/SignInForm";
+import BackgroundWrapper from "components/BackgroundWrapper";
+import Navigation from "components/Navigation";
+import SignInForm from "components/SignInForm";
 
 const Wrapper = styled.div`
   display: flex;

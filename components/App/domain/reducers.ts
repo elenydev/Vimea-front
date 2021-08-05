@@ -1,12 +1,12 @@
-import { handleActions, Action } from "@/../utils/redux";
-import * as actions from "@/../components/App/domain/actions";
+import { handleActions, Action } from "utils/redux";
+import * as actions from "components/App/domain/actions";
 import { ReducerMap } from "redux-actions";
-import UserManager from "@/../managers/UserManager/UserManager";
-import { UserStore } from "@/../components/App/domain/intefaces";
+import UserManager from "managers/UserManager/UserManager";
+import { UserStore } from "components/App/domain/intefaces";
 import {
   User,
   UserFavouriteMovie
-} from "@/../infrastructure/interfaces/User/user";
+} from "infrastructure/interfaces/User/user";
 
 const initialState: UserStore = {
   manager: undefined,

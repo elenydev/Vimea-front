@@ -1,5 +1,5 @@
 import React from "react";
-import { Text } from "@/../dictionary/text";
+import { Text } from "dictionary/text";
 
 import { Header, MainHeading, SubHeading } from "./herotypography.styles";
 

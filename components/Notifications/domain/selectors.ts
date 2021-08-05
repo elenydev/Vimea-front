@@ -1,4 +1,4 @@
-import { Store } from "@/../store/interfaces";
+import { Store } from "store/interfaces";
 
 export const getNotification = (state: Store) =>
   state.notificationsStore.notification;

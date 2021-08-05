@@ -14,13 +14,13 @@ import {
   InputElement,
   CheckBox,
 } from "./signUpForm.styles";
-import { CHECK_IF_EMAIL_REGEX } from "@/../constants";
-import { User } from "@/../infrastructure/interfaces/User/user";
+import { CHECK_IF_EMAIL_REGEX } from "utils/constants";
+import { User } from "infrastructure/interfaces/User/user";
 import { useSelector } from "react-redux";
-import { getUserManager } from "../App/domain/selectors";
-import { Text } from '@/../dictionary/text';
-import { FORM_INSTANCE_NAME } from "@/../infrastructure/enums/Form/form";
-import { getFormManager } from "@/../managers/FormManager/selectors";
+import { getUserManager } from "components/App/domain/selectors";
+import { Text } from 'dictionary/text';
+import { FORM_INSTANCE_NAME } from "infrastructure/enums/Form/form";
+import { getFormManager } from "managers/FormManager/selectors";
 
 const defaultValues = {
   firstName: null,

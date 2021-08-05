@@ -1,5 +1,5 @@
-import { FormManagerInstance } from "@/../infrastructure/interfaces/Form/form";
-import { FORM_INSTANCE_NAME } from "@/../infrastructure/enums/Form/form";
+import { FormManagerInstance } from "infrastructure/interfaces/Form/form";
+import { FORM_INSTANCE_NAME } from "infrastructure/enums/Form/form";
 
 export default class FormManager {
     forms: FormManagerInstance[] = [];

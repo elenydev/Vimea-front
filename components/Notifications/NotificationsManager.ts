@@ -1,6 +1,6 @@
-import { setNotification, clearNotification } from "./domain/actions";
-import Store from "@/../store/configureStore";
-import { NotificationVariant } from "@/../infrastructure/enums/Notification/notification";
+import { setNotification, clearNotification } from "components/Notifications/domain/actions";
+import Store from "store/configureStore";
+import { NotificationVariant } from "infrastructure/enums/Notification/notification";
 
 export default class NotificationsManager {
 

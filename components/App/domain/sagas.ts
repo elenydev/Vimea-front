@@ -1,12 +1,12 @@
 import { put, takeLatest, ForkEffect, select } from "redux-saga/effects";
-import { Action } from "@/../utils/redux";
+import { Action } from "utils/redux";
 import {
   getCurrentUser as getCurrentUserRequest,
   handleAuthorization,
   handleChangePassword,
   handleRegistration,
   handleRemindPassword,
-} from "@/../requests/auth/authRequests";
+} from "requests/auth/authRequests";
 import {
   ChangePasswordUserCredentials,
   GetCurrentUser,
@@ -16,7 +16,7 @@ import {
   UserCredentials,
   UserFavouriteMovie,
   UserMovieActionResult,
-} from "@/../infrastructure/interfaces/User/user";
+} from "infrastructure/interfaces/User/user";
 import {
   addFavourite,
   authorization,
@@ -26,22 +26,22 @@ import {
   removeFavourite,
   getCurrentUser,
   getUserFavourites,
-} from "@/../components/App/domain/actions";
-import { setCookie } from "@/../services/cookieService";
-import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "@/../constants";
-import { getNotificationManager } from "../../Notifications/domain/selectors";
-import NotificationsManager from "../../Notifications/NotificationsManager";
+} from "components/App/domain/actions";
+import { setCookie } from "services/cookieService";
+import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
+import { getNotificationManager } from "components/Notifications/domain/selectors";
+import NotificationsManager from "components/Notifications/NotificationsManager";
 import Router from "next/router";
-import { ROUTES } from "@/../routes";
+import { ROUTES } from "routes";
 import {
   addUserFavouriteMovie,
   fetchUserFavouriteMovies,
   removeUserFavouriteMovie,
-} from "@/../requests/userDetails/userDetailsRequests";
-import { getUser } from "./selectors";
-import FormManager from "@/../managers/FormManager/FormManager";
-import { getFormManager } from "@/../managers/FormManager/selectors";
-import { FORM_INSTANCE_NAME } from "@/../infrastructure/enums/Form/form";
+} from "requests/userDetails/userDetailsRequests";
+import { getUser } from "components/App/domain/selectors";
+import FormManager from "managers/FormManager/FormManager";
+import { getFormManager } from "managers/FormManager/selectors";
+import { FORM_INSTANCE_NAME } from "infrastructure/enums/Form/form";
 
 function* setUser(action: Action<UserCredentials>) {
   const user = action.payload;

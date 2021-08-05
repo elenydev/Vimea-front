@@ -5,9 +5,9 @@ import {
   Container,
   MoviesWrapper,
 } from "./latestsection.styles";
-import { Movie } from "@/../infrastructure/interfaces/Movie/movie";
-import LatestCurrentMovie from "@/../components/LatestSection/LatestCurrentMovie/";
-import MovieCard from "@/../components/LatestSection/MovieCard/";
+import { Movie } from "infrastructure/interfaces/Movie/movie";
+import LatestCurrentMovie from "components/LatestSection/LatestCurrentMovie/";
+import MovieCard from "components/LatestSection/MovieCard/";
 
 interface ComponentProps {
   upcomingMovies: Movie[];

@@ -1,6 +1,6 @@
-import { Movie } from "@/../infrastructure/interfaces/Movie/movie";
-import { UserFavouriteMovie } from "../infrastructure/interfaces/User/user";
-export const getMappedFavouriteMovie = (movie: Movie): UserFavouriteMovie => {
+import { Movie } from "infrastructure/interfaces/Movie/movie";
+import { UserFavouriteMovie } from "infrastructure/interfaces/User/user";
+export const getMappedFavouriteMovie = (movie: Movie | UserFavouriteMovie): UserFavouriteMovie => {
   return {
     ...movie,
     id: movie.id as string,

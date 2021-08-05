@@ -1,4 +1,4 @@
-import FormManager from "@/../managers/FormManager/FormManager";
+import FormManager from "managers/FormManager/FormManager";
 
 export interface FormStore {
     manager: FormManager
