@@ -64,7 +64,6 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
   const toggleTrailerVisibility = useCallback(
     (e: SyntheticEvent) => {
       e.stopPropagation();
-      e.preventDefault();
       movieManager.setTrailerUrl(movieTrailerUrl);
       movieManager.toggleTrailerVisibility();
     },

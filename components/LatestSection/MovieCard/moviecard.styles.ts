@@ -6,7 +6,6 @@ interface WrapperProps {
 
 const Wrapper = styled.div`
   display: flex;
-  box-sizing: border-box;
   height: 100%;
   min-height: 250px;
   max-height: 350px;
@@ -85,7 +84,6 @@ const ContentWrapper = styled.div`
     left: 0px;
     bottom: -10px;
     padding: 0px;
-    z-index: 99;
 
     & .MuiSvgIcon-root {
       fill: ${({ theme }) => theme.colors.white};
