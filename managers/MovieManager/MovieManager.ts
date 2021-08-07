@@ -1,6 +1,6 @@
 import { Movie } from "infrastructure/interfaces/Movie/movie";
 import Store from "store/configureStore";
-import { setUpcomingMovies } from "./actions";
+import { setUpcomingMovies, setTrailerUrl, toggleTrailerVisibility } from "./actions";
 
 interface MovieManagerProps {
   upcomingMovies: Movie[]
@@ -13,5 +13,13 @@ export default class MovieManager {
 
   setUpcomingMovies(upcomingMovies: Movie[]): void {
     Store.dispatch(setUpcomingMovies(upcomingMovies));
+  }
+
+  setTrailerUrl(url: string): void {
+    Store.dispatch(setTrailerUrl(url));
+  }
+
+  toggleTrailerVisibility(): void {
+    Store.dispatch(toggleTrailerVisibility());
   }
 }

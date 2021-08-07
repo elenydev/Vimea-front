@@ -3,5 +3,7 @@ import MovieManager from "managers/MovieManager/MovieManager";
 
 export interface MovieStore {
   manager: MovieManager,
-  upcomingMovies: Movie[]
+  upcomingMovies: Movie[],
+  isTrailerVisible: boolean;
+  movieTrailerUrl: string;
 };

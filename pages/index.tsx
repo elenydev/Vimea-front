@@ -2,7 +2,7 @@ import Head from "next/head";
 import React, { useEffect } from "react";
 import BackgroundWrapper from "components/BackgroundWrapper";
 import Hero from "components/Hero/index";
-import { getLatestMovies } from "requests/movies/moviesRequests";
+import { getLatestMovies } from "repositories/movies/movies";
 import { Movie } from "infrastructure/interfaces/Movie/movie";
 import Store from "store/configureStore";
 import { setMovieManager } from "managers/MovieManager/actions";
@@ -25,7 +25,6 @@ interface ComponentProps {
 const Home = React.memo(
   ({ upcomingMovies }: ComponentProps): JSX.Element => {
     const movieManager = (Store.getState() as StoreInterface).movieStore?.manager;
-    console.log(getLatestMovies());
     useEffect(() => {
       if (!movieManager) {
         Store.dispatch(setMovieManager(new MovieManager({ upcomingMovies })));
