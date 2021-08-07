@@ -2,7 +2,7 @@ import Head from "next/head";
 import React, { useEffect } from "react";
 import BackgroundWrapper from "components/BackgroundWrapper";
 import Hero from "components/Hero/index";
-import { getLatestMovies } from "requests/movies/moviesRequests";
+import { getLatestMovies } from "repositiories/movies/moviesrepositiories";
 import { Movie } from "infrastructure/interfaces/Movie/movie";
 import Store from "store/configureStore";
 import { setMovieManager } from "managers/MovieManager/actions";

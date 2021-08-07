@@ -6,7 +6,7 @@ import {
   handleChangePassword,
   handleRegistration,
   handleRemindPassword,
-} from "requests/auth/authRequests";
+} from "repositiories/auth/authrepositiories";
 import {
   ChangePasswordUserCredentials,
   GetCurrentUser,
@@ -37,7 +37,7 @@ import {
   addUserFavouriteMovie,
   fetchUserFavouriteMovies,
   removeUserFavouriteMovie,
-} from "requests/userDetails/userDetailsRequests";
+} from "repositiories/userDetails/userDetailsrepositiories";
 import { getUser } from "components/App/domain/selectors";
 import FormManager from "managers/FormManager/FormManager";
 import { getFormManager } from "managers/FormManager/selectors";

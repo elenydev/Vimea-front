@@ -18,7 +18,7 @@ import { getMappedFavouriteMovie } from "utils/getMappedFavouriteMovie";
 import { Tooltip } from "@material-ui/core";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import IconButton from "@material-ui/core/IconButton";
-import { getCurrentMovieTrailer } from "requests/movies/moviesRequests";
+import { getCurrentMovieTrailer } from "repositiories/movies/moviesrepositiories";
 import { UserFavouriteMovie } from "infrastructure/interfaces/User/user";
 import { getMovieManager } from "managers/MovieManager/selectors";
 
