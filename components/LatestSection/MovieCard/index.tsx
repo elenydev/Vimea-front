@@ -18,7 +18,7 @@ import { getMappedFavouriteMovie } from "utils/getMappedFavouriteMovie";
 import { Tooltip } from "@material-ui/core";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import IconButton from "@material-ui/core/IconButton";
-import { getCurrentMovieTrailer } from "repositiories/movies/moviesrepositiories";
+import { getCurrentMovieTrailer } from "repositories/movies/movies";
 import { UserFavouriteMovie } from "infrastructure/interfaces/User/user";
 import { getMovieManager } from "managers/MovieManager/selectors";
 
@@ -87,6 +87,8 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
       }
     })();
   }, []);
+
+  console.log(movieTrailerUrl)
 
   return (
     <>
