@@ -4,3 +4,5 @@ import MovieManager from "managers/MovieManager/MovieManager";
 
 export const setMovieManager = createAction<MovieManager>("setMovieManager");
 export const setUpcomingMovies = createAction<Movie[]>("setUpcomingMovies");
+export const setTrailerUrl = createAction<string>("setTrailerUrl");
+export const toggleTrailerVisibility = createAction<undefined>("toggleTrailerVisibility");

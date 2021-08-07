@@ -44,9 +44,14 @@ ${({ theme }) => theme.mq.md} {
 `;
 
 const SubHeading = styled.h3`
+display: -webkit-box;
 font-size: ${({ theme }) => theme.font.size.xxs};
+-webkit-line-clamp: 3;
+-webkit-box-orient: vertical;  
+overflow: hidden;
 
 ${({ theme }) => theme.mq.md} {
+    -webkit-line-clamp: 2;
     font-size: ${({ theme }) => theme.font.size.xs};
 }
 `;

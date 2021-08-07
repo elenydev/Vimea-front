@@ -7,7 +7,9 @@ import { Movie } from "infrastructure/interfaces/Movie/movie";
 
 const initialState: MovieStore = {
   manager: undefined,
-  upcomingMovies: []
+  upcomingMovies: [],
+  isTrailerVisible: false,
+  movieTrailerUrl: ''
 };
 
 const reducerMap: ReducerMap<MovieStore, any> = {
@@ -24,6 +26,19 @@ const reducerMap: ReducerMap<MovieStore, any> = {
   ): MovieStore => ({
     ...state,
     upcomingMovies: action.payload
+  }),
+  [actions.toggleTrailerVisibility]: (
+    state
+  ): MovieStore => ({
+    ...state,
+    isTrailerVisible: !state.isTrailerVisible
+  }),
+  [actions.setTrailerUrl]: (
+    state,
+    action: Action<string>
+  ): MovieStore => ({
+    ...state,
+    movieTrailerUrl: action.payload
   }),
 };
 

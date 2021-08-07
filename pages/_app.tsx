@@ -14,6 +14,10 @@ import { setNotificationsManager } from "components/Notifications/domain/actions
 import Navigation from "components/Navigation/index";
 import Router from "next/router";
 
+import 'swiper/swiper.min.css';
+import 'swiper/swiper-bundle.min.css';
+import "swiper/components/pagination/pagination.min.css"
+
 Store.runSaga(rootSaga);
 
 function MyApp({ Component, pageProps }): JSX.Element {

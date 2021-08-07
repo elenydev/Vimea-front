@@ -1,9 +1,7 @@
-import { Movie } from "infrastructure/interfaces/Movie/movie";
 import React, { SyntheticEvent, useState, useEffect, useCallback } from "react";
 import {
   Wrapper,
-  ContentWrapper,
-  VideoWrapper,
+  ContentWrapper
 } from "components/LatestSection/MovieCard/moviecard.styles";
 import Button from "@material-ui/core/Button";
 import { Text } from "dictionary/text";
@@ -22,6 +20,7 @@ import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import IconButton from "@material-ui/core/IconButton";
 import { getCurrentMovieTrailer } from "requests/movies/moviesRequests";
 import { UserFavouriteMovie } from "infrastructure/interfaces/User/user";
+import { getMovieManager } from "managers/MovieManager/selectors";
 
 interface ComponentProps {
   movie: UserFavouriteMovie;
@@ -35,11 +34,11 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
   };
   const currentUser = useSelector(getUser);
   const userManager = useSelector(getUserManager);
+  const movieManager = useSelector(getMovieManager);
   const userMovies = currentUser?.favouriteMovies;
   const isInFavourites = !!userMovies?.find(({ id }) => id === movie.id);
   const [isMovieFavourite, setIsMovieFavourite] = useState(isInFavourites);
   const [movieTrailerUrl, setMovieTrailerUrl] = useState("");
-  const [isTrailerVisible, setIsTrailerVisible] = useState(false);
 
   const isAddingDisabled =
     !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL_COOKIE) && !currentUser;
@@ -65,7 +64,9 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
   const toggleTrailerVisibility = useCallback(
     (e: SyntheticEvent) => {
       e.stopPropagation();
-      setIsTrailerVisible((visible) => !visible);
+      e.preventDefault();
+      movieManager.setTrailerUrl(movieTrailerUrl);
+      movieManager.toggleTrailerVisibility();
     },
     [movieTrailerUrl]
   );
@@ -89,11 +90,7 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
 
   return (
     <>
-      {isTrailerVisible && (
-        <VideoWrapper onClick={toggleTrailerVisibility}>
-          <iframe frameBorder="0" src={movieTrailerUrl}></iframe>
-        </VideoWrapper>
-      )}
+
       <Wrapper
         onClick={setCurrentRandomMovie}
         backgroundImage={movie.backdrop_path}

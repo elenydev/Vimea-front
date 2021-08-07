@@ -6,6 +6,7 @@ interface WrapperProps {
 
 const Wrapper = styled.div`
   display: flex;
+  box-sizing: border-box;
   height: 100%;
   min-height: 250px;
   max-height: 350px;
@@ -15,7 +16,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   padding: ${({ theme }) => theme.padding.sm};
-  margin: ${({theme}) => theme.spacing.sm};
+  margin: 0 auto;
   border-radius: 5px;
   z-index: 0;
   background: linear-gradient(
@@ -32,6 +33,10 @@ const Wrapper = styled.div`
 
   & > div {
     display: flex;
+  }
+
+  ${({ theme }) => theme.mq.sm} {
+    margin: 0;
   }
 
   ${({ theme }) => theme.mq.md} {
@@ -69,7 +74,6 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   max-height: 50%;
   justify-content: space-between;
-  position: relative;
 
   & > h3 {
     color: ${({ theme }) => theme.colors.white};
@@ -81,6 +85,7 @@ const ContentWrapper = styled.div`
     left: 0px;
     bottom: -10px;
     padding: 0px;
+    z-index: 99;
 
     & .MuiSvgIcon-root {
       fill: ${({ theme }) => theme.colors.white};
@@ -103,22 +108,4 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const VideoWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 999;
-  background: rgba(0, 0, 0, 0.8);
-
-  & > iframe {
-    width: 80%;
-    height: 50%;
-  }
-`;
-
-export { Wrapper, ContentWrapper, VideoWrapper };
+export { Wrapper, ContentWrapper };
