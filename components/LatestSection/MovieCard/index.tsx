@@ -88,8 +88,6 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
     })();
   }, []);
 
-  console.log(movieTrailerUrl)
-
   return (
     <>
 
