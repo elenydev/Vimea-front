@@ -17,7 +17,6 @@ import { getUser } from "components/App/domain/selectors";
 import DropdownMenu from "components/User/DropdownMenu";
 
 const index = (): JSX.Element => {
-  const [isNavVisible, setIsNavVisible] = useState(true);
   const [handleScroll, setHandleScroll] = useState(0);
   const [hamburgerHeight, setHamburgerHeight] = useState(null);
   const [navHeight, setNavHeight] = useState(null);
@@ -32,22 +31,19 @@ const index = (): JSX.Element => {
     nav.classList.toggle("active");
   };
 
-  const handleScrollPosition = useCallback(
-    () => setHandleScroll(window.scrollY),
-    []
-  );
+  const handleScrollPosition = useCallback(() => setHandleScroll(window.scrollY), []);
   const scrollTop = useCallback(() => window.scrollTo(0, 0), []);
   const isUserSigned = useMemo(() => currentUser ? true : false, [currentUser]);
-
-  useEffect(() => {
+  const isNavVisible = useMemo(() => {
     if (typeof window !== "undefined") {
       if (navHeight > window.scrollY) {
-        setIsNavVisible(true);
+        return true;
       } else {
-        setIsNavVisible(false);
+        return false;
       }
     }
   }, [handleScroll, navHeight]);
+
 
   useEffect(() => {
     setNavHeight(navRef?.current?.scrollHeight);
