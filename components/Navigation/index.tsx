@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 
 import {
@@ -21,7 +21,6 @@ const index = (): JSX.Element => {
   const [handleScroll, setHandleScroll] = useState(0);
   const [hamburgerHeight, setHamburgerHeight] = useState(null);
   const [navHeight, setNavHeight] = useState(null);
-  const [isUserSigned, setIsUserSigned] = useState(false);
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);
   const currentUser = useSelector(getUser);
@@ -38,6 +37,7 @@ const index = (): JSX.Element => {
     []
   );
   const scrollTop = useCallback(() => window.scrollTo(0, 0), []);
+  const isUserSigned = useMemo(() => currentUser ? true : false, [currentUser]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -57,9 +57,6 @@ const index = (): JSX.Element => {
     setHamburgerHeight(hamburgerRef?.current?.scrollHeight);
   }, [hamburgerRef]);
 
-  useEffect(() => {
-    setIsUserSigned(currentUser ? true : false);
-  }, [currentUser]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScrollPosition);

@@ -16,7 +16,7 @@ import { CHECK_IF_EMAIL_REGEX } from "utils/constants";
 import { UserCredentials } from "infrastructure/interfaces/User/user";
 import { useSelector } from "react-redux";
 import { getUserManager } from "components/App/domain/selectors";
-import { Text } from 'dictionary/text';
+import { Text } from "dictionary/text";
 import { FORM_INSTANCE_NAME } from "infrastructure/enums/Form/form";
 import { getFormManager } from "managers/FormManager/selectors";
 
@@ -34,14 +34,14 @@ const index = () => {
   const { register, handleSubmit, errors } = formInstance;
   const userManager = useSelector(getUserManager);
   const formManager = useSelector(getFormManager);
-  formManager.setFormInstance({ formName: FORM_INSTANCE_NAME.AUTHORIZATION, formInstance });
+  formManager.setFormInstance({
+    formName: FORM_INSTANCE_NAME.AUTHORIZATION,
+    formInstance,
+  });
 
-  const signIn = handleSubmit(
-    (userCredentials: UserCredentials): void => {
-
-      userManager.setUser(userCredentials);
-    }
-  );
+  const signIn = handleSubmit((userCredentials: UserCredentials): void => {
+    userManager.setUser(userCredentials);
+  });
 
   return (
     <Wrapper>
@@ -50,47 +50,53 @@ const index = () => {
       <Form onSubmit={signIn}>
         <FormLabel>
           <InputElement
-            type='text'
-            name='email'
+            type="text"
+            name="email"
             placeholder={Text.app.main.forms.labels.email}
             inputRef={register({
               required: true,
               pattern: {
                 value: CHECK_IF_EMAIL_REGEX,
-                message: Text.app.main.forms.validationErrors.errors.email
+                message: Text.app.main.forms.validationErrors.errors.email,
               },
             })}
           />
         </FormLabel>
 
         {errors.email && errors.email.type === "required" && (
-          <ErrorSpan>{Text.app.main.forms.validationErrors.required.email}</ErrorSpan>
+          <ErrorSpan>
+            {Text.app.main.forms.validationErrors.required.email}
+          </ErrorSpan>
         )}
 
         {errors.email && errors.email.type === "pattern" && (
-          <ErrorSpan>{Text.app.main.forms.validationErrors.pattern.email}</ErrorSpan>
+          <ErrorSpan>
+            {Text.app.main.forms.validationErrors.pattern.email}
+          </ErrorSpan>
         )}
 
         <FormLabel>
           <InputElement
-            type='password'
-            name='password'
-            placeholder='Enter Password'
+            type="password"
+            name="password"
+            placeholder="Enter Password"
             inputRef={register({ required: true })}
           />
         </FormLabel>
 
         {errors.password && errors.password.type === "required" && (
-          <ErrorSpan>{Text.app.main.forms.validationErrors.required.password}</ErrorSpan>
+          <ErrorSpan>
+            {Text.app.main.forms.validationErrors.required.password}
+          </ErrorSpan>
         )}
         <label>
-          <Button type='submit' variant='contained' color='secondary'>
+          <Button type="submit" variant="contained" color="secondary">
             {Text.app.main.forms.labels.sign_in}
           </Button>
         </label>
 
         <LoginDiv>
-          <Link href='/auth/signUp'>
+          <Link href="/auth/signUp">
             <a>{Text.app.main.forms.labels.sign_up}</a>
           </Link>
         </LoginDiv>
