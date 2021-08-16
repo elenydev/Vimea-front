@@ -7,7 +7,7 @@ import { Text } from "dictionary/text";
 
 const index = (): JSX.Element => {
   return (
-    <Wrapper>
+    <Wrapper id="about">
       <HeroTypography />
       <UpcomingAnhor>
         <Link href='#latest'>{Text.app.main.components.hero.upcoming}</Link>
