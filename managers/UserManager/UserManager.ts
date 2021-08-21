@@ -1,5 +1,5 @@
 import Store from "store/configureStore";
-import { Store as StoreInterface} from 'store/interfaces';
+import { Store as StoreInterface } from "store/interfaces";
 import {
   ChangePasswordUserCredentials,
   GetCurrentUser,
@@ -16,7 +16,7 @@ import {
   removeFavourite,
   changePassword,
   getCurrentUser,
-  getUserFavourites
+  getUserFavourites,
 } from "components/App/domain/actions";
 import { deleteCookie } from "services/cookieService";
 import { USER_COOKIE, CURRENT_USER_EMAIL_COOKIE } from "utils/constants";
@@ -33,7 +33,7 @@ export default class UserManager {
 
   public removeUser(): void {
     deleteCookie(USER_COOKIE);
-    deleteCookie(CURRENT_USER_EMAIL_COOKIE)
+    deleteCookie(CURRENT_USER_EMAIL_COOKIE);
     Store.dispatch(removeUser());
   }
 
@@ -71,5 +71,13 @@ export default class UserManager {
 
   public getStoreInstance(): StoreInterface {
     return Store.getState() as StoreInterface;
+  }
+
+  public getCurrentUserInstance(): User {
+    return this.getStoreInstance().userStore.user;
+  }
+
+  public changeAvatar(file: File): void {
+    console.log(file)
   }
 }
