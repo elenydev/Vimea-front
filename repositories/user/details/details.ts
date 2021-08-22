@@ -1,10 +1,11 @@
-import { DATABASE_URL, USER_COOKIE } from "utils/constants";
+import { USER_COOKIE } from "utils/constants";
 import { ResponseStatus } from "infrastructure/enums/Request/Request";
 import {
   UserDetailsChangeRequestResult,
   UserDetailsChangeResponse
 } from "infrastructure/interfaces/User/user";
 import { getCookie } from "services/cookieService";
+import { API_URL } from "utils/api";
 
 export const handleAvatarChange = async (
   avatar: File,
@@ -15,7 +16,7 @@ export const handleAvatarChange = async (
     const body = new FormData();
     body.append("avatar", avatar);
     body.append("userId", userId);
-    const request = await fetch(`${DATABASE_URL}/user/avatar/change`, {
+    const request = await fetch(API_URL.USER.DETAILS.CHANGE_AVATAR, {
       method: "PUT",
       headers: {
         Authorization: "Bearer " + token,

@@ -1,4 +1,4 @@
-import { DATABASE_URL, USER_COOKIE } from "utils/constants";
+import { USER_COOKIE } from "utils/constants";
 import { ResponseStatus } from "infrastructure/enums/Request/Request";
 import {
   UserFavouriteMovie,
@@ -6,6 +6,7 @@ import {
   UserMovieActionResult,
 } from "infrastructure/interfaces/User/user";
 import { getCookie } from "services/cookieService";
+import { API_URL } from "utils/api";
 
 export const addUserFavouriteMovie = async (
   movie: UserFavouriteMovie,
@@ -13,7 +14,7 @@ export const addUserFavouriteMovie = async (
 ): Promise<UserMovieActionResult> => {
   try {
     const token = getCookie(USER_COOKIE);
-    const request = await fetch(`${DATABASE_URL}/user/favourites/add`, {
+    const request = await fetch(API_URL.USER.DETAILS.ADD_FAVOURITE_MOVIE, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + token,
@@ -37,7 +38,7 @@ export const removeUserFavouriteMovie = async (
 ): Promise<UserMovieActionResult> => {
   try {
     const token = getCookie(USER_COOKIE);
-    const request = await fetch(`${DATABASE_URL}/user/favourites/remove`, {
+    const request = await fetch(API_URL.USER.DETAILS.REMOVE_FAVOURITE_MOVIE, {
       method: "PUT",
       headers: {
         Authorization: "Bearer " + token,
@@ -60,7 +61,7 @@ export const fetchUserFavouriteMovies = async (
 ): Promise<UserMovieActionResult> => {
   try {
     const token = getCookie(USER_COOKIE);
-    const request = await fetch(`${DATABASE_URL}/user/favourites/current?email=${email}`, {
+    const request = await fetch(`${API_URL.USER.DETAILS.GET_FAVOURITES}?email=${email}`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + token,
