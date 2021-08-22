@@ -6,6 +6,7 @@ import {
 } from "infrastructure/interfaces/User/user";
 import { getCookie } from "services/cookieService";
 import { API_URL } from "utils/api";
+import { getErrorResponse } from "utils/getErrorResponse";
 
 export const handleAvatarChange = async (
   avatar: File,
@@ -26,10 +27,7 @@ export const handleAvatarChange = async (
     const response: UserDetailsChangeResponse = await request.json();
     return databaseResponse(request.ok, response);
   } catch (error) {
-    return {
-      responseMessage: error,
-      responseStatus: ResponseStatus.FAILED,
-    };
+    getErrorResponse(error);
   }
 };
 
@@ -44,8 +42,5 @@ export const databaseResponse = (
       responseMessage: response.message,
     };
   }
-  return {
-    responseMessage: response.message,
-    responseStatus: ResponseStatus.FAILED,
-  };
+  getErrorResponse(response.message);
 };
