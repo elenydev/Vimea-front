@@ -26,6 +26,14 @@ export interface AuthorizationRequestResult extends Omit<RegistrationRequestResu
   user?: User | Partial<User>
 }
 
+export interface UserDetailsChangeRequestResult extends BaseRequestResponse {
+  user?: User;
+}
+
+export interface UserDetailsChangeResponse extends UserDetailsChangeRequestResult {
+  message?: string;
+};
+
 export interface UserCredentials {
   email: string;
   password: string;

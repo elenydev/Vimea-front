@@ -1,6 +1,6 @@
 export const setCookie = (key: string, value: string | number) => {
   let expirationTime = new Date();
-  expirationTime.setTime(expirationTime.getTime() + 24 * 60 * 60 * 1000 * 1);
+  expirationTime.setTime(expirationTime.getTime() + 30 * 60 * 1000 );
 
   document.cookie =
     key + "=" + value + ";path=/;expires=" + expirationTime.toUTCString();

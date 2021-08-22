@@ -26,6 +26,7 @@ import {
   removeFavourite,
   getCurrentUser,
   getUserFavourites,
+  changeAvatar,
 } from "components/App/domain/actions";
 import { setCookie } from "services/cookieService";
 import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
@@ -37,7 +38,10 @@ import {
   addUserFavouriteMovie,
   fetchUserFavouriteMovies,
   removeUserFavouriteMovie,
-} from "repositories/userDetails/userDetails";
+} from "repositories/user/movies/movies";
+import {
+  handleAvatarChange
+} from 'repositories/user/details/details';
 import { getUser } from "components/App/domain/selectors";
 import FormManager from "managers/FormManager/FormManager";
 import { getFormManager } from "managers/FormManager/selectors";
@@ -213,6 +217,27 @@ function* getFavouriteMovies(action: Action<string>) {
   }
 }
 
+function* changeUserAvatar(action: Action<File>) {
+  const avatar = action.payload;
+  const notificationsManager: NotificationsManager = yield select(
+    getNotificationManager
+  );
+  const currentUser = yield select(getUser);
+  try {
+    const response: RegistrationRequestResult = yield handleAvatarChange(avatar, currentUser.id);
+    if (response.user) {
+      yield put(changeAvatar.success(response.user));
+      setCookie(USER_COOKIE, response.user?.accessToken);
+      notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      return;
+    }
+    notificationsManager.setErrorNotifications(response.responseMessage);
+  } catch (errorMessage) {
+    yield put(changeAvatar.failure(errorMessage));
+    notificationsManager.setErrorNotifications(errorMessage);
+  }
+}
+
 
 export default function* userSagas(): Generator<
   ForkEffect<never>,
@@ -227,4 +252,5 @@ export default function* userSagas(): Generator<
   yield takeLatest(removeFavourite.trigger, removeFavouriteMovie);
   yield takeLatest(getCurrentUser.trigger, getCurrent);
   yield takeLatest(getUserFavourites.trigger, getFavouriteMovies);
+  yield takeLatest(changeAvatar.trigger, changeUserAvatar);
 }

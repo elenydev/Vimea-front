@@ -17,6 +17,7 @@ import {
   changePassword,
   getCurrentUser,
   getUserFavourites,
+  changeAvatar
 } from "components/App/domain/actions";
 import { deleteCookie } from "services/cookieService";
 import { USER_COOKIE, CURRENT_USER_EMAIL_COOKIE } from "utils/constants";
@@ -77,7 +78,7 @@ export default class UserManager {
     return this.getStoreInstance().userStore.user;
   }
 
-  public changeAvatar(file: File): void {
-    console.log(file)
+  public changeAvatar(avatar: File): void {
+    Store.dispatch(changeAvatar.trigger(avatar));
   }
 }
