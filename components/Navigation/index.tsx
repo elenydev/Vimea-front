@@ -13,7 +13,7 @@ import {
 import { Text } from "dictionary/text";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { useSelector } from "react-redux";
-import { getUser } from "components/App/domain/selectors";
+import { getUser } from "components/User/domain/selectors";
 import DropdownMenu from "components/User/DropdownMenu";
 
 const index = (): JSX.Element => {

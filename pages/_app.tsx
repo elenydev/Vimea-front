@@ -6,7 +6,7 @@ import rootSaga from "store/sagas";
 import { getCookie } from "services/cookieService";
 import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
 import { PROTECTED_ROUTES } from "routes";
-import { getCurrentUser, setUserManager } from "components/App/domain/actions";
+import { getCurrentUser, setUserManager } from "components/User/domain/actions";
 import UserManager from "managers/UserManager/UserManager";
 import NotificationsManager from "components/Notifications/NotificationsManager";
 import { Store as StoreInterface } from "store/interfaces";

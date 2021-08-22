@@ -1,4 +1,4 @@
-import { getUserManager } from "components/App/domain/selectors";
+import { getUserManager } from "components/User/domain/selectors";
 import React, { ChangeEvent, FC, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { ImageWrapper } from "./avatar.styles";

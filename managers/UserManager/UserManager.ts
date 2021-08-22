@@ -18,7 +18,7 @@ import {
   getCurrentUser,
   getUserFavourites,
   changeAvatar
-} from "components/App/domain/actions";
+} from "components/User/domain/actions";
 import { deleteCookie } from "services/cookieService";
 import { USER_COOKIE, CURRENT_USER_EMAIL_COOKIE } from "utils/constants";
 import { Text } from "dictionary/text";

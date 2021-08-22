@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BackgroundWrapper } from "components/BackgroundWrapper/index";
 import { useSelector } from "react-redux";
-import { getUserManager, getUserMovies } from "components/App/domain/selectors";
+import { getUserManager, getUserMovies } from "components/User/domain/selectors";
 import { MoviesWrapper } from "./favourites.styles";
 import MovieCard from "components/LatestSection/MovieCard/";
 import { getCookie } from "services/cookieService";

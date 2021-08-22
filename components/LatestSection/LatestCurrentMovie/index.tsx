@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import { getCookie } from "services/cookieService";
 import { useSelector } from "react-redux";
 import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
-import { getUserManager } from "components/App/domain/selectors";
+import { getUserManager } from "components/User/domain/selectors";
 import { getMappedFavouriteMovie } from "utils/getMappedFavouriteMovie";
 import { Tooltip } from "@material-ui/core";
 import { Text } from "dictionary/text";

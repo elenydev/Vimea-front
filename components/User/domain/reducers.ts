@@ -1,8 +1,8 @@
 import { handleActions, Action } from "utils/redux";
-import * as actions from "components/App/domain/actions";
+import * as actions from "components/User/domain/actions";
 import { ReducerMap } from "redux-actions";
 import UserManager from "managers/UserManager/UserManager";
-import { UserStore } from "components/App/domain/intefaces";
+import { UserStore } from "components/User/domain/intefaces";
 import {
   User,
   UserFavouriteMovie

@@ -27,7 +27,7 @@ import {
   getCurrentUser,
   getUserFavourites,
   changeAvatar,
-} from "components/App/domain/actions";
+} from "components/User/domain/actions";
 import { setCookie } from "services/cookieService";
 import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
 import { getNotificationManager } from "components/Notifications/domain/selectors";
@@ -42,7 +42,7 @@ import {
 import {
   handleAvatarChange
 } from 'repositories/user/details/details';
-import { getUser } from "components/App/domain/selectors";
+import { getUser } from "components/User/domain/selectors";
 import FormManager from "managers/FormManager/FormManager";
 import { getFormManager } from "managers/FormManager/selectors";
 import { FORM_INSTANCE_NAME } from "infrastructure/enums/Form/form";

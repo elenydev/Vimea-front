@@ -9,7 +9,7 @@ import {
   Header,
 } from "./changePasswordForm.styles";
 import { useSelector } from "react-redux";
-import { getUserManager } from "components/App/domain/selectors";
+import { getUserManager } from "components/User/domain/selectors";
 import { Text } from "dictionary/text";
 import { ChangePasswordUserCredentials } from "infrastructure/interfaces/User/user";
 import { getNotificationManager } from "components/Notifications/domain/selectors";

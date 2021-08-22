@@ -5,7 +5,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Link from "next/link";
 import { Text } from "dictionary/text";
 import { useSelector } from "react-redux";
-import { getUserManager } from "components/App/domain/selectors";
+import { getUserManager } from "components/User/domain/selectors";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Icon from "@material-ui/core/Icon";
 import { Menu as MenuComponent } from "components/User/DropdownMenu/dropdownMenu.styles";
