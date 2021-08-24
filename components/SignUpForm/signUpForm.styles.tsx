@@ -88,3 +88,18 @@ export const CheckBox = styled(FormLabel)`
     color: ${({ theme }) => theme.colors.darkRed};
   }
 `;
+
+export const ImagePreviewBox = styled.div`
+  display: flex;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+  }
+`;

@@ -14,7 +14,7 @@ import {
 } from "./remindPasswordForm.styles";
 import { CHECK_IF_EMAIL_REGEX } from "utils/constants";
 import { useSelector } from "react-redux";
-import { getUserManager } from "components/App/domain/selectors";
+import { getUserManager } from "components/User/domain/selectors";
 import { Text } from 'dictionary/text';
 import { FORM_INSTANCE_NAME } from "infrastructure/enums/Form/form";
 import { getFormManager } from "managers/FormManager/selectors";

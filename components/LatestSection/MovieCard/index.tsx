@@ -13,7 +13,7 @@ import {
   VIMEO_MOVIE_URL,
 } from "utils/constants";
 import { useSelector } from "react-redux";
-import { getUserManager, getUser } from "components/App/domain/selectors";
+import { getUserManager, getUser } from "components/User/domain/selectors";
 import { getMappedFavouriteMovie } from "utils/getMappedFavouriteMovie";
 import { Tooltip } from "@material-ui/core";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";

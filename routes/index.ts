@@ -5,6 +5,7 @@ export const ROUTES = {
     SIGN_IN: '/auth/signIn'
   },
   USER: {
-    HOME: '/user/home'
+    HOME: '/user/home',
+    FAVOURITES: "/user/favourites"
   }
 };

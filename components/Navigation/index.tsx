@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 
 import {
@@ -13,15 +13,13 @@ import {
 import { Text } from "dictionary/text";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { useSelector } from "react-redux";
-import { getUser } from "components/App/domain/selectors";
+import { getUser } from "components/User/domain/selectors";
 import DropdownMenu from "components/User/DropdownMenu";
 
 const index = (): JSX.Element => {
-  const [isNavVisible, setIsNavVisible] = useState(true);
   const [handleScroll, setHandleScroll] = useState(0);
   const [hamburgerHeight, setHamburgerHeight] = useState(null);
   const [navHeight, setNavHeight] = useState(null);
-  const [isUserSigned, setIsUserSigned] = useState(false);
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);
   const currentUser = useSelector(getUser);
@@ -33,21 +31,19 @@ const index = (): JSX.Element => {
     nav.classList.toggle("active");
   };
 
-  const handleScrollPosition = useCallback(
-    () => setHandleScroll(window.scrollY),
-    []
-  );
+  const handleScrollPosition = useCallback(() => setHandleScroll(window.scrollY), []);
   const scrollTop = useCallback(() => window.scrollTo(0, 0), []);
-
-  useEffect(() => {
+  const isUserSigned = useMemo(() => currentUser ? true : false, [currentUser]);
+  const isNavVisible = useMemo(() => {
     if (typeof window !== "undefined") {
       if (navHeight > window.scrollY) {
-        setIsNavVisible(true);
+        return true;
       } else {
-        setIsNavVisible(false);
+        return false;
       }
     }
   }, [handleScroll, navHeight]);
+
 
   useEffect(() => {
     setNavHeight(navRef?.current?.scrollHeight);
@@ -57,9 +53,6 @@ const index = (): JSX.Element => {
     setHamburgerHeight(hamburgerRef?.current?.scrollHeight);
   }, [hamburgerRef]);
 
-  useEffect(() => {
-    setIsUserSigned(currentUser ? true : false);
-  }, [currentUser]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScrollPosition);
@@ -99,7 +92,7 @@ const index = (): JSX.Element => {
 
           <NavList>
             <li onClick={handleNavClick}>
-              <Link href="#about">
+              <Link href="/#about">
                 <a>{Text.app.main.navigation.about}</a>
               </Link>
             </li>

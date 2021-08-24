@@ -6,4 +6,5 @@ export const MoviesWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 15% 5%;
+  gap: 20px;
 `;

@@ -1,8 +1,8 @@
 import { handleActions, Action } from "utils/redux";
-import * as actions from "components/App/domain/actions";
+import * as actions from "components/User/domain/actions";
 import { ReducerMap } from "redux-actions";
 import UserManager from "managers/UserManager/UserManager";
-import { UserStore } from "components/App/domain/intefaces";
+import { UserStore } from "components/User/domain/intefaces";
 import {
   User,
   UserFavouriteMovie
@@ -46,16 +46,13 @@ const reducerMap: ReducerMap<UserStore, any> = {
       favouriteMovies: action.payload
     }
   }),
-  [actions.removeFavourite.success]: (state, action: Action<UserFavouriteMovie[]>): UserStore => { 
-    console.log(action.payload)
-    
-    return ({
+  [actions.removeFavourite.success]: (state, action: Action<UserFavouriteMovie[]>): UserStore => ({
     ...state,
     user: {
       ...state.user,
       favouriteMovies: action.payload
     }
-  })},
+  }),
   [actions.getCurrentUser.success]: (
     state,
     action: Action<User>

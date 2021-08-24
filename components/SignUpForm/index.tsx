@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 
@@ -13,11 +13,12 @@ import {
   Header,
   InputElement,
   CheckBox,
+  ImagePreviewBox,
 } from "./signUpForm.styles";
 import { CHECK_IF_EMAIL_REGEX } from "utils/constants";
 import { User } from "infrastructure/interfaces/User/user";
 import { useSelector } from "react-redux";
-import { getUserManager } from "components/App/domain/selectors";
+import { getUserManager } from "components/User/domain/selectors";
 import { Text } from 'dictionary/text';
 import { FORM_INSTANCE_NAME } from "infrastructure/enums/Form/form";
 import { getFormManager } from "managers/FormManager/selectors";
@@ -33,6 +34,7 @@ const defaultValues = {
 
 const RegisterForm = (): JSX.Element => {
   const formInstance = useForm({ defaultValues });
+  const [imagePreview, setImagePreview] = useState(null);
   const { register, handleSubmit, errors } = formInstance;
   const userManager = useSelector(getUserManager);
   const formManager = useSelector(getFormManager);
@@ -41,8 +43,20 @@ const RegisterForm = (): JSX.Element => {
   const signUp = handleSubmit(
     (user: User): void => {
       userManager.registerUser(user);
+      setImagePreview(null);
     }
   );
+  
+  const setCurrentImagePreview = (event: ChangeEvent<HTMLInputElement>) => {
+    const filesArray = ((event as unknown as Event).target as HTMLInputElement).files;
+    if(Boolean(filesArray.length)) {
+      const fileReader = new FileReader();
+      fileReader.onloadend = () => {
+        setImagePreview(fileReader.result);
+      }
+      fileReader.readAsDataURL(filesArray[0]);
+    }
+  }
 
   return (
     <Wrapper>
@@ -105,7 +119,11 @@ const RegisterForm = (): JSX.Element => {
         {errors.password && errors.password.type === "required" && (
           <ErrorSpan>{Text.app.main.forms.validationErrors.required.password}</ErrorSpan>
         )}
-
+        {imagePreview && 
+        <ImagePreviewBox >
+          <img src={imagePreview} />
+        </ImagePreviewBox>
+        } 
         <input
           ref={register({ required: true })}
           name='avatar'
@@ -113,6 +131,7 @@ const RegisterForm = (): JSX.Element => {
           accept='.png, .jpg, .jpeg'
           id='avatar'
           className='hidden'
+          onChange={setCurrentImagePreview}
         />
         <label htmlFor='avatar'>
           <IconButton

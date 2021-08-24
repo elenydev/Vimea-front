@@ -1,4 +1,4 @@
-import { CURRENT_USER_EMAIL_COOKIE, DATABASE_URL, USER_COOKIE } from "utils/constants";
+import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
 import { ResponseStatus } from "infrastructure/enums/Request/Request";
 import {
   AuthResponse,
@@ -10,6 +10,8 @@ import {
   GetCurrentUser,
 } from "infrastructure/interfaces/User/user";
 import { getCookie } from "services/cookieService";
+import { API_URL } from "utils/api";
+import { getErrorResponse } from "utils/getErrorResponse";
 
 export const handleRegistration = async (
   user: User
@@ -24,17 +26,14 @@ export const handleRegistration = async (
   newUser.append("policy", policy);
 
   try {
-    const request = await fetch(`${DATABASE_URL}/user/signUp`, {
+    const request = await fetch(API_URL.USER.AUTH.SIGN_UP, {
       method: "POST",
       body: newUser,
     });
     const response: AuthResponse = await request.json();
     return databaseResponse(request.ok, response);
   } catch (error) {
-    return {
-      responseMessage: error,
-      responseStatus: ResponseStatus.FAILED,
-    };
+    getErrorResponse(error);
   }
 };
 
@@ -42,7 +41,7 @@ export const handleAuthorization = async (
   userCredentials: UserCredentials
 ): Promise<AuthorizationRequestResult> => {
   try {
-    const request = await fetch(`${DATABASE_URL}/user/signIn`, {
+    const request = await fetch(API_URL.USER.AUTH.SING_IN, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,10 +51,7 @@ export const handleAuthorization = async (
     const response: AuthResponse = await request.json();
     return databaseResponse(request.ok, response);
   } catch (error) {
-    return {
-      responseMessage: error,
-      responseStatus: ResponseStatus.FAILED,
-    };
+    getErrorResponse(error);
   }
 };
 
@@ -64,7 +60,7 @@ export const handleRemindPassword = async (
 ): Promise<RemindPasswordResult> => {
   const body = { email: userEmail };
   try {
-    const request = await fetch(`${DATABASE_URL}/user/password/remind`, {
+    const request = await fetch(API_URL.USER.AUTH.REMIND_PASSWORD, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,10 +70,7 @@ export const handleRemindPassword = async (
     const response: RemindPasswordResult = await request.json();
     return databaseResponse(request.ok, response);
   } catch (error) {
-    return {
-      responseMessage: error,
-      responseStatus: ResponseStatus.FAILED,
-    };
+    getErrorResponse(error);
   }
 };
 
@@ -89,7 +82,7 @@ export const handleChangePassword = async (
   const body = { password, newPassword, email };
   const token = getCookie(USER_COOKIE);
   try {
-    const request = await fetch(`${DATABASE_URL}/user/password/change`, {
+    const request = await fetch(API_URL.USER.AUTH.CHANGE_PASSWORD, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -100,10 +93,7 @@ export const handleChangePassword = async (
     const response: AuthResponse = await request.json();
     return databaseResponse(request.ok, response);
   } catch (error) {
-    return {
-      responseMessage: error,
-      responseStatus: ResponseStatus.FAILED,
-    };
+    getErrorResponse(error);
   }
 };
 
@@ -112,7 +102,7 @@ export const getCurrentUser = async (
 ): Promise<AuthorizationRequestResult> => {
   try {
     const request = await fetch(
-      `${DATABASE_URL}/user/getCurrent?email=${UserCredential.email}`,
+      `${API_URL.USER.AUTH.CURRENT}email=${UserCredential.email}`,
       {
         method: "GET",
       }
@@ -120,10 +110,7 @@ export const getCurrentUser = async (
     const response: AuthResponse = await request.json();
     return databaseResponse(request.ok, response);
   } catch (error) {
-    return {
-      responseMessage: error,
-      responseStatus: ResponseStatus.FAILED,
-    };
+    getErrorResponse(error);
   }
 };
 
@@ -138,8 +125,5 @@ export const databaseResponse = (
       responseMessage: response.message,
     };
   }
-  return {
-    responseMessage: response.message,
-    responseStatus: ResponseStatus.FAILED,
-  };
+  getErrorResponse(response.message);
 };

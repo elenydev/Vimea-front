@@ -6,6 +6,7 @@ interface WrapperProps {
 
 const Wrapper = styled.div`
   display: flex;
+  position: relative;
   height: 100%;
   min-height: 250px;
   max-height: 350px;
@@ -82,7 +83,7 @@ const ContentWrapper = styled.div`
   & > .view__trailer {
     position: absolute;
     left: 0px;
-    bottom: -10px;
+    bottom: 0px;
     padding: 0px;
 
     & .MuiSvgIcon-root {
