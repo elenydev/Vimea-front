@@ -60,11 +60,11 @@ function* setUser(action: Action<UserCredentials>) {
       setCookie(USER_COOKIE, response.user?.accessToken);
       setCookie(CURRENT_USER_EMAIL_COOKIE, response.user?.email);
       formManager.clearCurrentForm(FORM_INSTANCE_NAME.AUTHORIZATION);
-      notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      notificationsManager.setSuccesfullNotifications(response.message);
       Router.replace(ROUTES.USER.HOME)
       return;
     }
-    notificationsManager.setErrorNotifications(response.responseMessage);
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(authorization.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -80,12 +80,12 @@ function* registerUser(action: Action<User>) {
   try {
     const response: RegistrationRequestResult = yield handleRegistration(user);
     if (response.user) {
-      notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      notificationsManager.setSuccesfullNotifications(response.message);
       formManager.clearCurrentForm(FORM_INSTANCE_NAME.REGISTRATION);
       Router.replace(ROUTES.AUTH.SIGN_IN);
       return;
     }
-    notificationsManager.setErrorNotifications(response.responseMessage);
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(registration.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -103,12 +103,12 @@ function* remindUserPassword(action: Action<string>) {
       userEmail
     );
     if (response.user) {
-      notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      notificationsManager.setSuccesfullNotifications(response.message);
       formManager.clearCurrentForm(FORM_INSTANCE_NAME.REMIND_PASSWORD);
       Router.push(ROUTES.AUTH.SIGN_IN);
       return;
     }
-    notificationsManager.setErrorNotifications(response.responseMessage);
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(remindPassword.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -127,11 +127,11 @@ function* addFavouriteMovie(action: Action<UserFavouriteMovie>) {
       currentUser.email
     );
     if (response.favouriteMovies) {
-      notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      notificationsManager.setSuccesfullNotifications(response.message);
       yield put(addFavourite.success(response.favouriteMovies));
       return;
     }
-    notificationsManager.setErrorNotifications(response.responseMessage);
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(addFavourite.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -150,11 +150,11 @@ function* removeFavouriteMovie(action: Action<string>) {
       currentUser.email
     );
     if (response.favouriteMovies) {
-      notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      notificationsManager.setSuccesfullNotifications(response.message);
       yield put(removeFavourite.success(response.favouriteMovies));
       return;
     }
-    notificationsManager.setErrorNotifications(response.responseMessage);
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(removeFavourite.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -175,10 +175,10 @@ function* changeUserPassword(action: Action<ChangePasswordUserCredentials>) {
       yield put(changePassword.success(response.user));
       setCookie(USER_COOKIE, response.user?.accessToken);
       formManager.clearCurrentForm(FORM_INSTANCE_NAME.CHANGE_PASSWORD);
-      notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      notificationsManager.setSuccesfullNotifications(response.message);
       return;
     }
-    notificationsManager.setErrorNotifications(response.responseMessage);
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(changePassword.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -228,10 +228,10 @@ function* changeUserAvatar(action: Action<File>) {
     if (response.user) {
       yield put(changeAvatar.success(response.user));
       setCookie(USER_COOKIE, response.user?.accessToken);
-      notificationsManager.setSuccesfullNotifications(response.responseMessage);
+      notificationsManager.setSuccesfullNotifications(response.message);
       return;
     }
-    notificationsManager.setErrorNotifications(response.responseMessage);
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(changeAvatar.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);

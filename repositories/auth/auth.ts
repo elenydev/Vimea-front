@@ -31,7 +31,7 @@ export const handleRegistration = async (
       body: newUser,
     });
     const response: AuthResponse = await request.json();
-    return databaseResponse(request.ok, response);
+    return databaseResponseonse(request.ok, response);
   } catch (error) {
     getErrorResponse(error);
   }
@@ -112,18 +112,4 @@ export const getCurrentUser = async (
   } catch (error) {
     getErrorResponse(error);
   }
-};
-
-export const databaseResponse = (
-  isSuccesfullResponse: boolean,
-  response: AuthResponse | RemindPasswordResult
-): AuthorizationRequestResult => {
-  if (isSuccesfullResponse) {
-    return {
-      user: response.user,
-      responseStatus: ResponseStatus.SUCCESS,
-      responseMessage: response.message,
-    };
-  }
-  getErrorResponse(response.message);
 };

@@ -30,17 +30,3 @@ export const handleAvatarChange = async (
     getErrorResponse(error);
   }
 };
-
-export const databaseResponse = (
-  isSuccesfullResponse: boolean,
-  response: UserDetailsChangeResponse
-): UserDetailsChangeRequestResult => {
-  if (isSuccesfullResponse) {
-    return {
-      user: response.user,
-      responseStatus: ResponseStatus.SUCCESS,
-      responseMessage: response.message,
-    };
-  }
-  getErrorResponse(response.message);
-};
