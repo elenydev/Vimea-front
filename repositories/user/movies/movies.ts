@@ -1,7 +1,8 @@
+import { deleteItem } from "factories/DeleteFactory";
 import { getList } from "factories/GetFactory";
 import { GetListActionResult } from "factories/interfaces/getList";
+import { postItem } from "factories/PostFactory";
 import {
-  UserMovieActionResponse,
   UserMovieActionResult,
   UserFavouriteMovie,
   BaseRequestResponse,
@@ -12,42 +13,23 @@ export const addUserFavouriteMovie = async (
   movie: UserFavouriteMovie,
   email: string
 ): Promise<UserMovieActionResult> => {
-  try {
-    const token = getCookie(USER_COOKIE);
-    const request = await fetch(API_URL.USER.DETAILS.ADD_FAVOURITE_MOVIE, {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ movie, email }),
-    });
-    const response: UserMovieActionResponse = await request.json();
-    return databaseResponse(request.ok, response);
-  } catch (error) {
-    getErrorResponse(error);
-  }
+  const body = { movie, email };
+  return await postItem<UserFavouriteMovie[]>(
+    API_URL.USER.DETAILS.ADD_FAVOURITE_MOVIE,
+    body,
+    true,
+    false
+  );
 };
 
 export const removeUserFavouriteMovie = async (
   movieId: string,
   email: string
 ): Promise<UserMovieActionResult> => {
-  try {
-    const token = getCookieokie(USER_COOKIE);
-    const request = await fetch(API_URL.USER.DETAILS.REMOVE_FAVOURITE_MOVIE, {
-      method: "PUT",
-      headers: {
-        Authorization: "Bearer " + token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ movieId, email }),
-    });
-    const response: UserMovieActionResponse = await request.json();
-    return databaseResponse(request.ok, response);
-  } catch (error) {
-    getErrorResponse(error);
-  }
+  return await deleteItem(API_URL.USER.DETAILS.REMOVE_FAVOURITE_MOVIE, true, {
+    movieId,
+    email,
+  });
 };
 
 export const fetchUserFavouriteMovies = async (
@@ -56,6 +38,6 @@ export const fetchUserFavouriteMovies = async (
   return await getList<UserFavouriteMovie>(
     API_URL.USER.DETAILS.GET_FAVOURITES,
     true,
-    { email: email },
+    { email: email }
   );
 };

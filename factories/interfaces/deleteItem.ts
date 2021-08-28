@@ -1,5 +1,5 @@
 import { BaseRequestResponse } from "infrastructure/interfaces/User/user";
 
-export interface PostItemActionResult<ReturnItemType> extends BaseRequestResponse {
+export interface DeteleItemActionResult<ReturnItemType> extends BaseRequestResponse {
   results: ReturnItemType | ReturnItemType[];
 }

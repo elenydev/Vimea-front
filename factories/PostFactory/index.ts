@@ -7,7 +7,7 @@ import { PostItemActionResult } from "factories/interfaces/postItem";
 
 export const postItem = async <ReturnItemType>(
   path: string,
-  body: any,
+  body: Object,
   requireAuth = false,
   includeFile = false,
   queryParams = {},
@@ -36,7 +36,7 @@ export const postItem = async <ReturnItemType>(
         ...contentTypeHeader,
         ...authorizationHeader,
       },
-      body
+      body: (includeFile ? body : JSON.stringify(body))as BodyInit 
     });
     const response = await request.json();
     return databaseResponse<ReturnItemType>(request.ok, response);
@@ -51,7 +51,7 @@ export const databaseResponse = <ReturnItemType>(
 ): PostItemActionResult<ReturnItemType> | BaseRequestResponse => {
   if (isSuccesfullResponse) {
     return {
-      result: response.result,
+      results: response.results,
       responseStatus: ResponseStatus.SUCCESS,
       message: response.message,
     };
