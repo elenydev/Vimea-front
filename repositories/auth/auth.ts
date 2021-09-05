@@ -1,7 +1,5 @@
 import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
-import { ResponseStatus } from "infrastructure/enums/Request/Request";
 import {
-  AuthResponse,
   User,
   UserCredentials,
   RemindPasswordResult,
@@ -12,6 +10,7 @@ import {
 import { getCookie } from "services/cookieService";
 import { API_URL } from "utils/api";
 import { postItem } from "factories/PostFactory";
+import { getItem } from "factories/GetFactory";
 
 export const handleRegistration = async (
   user: User
@@ -38,7 +37,7 @@ export const handleRemindPassword = async (
   userEmail: string
 ): Promise<RemindPasswordResult> => {
   const body = { email: userEmail };
-   return await postItem(API_URL.USER.AUTH.REMIND_PASSWORD, body);
+  return await postItem(API_URL.USER.AUTH.REMIND_PASSWORD, body);
 };
 
 export const handleChangePassword = async (
@@ -54,7 +53,5 @@ export const handleChangePassword = async (
 export const getCurrentUser = async (
   UserCredential: GetCurrentUser
 ): Promise<AuthorizationRequestResult> => {
-  try {
-    return await
-      getItem(API_URL.USER.AUTH.CURRENT}
+  return await getItem<User>(API_URL.USER.AUTH.CURRENT, false, UserCredential);
 };

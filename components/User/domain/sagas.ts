@@ -55,15 +55,16 @@ function* setUser(action: Action<UserCredentials>) {
   const formManager: FormManager = yield select(getFormManager);
   try {
     const response: RegistrationRequestResult = yield handleAuthorization(user);
-    if (response.user) {
-      yield put(authorization.success(response.user));
-      setCookie(USER_COOKIE, response.user?.accessToken);
-      setCookie(CURRENT_USER_EMAIL_COOKIE, response.user?.email);
+    if (response.result) {
+      yield put(authorization.success(response.result));
+      setCookie(USER_COOKIE, response.result?.accessToken);
+      setCookie(CURRENT_USER_EMAIL_COOKIE, response.result?.email);
       formManager.clearCurrentForm(FORM_INSTANCE_NAME.AUTHORIZATION);
       notificationsManager.setSuccesfullNotifications(response.message);
       Router.replace(ROUTES.USER.HOME)
       return;
     }
+    console.log(response)
     notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(authorization.failure(errorMessage));
@@ -79,7 +80,7 @@ function* registerUser(action: Action<User>) {
   const formManager: FormManager = yield select(getFormManager);
   try {
     const response: RegistrationRequestResult = yield handleRegistration(user);
-    if (response.user) {
+    if (response.result) {
       notificationsManager.setSuccesfullNotifications(response.message);
       formManager.clearCurrentForm(FORM_INSTANCE_NAME.REGISTRATION);
       Router.replace(ROUTES.AUTH.SIGN_IN);
@@ -102,7 +103,7 @@ function* remindUserPassword(action: Action<string>) {
     const response: RemindPasswordResult = yield handleRemindPassword(
       userEmail
     );
-    if (response.user) {
+    if (response.result) {
       notificationsManager.setSuccesfullNotifications(response.message);
       formManager.clearCurrentForm(FORM_INSTANCE_NAME.REMIND_PASSWORD);
       Router.push(ROUTES.AUTH.SIGN_IN);
@@ -171,9 +172,9 @@ function* changeUserPassword(action: Action<ChangePasswordUserCredentials>) {
     const response: RegistrationRequestResult = yield handleChangePassword(
       userCredentials
     );
-    if (response.user) {
-      yield put(changePassword.success(response.user));
-      setCookie(USER_COOKIE, response.user?.accessToken);
+    if (response.result) {
+      yield put(changePassword.success(response.result));
+      setCookie(USER_COOKIE, response.result?.accessToken);
       formManager.clearCurrentForm(FORM_INSTANCE_NAME.CHANGE_PASSWORD);
       notificationsManager.setSuccesfullNotifications(response.message);
       return;
@@ -191,10 +192,10 @@ function* getCurrent(action: Action<GetCurrentUser>) {
       action.payload
     );
 
-    if (response.user) {
-      yield put(getCurrentUser.success(response.user));
-      setCookie(USER_COOKIE, response.user?.accessToken);
-      setCookie(CURRENT_USER_EMAIL_COOKIE, response.user?.email);
+    if (response.result) {
+      yield put(getCurrentUser.success(response.result));
+      setCookie(USER_COOKIE, response.result?.accessToken);
+      setCookie(CURRENT_USER_EMAIL_COOKIE, response.result?.email);
       return;
     }
   } catch (errorMessage) {
@@ -225,9 +226,9 @@ function* changeUserAvatar(action: Action<File>) {
   const currentUser = yield select(getUser);
   try {
     const response: RegistrationRequestResult = yield handleAvatarChange(avatar, currentUser.id);
-    if (response.user) {
-      yield put(changeAvatar.success(response.user));
-      setCookie(USER_COOKIE, response.user?.accessToken);
+    if (response.result) {
+      yield put(changeAvatar.success(response.result));
+      setCookie(USER_COOKIE, response.result?.accessToken);
       notificationsManager.setSuccesfullNotifications(response.message);
       return;
     }

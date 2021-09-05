@@ -4,6 +4,7 @@ import { ResponseStatus } from "infrastructure/enums/Request/Request";
 import { USER_COOKIE } from "utils/constants";
 import { BaseRequestResponse } from "infrastructure/interfaces/User/user";
 import { PostItemActionResult } from "factories/interfaces/postItem";
+import { PostItemsActionResult } from "factories/interfaces/postItems";
 
 export const postItem = async <ReturnItemType>(
   path: string,
@@ -39,7 +40,7 @@ export const postItem = async <ReturnItemType>(
       body: (includeFile ? body : JSON.stringify(body))as BodyInit 
     });
     const response = await request.json();
-    return databaseResponse<ReturnItemType>(request.ok, response);
+    return databaseResponse<ReturnItemType>(request.ok, response, false);
   } catch (error) {
     getErrorResponse(error.message)
   }
@@ -47,11 +48,15 @@ export const postItem = async <ReturnItemType>(
 
 export const databaseResponse = <ReturnItemType>(
   isSuccesfullResponse: boolean,
-  response: PostItemActionResult<ReturnItemType>
-): PostItemActionResult<ReturnItemType> | BaseRequestResponse => {
+  response: PostItemActionResult<ReturnItemType> | PostItemsActionResult<ReturnItemType>,
+  multipleResults = false
+): PostItemActionResult<ReturnItemType> | PostItemsActionResult<ReturnItemType> | BaseRequestResponse => {
+  const baseResult = multipleResults
+  ? { results: (response as PostItemsActionResult<ReturnItemType>).results }
+  : { result: (response as PostItemActionResult<ReturnItemType>).result };
   if (isSuccesfullResponse) {
     return {
-      results: response.results,
+      ...baseResult,
       responseStatus: ResponseStatus.SUCCESS,
       message: response.message,
     };

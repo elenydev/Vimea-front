@@ -2,8 +2,9 @@ import { getCookie } from "services/cookieService";
 import { getErrorResponse } from "utils/getErrorResponse";
 import { ResponseStatus } from "infrastructure/enums/Request/Request";
 import { USER_COOKIE } from "utils/constants";
-import { GetItemActionResult, GetListActionResult } from "factories/interfaces/getList";
+import { GetListActionResult } from "factories/interfaces/getList";
 import { BaseRequestResponse } from "infrastructure/interfaces/User/user";
+import { GetItemActionResult } from "factories/interfaces/getItem";
 
 export const getList = async <ListItemType>(
   path: string,
@@ -31,9 +32,9 @@ export const getList = async <ListItemType>(
       },
     });
     const response = await request.json();
-    return databaseResponse<ListItemType>(request.ok, response);
+    return databaseResponse<ListItemType>(request.ok, response, true);
   } catch (error) {
-    getErrorResponse(error.message)
+    getErrorResponse(error.message);
   }
 };
 
@@ -63,19 +64,28 @@ export const getItem = async <ListItemType>(
       },
     });
     const response = await request.json();
-    return databaseResponse<ListItemType>(request.ok, response);
+    return databaseResponse<ListItemType>(request.ok, response, false);
   } catch (error) {
-    getErrorResponse(error.message)
+    getErrorResponse(error.message);
   }
 };
 
 export const databaseResponse = <ListItemType>(
   isSuccesfullResponse: boolean,
-  response: GetListActionResult<ListItemType>
-): GetListActionResult<ListItemType> | BaseRequestResponse => {
+  response:
+    | GetListActionResult<ListItemType>
+    | GetItemActionResult<ListItemType>,
+  multipleResults = false
+):
+  | GetListActionResult<ListItemType>
+  | GetItemActionResult<ListItemType>
+  | BaseRequestResponse => {
+  const baseResult = multipleResults
+    ? { results: (response as GetListActionResult<ListItemType>).results }
+    : { result: (response as GetItemActionResult<ListItemType>).result };
   if (isSuccesfullResponse) {
     return {
-      results: response.results,
+      ...baseResult,
       responseStatus: ResponseStatus.SUCCESS,
       message: response.message,
     };

@@ -3,6 +3,3 @@ import { BaseRequestResponse } from "infrastructure/interfaces/User/user";
 export interface GetListActionResult<ListItemType> extends BaseRequestResponse {
   results: ListItemType[];
 }
-export interface GetItemActionResult<ListItemType> extends BaseRequestResponse {
-  result: ListItemType[];
-}

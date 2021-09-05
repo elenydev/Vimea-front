@@ -19,15 +19,15 @@ export interface BaseRequestResponse {
 }
 
 export interface RegistrationRequestResult extends BaseRequestResponse {
-  user?: User;
+  result?: User;
 }
 
-export interface AuthorizationRequestResult extends Omit<RegistrationRequestResult, "user"> {
-  user?: User | Partial<User>
+export interface AuthorizationRequestResult extends BaseRequestResponse {
+  result?: User | Partial<User>
 }
 
 export interface UserDetailsChangeRequestResult extends BaseRequestResponse {
-  user?: User;
+  result?: User;
 }
 
 export interface UserDetailsChangeResponse extends UserDetailsChangeRequestResult {};
@@ -45,7 +45,7 @@ export interface ChangePasswordUserCredentials extends Omit<UserCredentials, "em
 export interface AuthResponse extends RegistrationRequestResult, Response {}
 
 export interface RemindPasswordResult extends BaseRequestResponse {
-  user?: Partial<User>,
+  result?: Partial<User>,
 }
 
 export interface UserFavouriteMovie {
