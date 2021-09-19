@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState, useEffect, useCallback } from "react";
+import React, { SyntheticEvent, useState, useEffect, useCallback, useMemo } from "react";
 import {
   Wrapper,
   ContentWrapper
@@ -40,8 +40,10 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
   const [isMovieFavourite, setIsMovieFavourite] = useState(isInFavourites);
   const [movieTrailerUrl, setMovieTrailerUrl] = useState("");
 
-  const isAddingDisabled =
-    !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL_COOKIE) && !currentUser;
+  const isAddingDisabled = useMemo(() => (
+    !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL_COOKIE) && !currentUser
+  ), [currentUser]);
+    
 
   const addToFavourites = useCallback((e: SyntheticEvent): void => {
     e.stopPropagation();
@@ -79,10 +81,10 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
   useEffect(() => {
     (async () => {
       const currentMovieTrailer = await getCurrentMovieTrailer(movie.id);
-      if (currentMovieTrailer.site === "YouTube") {
+      if (currentMovieTrailer?.site === "YouTube") {
         setMovieTrailerUrl(`${YOUTUBE_MOVIE_URL}${currentMovieTrailer.key}`);
       } else {
-        setMovieTrailerUrl(`${VIMEO_MOVIE_URL}${currentMovieTrailer.key}`);
+        setMovieTrailerUrl(`${VIMEO_MOVIE_URL}${currentMovieTrailer?.key}`);
       }
     })();
   }, []);

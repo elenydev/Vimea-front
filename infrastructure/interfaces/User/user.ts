@@ -15,24 +15,22 @@ export interface User {
 
 export interface BaseRequestResponse {
   responseStatus: ResponseStatus;
-  responseMessage: string;
+  message: string;
 }
 
 export interface RegistrationRequestResult extends BaseRequestResponse {
-  user?: User;
+  result?: User;
 }
 
-export interface AuthorizationRequestResult extends Omit<RegistrationRequestResult, "user"> {
-  user?: User | Partial<User>
+export interface AuthorizationRequestResult extends BaseRequestResponse {
+  result?: User | Partial<User>
 }
 
 export interface UserDetailsChangeRequestResult extends BaseRequestResponse {
-  user?: User;
+  result?: User;
 }
 
-export interface UserDetailsChangeResponse extends UserDetailsChangeRequestResult {
-  message?: string;
-};
+export interface UserDetailsChangeResponse extends UserDetailsChangeRequestResult {};
 
 export interface UserCredentials {
   email: string;
@@ -44,16 +42,13 @@ export interface ChangePasswordUserCredentials extends Omit<UserCredentials, "em
   newPasswordConfirmation: string;
 }
 
-export interface AuthResponse extends RegistrationRequestResult, Response {
-  message?: string;
-}
+export interface AuthResponse extends RegistrationRequestResult, Response {}
 
 export interface RemindPasswordResult extends BaseRequestResponse {
-  user?: Partial<User>,
-  message?: string
+  result?: Partial<User>,
 }
 
-export interface UserFavouriteMovie extends Movie {
+export interface UserFavouriteMovie {
   id: string,
   title: string,
   backdrop_path: string,
