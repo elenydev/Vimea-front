@@ -64,7 +64,7 @@ function* setUser(action: Action<UserCredentials>) {
       Router.replace(ROUTES.USER.HOME)
       return;
     }
-    console.log(response)
+
     notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(authorization.failure(errorMessage));

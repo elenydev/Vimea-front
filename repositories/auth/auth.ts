@@ -11,6 +11,7 @@ import { getCookie } from "services/cookieService";
 import { API_URL } from "utils/api";
 import { postItem } from "factories/PostFactory";
 import { getItem } from "factories/GetFactory";
+import { putItem } from "factories/PutFactory";
 
 export const handleRegistration = async (
   user: User
@@ -37,7 +38,7 @@ export const handleRemindPassword = async (
   userEmail: string
 ): Promise<RemindPasswordResult> => {
   const body = { email: userEmail };
-  return await postItem(API_URL.USER.AUTH.REMIND_PASSWORD, body);
+  return await putItem(API_URL.USER.AUTH.REMIND_PASSWORD, body);
 };
 
 export const handleChangePassword = async (
@@ -47,7 +48,7 @@ export const handleChangePassword = async (
   const email = getCookie(CURRENT_USER_EMAIL_COOKIE);
   const body = { password, newPassword, email };
 
-  return await postItem(API_URL.USER.AUTH.CHANGE_PASSWORD, body, true);
+  return await putItem(API_URL.USER.AUTH.CHANGE_PASSWORD, body, true);
 };
 
 export const getCurrentUser = async (
