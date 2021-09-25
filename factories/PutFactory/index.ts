@@ -36,7 +36,7 @@ export const putItem = async <ReturnItemType>(
         ...contentTypeHeader,
         ...authorizationHeader,
       },
-      body: (includeFile ? body : JSON.stringify(body)) as BodyInit
+      body: (includeFile ? body : JSON.stringify(body)) as BodyInit,
     });
     const response = await request.json();
     return databaseResponse<ReturnItemType>(request.ok, response);

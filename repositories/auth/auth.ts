@@ -52,7 +52,7 @@ export const handleChangePassword = async (
 };
 
 export const getCurrentUser = async (
-  UserCredential: GetCurrentUser
+  userCredentials: GetCurrentUser
 ): Promise<AuthorizationRequestResult> => {
-  return await getItem<User>(API_URL.USER.AUTH.CURRENT, false, UserCredential);
+  return await getItem<User>(API_URL.USER.AUTH.CURRENT, true, userCredentials);
 };
