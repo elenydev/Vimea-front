@@ -43,7 +43,6 @@ const RegisterForm = (): JSX.Element => {
   const signUp = handleSubmit(
     (user: User): void => {
       userManager.registerUser(user);
-      setImagePreview(null);
     }
   );
   
