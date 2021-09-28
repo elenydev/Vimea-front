@@ -40,16 +40,22 @@ const Wrapper = styled.div`
   }
 
   ${({ theme }) => theme.mq.md} {
-    background: url("${({ backgroundImage }: WrapperProps) => backgroundImage}")
-      no-repeat center;
-    background-size: cover;
+    background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0) 0,
+          rgba(0, 0, 0, 0) 60%,
+          rgba(0, 0, 0, 0) 100%
+        ),
+        url("${({ backgroundImage }: WrapperProps) => backgroundImage}")
+          no-repeat center,
+        rgba(0, 0, 0, 0);
+      background-size: cover;
 
     & > div {
       display: none;
     }
 
     &:hover {
-      transform: translateY(-5%);
       background: linear-gradient(
           to top,
           rgba(0, 0, 0, 0.9) 0,
