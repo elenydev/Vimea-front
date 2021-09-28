@@ -25,7 +25,7 @@ export const handleRegistration = async (
   newUser.append("avatar", avatar[0]);
   newUser.append("policy", policy);
 
-  return postItem(API_URL.USER.AUTH.SIGN_UP, newUser, false, true);
+  return await postItem(API_URL.USER.AUTH.SIGN_UP, newUser, false, true);
 };
 
 export const handleAuthorization = async (

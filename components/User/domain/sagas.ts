@@ -44,6 +44,7 @@ import { getUser } from "components/User/domain/selectors";
 import FormManager from "managers/FormManager/FormManager";
 import { getFormManager } from "managers/FormManager/selectors";
 import { FORM_INSTANCE_NAME } from "infrastructure/enums/Form/form";
+import { ResponseStatus } from "infrastructure/enums/Request/Request";
 
 function* setUser(action: Action<UserCredentials>) {
   const user = action.payload;
@@ -53,12 +54,15 @@ function* setUser(action: Action<UserCredentials>) {
   const formManager: FormManager = yield select(getFormManager);
   try {
     const response: RegistrationRequestResult = yield handleAuthorization(user);
-    yield put(authorization.success(response.result));
-    setCookie(USER_COOKIE, response.result?.accessToken);
-    setCookie(CURRENT_USER_EMAIL_COOKIE, response.result?.email);
-    formManager.clearCurrentForm(FORM_INSTANCE_NAME.AUTHORIZATION);
-    notificationsManager.setSuccesfullNotifications(response.message);
-    Router.replace(ROUTES.USER.HOME);
+    if (response.responseStatus === ResponseStatus.SUCCESS) {
+      yield put(authorization.success(response.result));
+      setCookie(USER_COOKIE, response.result?.accessToken);
+      setCookie(CURRENT_USER_EMAIL_COOKIE, response.result?.email);
+      formManager.clearCurrentForm(FORM_INSTANCE_NAME.AUTHORIZATION);
+      notificationsManager.setSuccesfullNotifications(response.message);
+      return Router.replace(ROUTES.USER.HOME);
+    }
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(authorization.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -73,9 +77,12 @@ function* registerUser(action: Action<User>) {
   const formManager: FormManager = yield select(getFormManager);
   try {
     const response: RegistrationRequestResult = yield handleRegistration(user);
-    notificationsManager.setSuccesfullNotifications(response.message);
-    formManager.clearCurrentForm(FORM_INSTANCE_NAME.REGISTRATION);
-    Router.replace(ROUTES.AUTH.SIGN_IN);
+    if (response.responseStatus === ResponseStatus.SUCCESS) {
+      notificationsManager.setSuccesfullNotifications(response.message);
+      formManager.clearCurrentForm(FORM_INSTANCE_NAME.REGISTRATION);
+      return Router.replace(ROUTES.AUTH.SIGN_IN);
+    }
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(registration.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -92,9 +99,12 @@ function* remindUserPassword(action: Action<string>) {
     const response: RemindPasswordResult = yield handleRemindPassword(
       userEmail
     );
-    notificationsManager.setSuccesfullNotifications(response.message);
-    formManager.clearCurrentForm(FORM_INSTANCE_NAME.REMIND_PASSWORD);
-    Router.push(ROUTES.AUTH.SIGN_IN);
+    if (response.responseStatus === ResponseStatus.SUCCESS) {
+      notificationsManager.setSuccesfullNotifications(response.message);
+      formManager.clearCurrentForm(FORM_INSTANCE_NAME.REMIND_PASSWORD);
+      return Router.push(ROUTES.AUTH.SIGN_IN);
+    }
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(remindPassword.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -112,9 +122,11 @@ function* addFavouriteMovie(action: Action<UserFavouriteMovie>) {
       newFavouriteUserMovie,
       currentUser.email
     );
-    notificationsManager.setSuccesfullNotifications(response.message);
-    yield put(addFavourite.success(response.favouriteMovies));
-    return;
+    if (response.responseStatus === ResponseStatus.SUCCESS) {
+      notificationsManager.setSuccesfullNotifications(response.message);
+      return yield put(addFavourite.success(response.favouriteMovies));
+    }
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(addFavourite.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -132,9 +144,11 @@ function* removeFavouriteMovie(action: Action<string>) {
       movieId,
       currentUser.email
     );
-    notificationsManager.setSuccesfullNotifications(response.message);
-    yield put(removeFavourite.success(response.favouriteMovies));
-    return;
+    if (response.responseStatus === ResponseStatus.SUCCESS) {
+      notificationsManager.setSuccesfullNotifications(response.message);
+      return yield put(removeFavourite.success(response.favouriteMovies));
+    }
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(removeFavourite.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -151,11 +165,13 @@ function* changeUserPassword(action: Action<ChangePasswordUserCredentials>) {
     const response: RegistrationRequestResult = yield handleChangePassword(
       userCredentials
     );
-    yield put(changePassword.success(response.result));
-    setCookie(USER_COOKIE, response.result?.accessToken);
-    formManager.clearCurrentForm(FORM_INSTANCE_NAME.CHANGE_PASSWORD);
-    notificationsManager.setSuccesfullNotifications(response.message);
-    return;
+    if (response.responseStatus === ResponseStatus.SUCCESS) {
+      yield put(changePassword.success(response.result));
+      setCookie(USER_COOKIE, response.result?.accessToken);
+      formManager.clearCurrentForm(FORM_INSTANCE_NAME.CHANGE_PASSWORD);
+      return notificationsManager.setSuccesfullNotifications(response.message);
+    }
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(changePassword.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -167,11 +183,12 @@ function* getCurrent(action: Action<GetCurrentUser>) {
     const response: RegistrationRequestResult = yield getCurrentUserRequest(
       action.payload
     );
-
-    yield put(getCurrentUser.success(response.result));
-    setCookie(USER_COOKIE, response.result?.accessToken);
-    setCookie(CURRENT_USER_EMAIL_COOKIE, response.result?.email);
-    return;
+    if (response.responseStatus === ResponseStatus.SUCCESS) {
+      yield put(getCurrentUser.success(response.result));
+      setCookie(USER_COOKIE, response.result?.accessToken);
+      setCookie(CURRENT_USER_EMAIL_COOKIE, response.result?.email);
+      return;
+    }
   } catch (errorMessage) {
     yield put(getCurrentUser.failure(errorMessage));
   }
@@ -200,9 +217,12 @@ function* changeUserAvatar(action: Action<File>) {
       avatar,
       currentUser.id
     );
-    yield put(changeAvatar.success(response.result));
-    setCookie(USER_COOKIE, response.result?.accessToken);
-    notificationsManager.setSuccesfullNotifications(response.message);
+    if (response.responseStatus === ResponseStatus.SUCCESS) {
+      yield put(changeAvatar.success(response.result));
+      setCookie(USER_COOKIE, response.result?.accessToken);
+      return notificationsManager.setSuccesfullNotifications(response.message);
+    }
+    notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
     yield put(changeAvatar.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
