@@ -39,9 +39,7 @@ import {
   fetchUserFavouriteMovies,
   removeUserFavouriteMovie,
 } from "repositories/user/movies/movies";
-import {
-  handleAvatarChange
-} from 'repositories/user/details/details';
+import { handleAvatarChange } from "repositories/user/details/details";
 import { getUser } from "components/User/domain/selectors";
 import FormManager from "managers/FormManager/FormManager";
 import { getFormManager } from "managers/FormManager/selectors";
@@ -55,17 +53,12 @@ function* setUser(action: Action<UserCredentials>) {
   const formManager: FormManager = yield select(getFormManager);
   try {
     const response: RegistrationRequestResult = yield handleAuthorization(user);
-    if (response.result) {
-      yield put(authorization.success(response.result));
-      setCookie(USER_COOKIE, response.result?.accessToken);
-      setCookie(CURRENT_USER_EMAIL_COOKIE, response.result?.email);
-      formManager.clearCurrentForm(FORM_INSTANCE_NAME.AUTHORIZATION);
-      notificationsManager.setSuccesfullNotifications(response.message);
-      Router.replace(ROUTES.USER.HOME)
-      return;
-    }
-
-    notificationsManager.setErrorNotifications(response.message);
+    yield put(authorization.success(response.result));
+    setCookie(USER_COOKIE, response.result?.accessToken);
+    setCookie(CURRENT_USER_EMAIL_COOKIE, response.result?.email);
+    formManager.clearCurrentForm(FORM_INSTANCE_NAME.AUTHORIZATION);
+    notificationsManager.setSuccesfullNotifications(response.message);
+    Router.replace(ROUTES.USER.HOME);
   } catch (errorMessage) {
     yield put(authorization.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -80,13 +73,9 @@ function* registerUser(action: Action<User>) {
   const formManager: FormManager = yield select(getFormManager);
   try {
     const response: RegistrationRequestResult = yield handleRegistration(user);
-    if (response.result) {
-      notificationsManager.setSuccesfullNotifications(response.message);
-      formManager.clearCurrentForm(FORM_INSTANCE_NAME.REGISTRATION);
-      Router.replace(ROUTES.AUTH.SIGN_IN);
-      return;
-    }
-    notificationsManager.setErrorNotifications(response.message);
+    notificationsManager.setSuccesfullNotifications(response.message);
+    formManager.clearCurrentForm(FORM_INSTANCE_NAME.REGISTRATION);
+    Router.replace(ROUTES.AUTH.SIGN_IN);
   } catch (errorMessage) {
     yield put(registration.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -103,13 +92,9 @@ function* remindUserPassword(action: Action<string>) {
     const response: RemindPasswordResult = yield handleRemindPassword(
       userEmail
     );
-    if (response.result) {
-      notificationsManager.setSuccesfullNotifications(response.message);
-      formManager.clearCurrentForm(FORM_INSTANCE_NAME.REMIND_PASSWORD);
-      Router.push(ROUTES.AUTH.SIGN_IN);
-      return;
-    }
-    notificationsManager.setErrorNotifications(response.message);
+    notificationsManager.setSuccesfullNotifications(response.message);
+    formManager.clearCurrentForm(FORM_INSTANCE_NAME.REMIND_PASSWORD);
+    Router.push(ROUTES.AUTH.SIGN_IN);
   } catch (errorMessage) {
     yield put(remindPassword.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -127,12 +112,9 @@ function* addFavouriteMovie(action: Action<UserFavouriteMovie>) {
       newFavouriteUserMovie,
       currentUser.email
     );
-    if (response.favouriteMovies) {
-      notificationsManager.setSuccesfullNotifications(response.message);
-      yield put(addFavourite.success(response.favouriteMovies));
-      return;
-    }
-    notificationsManager.setErrorNotifications(response.message);
+    notificationsManager.setSuccesfullNotifications(response.message);
+    yield put(addFavourite.success(response.favouriteMovies));
+    return;
   } catch (errorMessage) {
     yield put(addFavourite.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -150,12 +132,9 @@ function* removeFavouriteMovie(action: Action<string>) {
       movieId,
       currentUser.email
     );
-    if (response.favouriteMovies) {
-      notificationsManager.setSuccesfullNotifications(response.message);
-      yield put(removeFavourite.success(response.favouriteMovies));
-      return;
-    }
-    notificationsManager.setErrorNotifications(response.message);
+    notificationsManager.setSuccesfullNotifications(response.message);
+    yield put(removeFavourite.success(response.favouriteMovies));
+    return;
   } catch (errorMessage) {
     yield put(removeFavourite.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -172,14 +151,11 @@ function* changeUserPassword(action: Action<ChangePasswordUserCredentials>) {
     const response: RegistrationRequestResult = yield handleChangePassword(
       userCredentials
     );
-    if (response.result) {
-      yield put(changePassword.success(response.result));
-      setCookie(USER_COOKIE, response.result?.accessToken);
-      formManager.clearCurrentForm(FORM_INSTANCE_NAME.CHANGE_PASSWORD);
-      notificationsManager.setSuccesfullNotifications(response.message);
-      return;
-    }
-    notificationsManager.setErrorNotifications(response.message);
+    yield put(changePassword.success(response.result));
+    setCookie(USER_COOKIE, response.result?.accessToken);
+    formManager.clearCurrentForm(FORM_INSTANCE_NAME.CHANGE_PASSWORD);
+    notificationsManager.setSuccesfullNotifications(response.message);
+    return;
   } catch (errorMessage) {
     yield put(changePassword.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
@@ -192,12 +168,10 @@ function* getCurrent(action: Action<GetCurrentUser>) {
       action.payload
     );
 
-    if (response.result) {
-      yield put(getCurrentUser.success(response.result));
-      setCookie(USER_COOKIE, response.result?.accessToken);
-      setCookie(CURRENT_USER_EMAIL_COOKIE, response.result?.email);
-      return;
-    }
+    yield put(getCurrentUser.success(response.result));
+    setCookie(USER_COOKIE, response.result?.accessToken);
+    setCookie(CURRENT_USER_EMAIL_COOKIE, response.result?.email);
+    return;
   } catch (errorMessage) {
     yield put(getCurrentUser.failure(errorMessage));
   }
@@ -209,10 +183,7 @@ function* getFavouriteMovies(action: Action<string>) {
     const response: UserMovieActionResult = yield fetchUserFavouriteMovies(
       userEmail
     );
-    if (response.favouriteMovies) {
-      yield put(getUserFavourites.success(response.favouriteMovies));
-      return;
-    }
+    yield put(getUserFavourites.success(response.favouriteMovies));
   } catch (errorMessage) {
     yield put(getUserFavourites.failure(errorMessage));
   }
@@ -225,20 +196,18 @@ function* changeUserAvatar(action: Action<File>) {
   );
   const currentUser = yield select(getUser);
   try {
-    const response: RegistrationRequestResult = yield handleAvatarChange(avatar, currentUser.id);
-    if (response.result) {
-      yield put(changeAvatar.success(response.result));
-      setCookie(USER_COOKIE, response.result?.accessToken);
-      notificationsManager.setSuccesfullNotifications(response.message);
-      return;
-    }
-    notificationsManager.setErrorNotifications(response.message);
+    const response: RegistrationRequestResult = yield handleAvatarChange(
+      avatar,
+      currentUser.id
+    );
+    yield put(changeAvatar.success(response.result));
+    setCookie(USER_COOKIE, response.result?.accessToken);
+    notificationsManager.setSuccesfullNotifications(response.message);
   } catch (errorMessage) {
     yield put(changeAvatar.failure(errorMessage));
     notificationsManager.setErrorNotifications(errorMessage);
   }
 }
-
 
 export default function* userSagas(): Generator<
   ForkEffect<never>,
