@@ -1,9 +1,6 @@
-import { Action, handleActions } from "utils/redux";
-import { ReducerMap } from "redux-actions";
-import * as actions from 'managers/MovieManager/actions';
+import { createReducer } from "deox";
+import * as actions from 'managers/MovieManager/routines';
 import { MovieStore, } from "managers/MovieManager/interfaces";
-import MovieManager from "managers/MovieManager/MovieManager";
-import { Movie } from "infrastructure/interfaces/Movie/movie";
 
 const initialState: MovieStore = {
   manager: undefined,
@@ -12,34 +9,32 @@ const initialState: MovieStore = {
   movieTrailerUrl: ''
 };
 
-const reducerMap: ReducerMap<MovieStore, any> = {
-  [actions.setMovieManager]: (
-    state,
-    action: Action<MovieManager>
-  ): MovieStore => ({
-    ...state,
-    manager: action.payload
+const movieManagerReducer = createReducer(initialState, (handleAction) => [
+  handleAction(actions.setMovieManager.success, (state, { payload }) => {
+    return {
+      ...state,
+      manager: payload,
+    };
   }),
-  [actions.setUpcomingMovies]: (
-    state,
-    action: Action<Movie[]>
-  ): MovieStore => ({
-    ...state,
-    upcomingMovies: action.payload
+  handleAction(actions.setTrailerUrl.success, (state, { payload }) => {
+    return {
+      ...state,
+      movieTrailerUrl: payload
+    };
   }),
-  [actions.toggleTrailerVisibility]: (
-    state
-  ): MovieStore => ({
-    ...state,
-    isTrailerVisible: !state.isTrailerVisible
+  handleAction(actions.setUpcomingMovies.success, (state, { payload }) => {
+    return {
+      ...state,
+      upcomingMovies: payload
+    };
   }),
-  [actions.setTrailerUrl]: (
-    state,
-    action: Action<string>
-  ): MovieStore => ({
-    ...state,
-    movieTrailerUrl: action.payload
+  handleAction(actions.toggleTrailerVisibility.success, (state) => {
+    return {
+      ...state,
+      isTrailerVisible: !state.isTrailerVisible
+    };
   }),
-};
+]);
 
-export default handleActions(reducerMap, initialState);
+export default movieManagerReducer;
+

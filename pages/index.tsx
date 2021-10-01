@@ -5,7 +5,7 @@ import Hero from "components/Hero/index";
 import { getLatestMovies } from "repositories/movies/movies";
 import { Movie } from "infrastructure/interfaces/Movie/movie";
 import Store from "store/configureStore";
-import { setMovieManager } from "managers/MovieManager/actions";
+import { setMovieManager } from "managers/MovieManager/routines";
 import MovieManager from 'managers/MovieManager/MovieManager';
 import { Store as StoreInterface } from "store/interfaces";
 import { CircularProgress } from "@material-ui/core";
