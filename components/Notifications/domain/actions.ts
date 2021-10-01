@@ -1,8 +1,8 @@
 import { Notification } from "infrastructure/interfaces/Notification/notification";
-import { createAction } from "utils/redux/index";
+import { createRoutine } from "utils/redux/routines";
 
-export const setNotification = createAction<Notification>("setNotification");
-export const setNotificationsManager = createAction<Notification>(
+export const setNotification = createRoutine<Notification>("setNotification");
+export const setNotificationsManager = createRoutine<Notification>(
   "setNotificationsManager"
 );
-export const clearNotification = createAction<undefined>("clearNotification");
+export const clearNotification = createRoutine<undefined>("clearNotification");

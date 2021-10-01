@@ -8,10 +8,10 @@ const initialState: FormStore = {
 };
 
 const formManagerReducer = createReducer(initialState, (handleAction) => [
-  handleAction(actions.setFormManager.success, (state, { payload }) => {
+  handleAction(actions.setFormManager.trigger, (state, { meta }) => {
     return {
       ...state,
-      manager: payload,
+      manager: meta,
     };
   }),
 ]);

@@ -6,6 +6,6 @@ export enum FormManagerRoutines {
   SetFormManager = "setFormManager",
 }
 
-export const setFormManager = createRoutine<FormManager, FormManager>(
+export const setFormManager = createRoutine<FormManager>(
   FormManagerRoutines.SetFormManager
 );

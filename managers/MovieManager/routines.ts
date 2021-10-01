@@ -9,7 +9,7 @@ export enum MovieManagerRoutines {
     toggleTrailerVisibility = 'toggleTrailerVisibility'
 }
 
-export const setMovieManager = createRoutine<MovieManager, MovieManager>(MovieManagerRoutines.SetMovieManager);
-export const setUpcomingMovies = createRoutine<Movie[], Movie[]>(MovieManagerRoutines.SetUpcomingMovies);
-export const setTrailerUrl = createRoutine<string, string>(MovieManagerRoutines.SetTrailerUrl);
-export const toggleTrailerVisibility = createRoutine<undefined, undefined>(MovieManagerRoutines.toggleTrailerVisibility);
+export const setMovieManager = createRoutine<MovieManager>(MovieManagerRoutines.SetMovieManager);
+export const setUpcomingMovies = createRoutine<Movie[]>(MovieManagerRoutines.SetUpcomingMovies);
+export const setTrailerUrl = createRoutine<string>(MovieManagerRoutines.SetTrailerUrl);
+export const toggleTrailerVisibility = createRoutine(MovieManagerRoutines.toggleTrailerVisibility);

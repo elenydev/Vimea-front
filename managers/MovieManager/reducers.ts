@@ -10,25 +10,25 @@ const initialState: MovieStore = {
 };
 
 const movieManagerReducer = createReducer(initialState, (handleAction) => [
-  handleAction(actions.setMovieManager.success, (state, { payload }) => {
+  handleAction(actions.setMovieManager.trigger, (state, { meta }) => {
     return {
       ...state,
-      manager: payload,
+      manager: meta,
     };
   }),
-  handleAction(actions.setTrailerUrl.success, (state, { payload }) => {
+  handleAction(actions.setTrailerUrl.trigger, (state, { meta }) => {
     return {
       ...state,
-      movieTrailerUrl: payload
+      movieTrailerUrl: meta
     };
   }),
-  handleAction(actions.setUpcomingMovies.success, (state, { payload }) => {
+  handleAction(actions.setUpcomingMovies.trigger, (state, { meta }) => {
     return {
       ...state,
-      upcomingMovies: payload
+      upcomingMovies: meta
     };
   }),
-  handleAction(actions.toggleTrailerVisibility.success, (state) => {
+  handleAction(actions.toggleTrailerVisibility.trigger, (state) => {
     return {
       ...state,
       isTrailerVisible: !state.isTrailerVisible
