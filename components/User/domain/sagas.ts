@@ -1,5 +1,4 @@
-import { put, takeLatest, ForkEffect, select } from "redux-saga/effects";
-import { Action } from "utils/redux";
+import { put, takeLatest, ForkEffect, takeEvery, select } from "redux-saga/effects";
 import {
   getCurrentUser as getCurrentUserRequest,
   handleAuthorization,
@@ -27,7 +26,7 @@ import {
   getCurrentUser,
   getUserFavourites,
   changeAvatar,
-} from "components/User/domain/actions";
+} from "components/User/domain/routines";
 import { setCookie } from "services/cookieService";
 import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
 import { getNotificationManager } from "components/Notifications/domain/selectors";
@@ -45,8 +44,9 @@ import FormManager from "managers/FormManager/FormManager";
 import { getFormManager } from "managers/FormManager/selectors";
 import { FORM_INSTANCE_NAME } from "infrastructure/enums/Form/form";
 import { ResponseStatus } from "infrastructure/enums/Request/Request";
+import { Action } from "deox";
 
-function* setUser(action: Action<UserCredentials>) {
+function* setUser(action: Action<'setUser', UserCredentials>) {
   const user = action.payload;
   const notificationsManager: NotificationsManager = yield select(
     getNotificationManager
@@ -69,7 +69,7 @@ function* setUser(action: Action<UserCredentials>) {
   }
 }
 
-function* registerUser(action: Action<User>) {
+function* registerUser(action: Action<'registration', User>) {
   const user = action.payload;
   const notificationsManager: NotificationsManager = yield select(
     getNotificationManager
@@ -89,7 +89,7 @@ function* registerUser(action: Action<User>) {
   }
 }
 
-function* remindUserPassword(action: Action<string>) {
+function* remindUserPassword(action: Action<'remindPassword', string>) {
   const userEmail = action.payload;
   const notificationsManager: NotificationsManager = yield select(
     getNotificationManager
@@ -111,7 +111,7 @@ function* remindUserPassword(action: Action<string>) {
   }
 }
 
-function* addFavouriteMovie(action: Action<UserFavouriteMovie>) {
+function* addFavouriteMovie(action: Action<'addMovie', UserFavouriteMovie>) {
   const newFavouriteUserMovie = action.payload;
   const notificationsManager: NotificationsManager = yield select(
     getNotificationManager
@@ -133,7 +133,7 @@ function* addFavouriteMovie(action: Action<UserFavouriteMovie>) {
   }
 }
 
-function* removeFavouriteMovie(action: Action<string>) {
+function* removeFavouriteMovie(action: Action<'removeMovie', string>) {
   const movieId = action.payload;
   const notificationsManager: NotificationsManager = yield select(
     getNotificationManager
@@ -155,7 +155,7 @@ function* removeFavouriteMovie(action: Action<string>) {
   }
 }
 
-function* changeUserPassword(action: Action<ChangePasswordUserCredentials>) {
+function* changeUserPassword(action: Action<'changePassword', ChangePasswordUserCredentials>) {
   const userCredentials = action.payload;
   const notificationsManager: NotificationsManager = yield select(
     getNotificationManager
@@ -178,7 +178,7 @@ function* changeUserPassword(action: Action<ChangePasswordUserCredentials>) {
   }
 }
 
-function* getCurrent(action: Action<GetCurrentUser>) {
+function* getCurrent(action: Action<'getCurrentUser', GetCurrentUser>) {
   try {
     const response: RegistrationRequestResult = yield getCurrentUserRequest(
       action.payload
@@ -194,7 +194,7 @@ function* getCurrent(action: Action<GetCurrentUser>) {
   }
 }
 
-function* getFavouriteMovies(action: Action<string>) {
+function* getFavouriteMovies(action: Action<'getMovies', string>) {
   const userEmail = action.payload;
   try {
     const response: UserMovieActionResult = yield fetchUserFavouriteMovies(
@@ -206,7 +206,7 @@ function* getFavouriteMovies(action: Action<string>) {
   }
 }
 
-function* changeUserAvatar(action: Action<File>) {
+function* changeUserAvatar(action: Action<'changeAvatar', File>) {
   const avatar = action.payload;
   const notificationsManager: NotificationsManager = yield select(
     getNotificationManager
@@ -234,13 +234,13 @@ export default function* userSagas(): Generator<
   void,
   unknown
 > {
-  yield takeLatest(authorization.trigger, setUser);
-  yield takeLatest(registration.trigger, registerUser);
-  yield takeLatest(remindPassword.trigger, remindUserPassword);
-  yield takeLatest(changePassword.trigger, changeUserPassword);
-  yield takeLatest(addFavourite.trigger, addFavouriteMovie);
-  yield takeLatest(removeFavourite.trigger, removeFavouriteMovie);
-  yield takeLatest(getCurrentUser.trigger, getCurrent);
-  yield takeLatest(getUserFavourites.trigger, getFavouriteMovies);
-  yield takeLatest(changeAvatar.trigger, changeUserAvatar);
+  yield takeLatest(authorization.TRIGGER, setUser);
+  yield takeLatest(registration.TRIGGER, registerUser);
+  yield takeLatest(remindPassword.TRIGGER, remindUserPassword);
+  yield takeLatest(changePassword.TRIGGER, changeUserPassword);
+  yield takeLatest(addFavourite.TRIGGER, addFavouriteMovie);
+  yield takeLatest(removeFavourite.TRIGGER, removeFavouriteMovie);
+  yield takeLatest(getCurrentUser.TRIGGER, getCurrent);
+  yield takeLatest(getUserFavourites.TRIGGER, getFavouriteMovies);
+  yield takeLatest(changeAvatar.TRIGGER, changeUserAvatar);
 }
