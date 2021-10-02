@@ -1,72 +1,70 @@
-import { handleActions, Action } from "utils/redux";
-import * as actions from "components/User/domain/actions";
-import { ReducerMap } from "redux-actions";
-import UserManager from "managers/UserManager/UserManager";
+import { createReducer } from "deox";
+import * as actions from "components/User/domain/routines";
 import { UserStore } from "components/User/domain/intefaces";
-import {
-  User,
-  UserFavouriteMovie
-} from "infrastructure/interfaces/User/user";
 
 const initialState: UserStore = {
   manager: undefined,
   user: undefined,
 };
 
-const reducerMap: ReducerMap<UserStore, any> = {
-  [actions.setUserManager]: (
-    state,
-    action: Action<UserManager>
-  ): UserStore => ({
-    ...state,
-    manager: action.payload,
+const userReducer = createReducer(initialState, (handleAction) => [
+  handleAction(actions.setUserManager.success, (state, { payload }) => {
+    return {
+      ...state,
+      manager: payload,
+    };
   }),
-  [actions.authorization.success]: (
-    state,
-    action: Action<User>
-  ): UserStore => ({
-    ...state,
-    user: action.payload,
+  handleAction(actions.authorization.success, (state, { payload }) => {
+    return {
+      ...state,
+      user: payload,
+    };
   }),
-  [actions.changePassword.success]: (
-    state,
-    action: Action<User>
-  ): UserStore => ({
-    ...state,
-    user: action.payload,
+  handleAction(actions.changePassword.success, (state, { payload }) => {
+    return {
+      ...state,
+      user: payload,
+    };
   }),
-  [actions.removeUser]: (state): UserStore => ({
-    ...state,
-    user: undefined
+  handleAction(actions.removeUser.trigger, (state) => {
+    return {
+      ...state,
+      user: undefined,
+    };
   }),
-  [actions.addFavourite.success]: (state, action: Action<UserFavouriteMovie[]>): UserStore => ({
-    ...state,
-    user: {
-      ...state.user,
-      favouriteMovies: action.payload
-    }
+  handleAction(actions.addFavourite.success, (state, { payload }) => {
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        favouriteMovies: payload,
+      },
+    };
   }),
-  [actions.removeFavourite.success]: (state, action: Action<UserFavouriteMovie[]>): UserStore => ({
-    ...state,
-    user: {
-      ...state.user,
-      favouriteMovies: action.payload
-    }
+  handleAction(actions.removeFavourite.success, (state, { payload }) => {
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        favouriteMovies: payload,
+      },
+    };
   }),
-  [actions.getCurrentUser.success]: (
-    state,
-    action: Action<User>
-  ): UserStore => ({
-    ...state,
-    user: action.payload,
+  handleAction(actions.getCurrentUser.success, (state, { payload }) => {
+    return {
+      ...state,
+      user: payload,
+    };
   }),
-  [actions.getUserFavourites.success]: (state, action: Action<UserFavouriteMovie[]>): UserStore => ({
-    ...state,
-    user: {
-      ...state.user,
-      favouriteMovies: action.payload
-    }
+  handleAction(actions.getUserFavourites.success, (state, { payload }) => {
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        favouriteMovies: payload,
+      },
+    };
   }),
-};
+]);
 
-export default handleActions(reducerMap, initialState);
+export default userReducer;

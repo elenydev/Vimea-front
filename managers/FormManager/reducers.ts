@@ -1,21 +1,19 @@
-import { Action, handleActions } from "utils/redux";
-import { ReducerMap } from "redux-actions";
-import * as actions from 'managers/FormManager/actions';
+import { createReducer } from "deox";
+import * as actions from "managers/FormManager/routines";
 import { FormStore } from "managers/FormManager/interfaces";
 import FormManager from "managers/FormManager/FormManager";
 
 const initialState: FormStore = {
-    manager: new FormManager()
+  manager: new FormManager(),
 };
 
-const reducerMap: ReducerMap<FormStore, any> = {
-  [actions.setFormManager]: (
-    state,
-    action: Action<FormManager>
-  ): FormStore => ({
-    ...state,
-    manager: action.payload
-  })
-};
+const formManagerReducer = createReducer(initialState, (handleAction) => [
+  handleAction(actions.setFormManager.trigger, (state, { meta }) => {
+    return {
+      ...state,
+      manager: meta,
+    };
+  }),
+]);
 
-export default handleActions(reducerMap, initialState);
+export default formManagerReducer;

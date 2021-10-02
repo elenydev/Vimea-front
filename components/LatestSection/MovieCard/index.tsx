@@ -5,10 +5,7 @@ import {
 } from "components/LatestSection/MovieCard/moviecard.styles";
 import Button from "@material-ui/core/Button";
 import { Text } from "dictionary/text";
-import { getCookie } from "services/cookieService";
 import {
-  USER_COOKIE,
-  CURRENT_USER_EMAIL_COOKIE,
   YOUTUBE_MOVIE_URL,
   VIMEO_MOVIE_URL,
 } from "utils/constants";
@@ -40,10 +37,7 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
   const [isMovieFavourite, setIsMovieFavourite] = useState(isInFavourites);
   const [movieTrailerUrl, setMovieTrailerUrl] = useState("");
 
-  const isAddingDisabled = useMemo(() => (
-    !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL_COOKIE) && !currentUser
-  ), [currentUser]);
-    
+  const isAddingDisabled = useMemo(() => !currentUser?.accessToken, [currentUser?.accessToken]);
 
   const addToFavourites = useCallback((e: SyntheticEvent): void => {
     e.stopPropagation();

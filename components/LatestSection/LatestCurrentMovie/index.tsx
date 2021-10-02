@@ -1,5 +1,5 @@
 import { Movie } from "infrastructure/interfaces/Movie/movie";
-import React, { SyntheticEvent } from "react";
+import React, { SyntheticEvent, useMemo } from "react";
 import Rating from "@material-ui/lab/Rating";
 import {
   Wrapper,
@@ -9,10 +9,8 @@ import {
 } from "./latestCurrentMovie.styles";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import Button from "@material-ui/core/Button";
-import { getCookie } from "services/cookieService";
 import { useSelector } from "react-redux";
-import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
-import { getUserManager } from "components/User/domain/selectors";
+import { getUser, getUserManager } from "components/User/domain/selectors";
 import { getMappedFavouriteMovie } from "utils/getMappedFavouriteMovie";
 import { Tooltip } from "@material-ui/core";
 import { Text } from "dictionary/text";
@@ -29,10 +27,10 @@ const index = (props: ComponentProps): JSX.Element => {
     original_title,
   } = props.currentMovie;
   const movieRate = +(vote_average / 2).toFixed();
-
-  const isAddingDisabled =
-    !getCookie(USER_COOKIE) && !getCookie(CURRENT_USER_EMAIL_COOKIE);
+  const currentUser = useSelector(getUser);
   const userManager = useSelector(getUserManager);
+
+  const isAddingDisabled = useMemo(() => !currentUser?.accessToken, [currentUser?.accessToken]);
 
   const addToFavourites = (e: SyntheticEvent): void => {
     e.stopPropagation();
