@@ -1,4 +1,4 @@
-import { setNotification, clearNotification } from "components/Notifications/domain/actions";
+import { setNotification, clearNotification } from "components/Notifications/domain/routines";
 import Store from "store/configureStore";
 import { NotificationVariant } from "infrastructure/enums/Notification/notification";
 

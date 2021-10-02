@@ -1,9 +1,6 @@
-import { Action, handleActions } from "utils/redux";
-import { ReducerMap } from "redux-actions";
-import * as actions from "components/Notifications/domain/actions";
+import { createReducer } from "deox";
+import * as actions from "components/Notifications/domain/routines";
 import { NotificationsStore } from "./interfaces";
-import NotificationsManager from "components/Notifications/NotificationsManager";
-import { Notification } from "infrastructure/interfaces/Notification/notification";
 import { NotificationVariant } from "infrastructure/enums/Notification/notification";
 
 const initialState: NotificationsStore = {
@@ -15,29 +12,29 @@ const initialState: NotificationsStore = {
   },
 };
 
-const reducerMap: ReducerMap<NotificationsStore, any> = {
-  [actions.setNotificationsManager]: (
-    state,
-    action: Action<NotificationsManager>
-  ): NotificationsStore => ({
-    ...state,
-    notificationsManager: action.payload,
+const notificationsReducer = createReducer(initialState, (handleAction) => [
+  handleAction(actions.setNotificationsManager.trigger, (state, { meta }) => {
+    return {
+      ...state,
+      notificationsManager: meta,
+    };
   }),
-  [actions.setNotification]: (
-    state,
-    action: Action<Notification>
-  ): NotificationsStore => ({
-    ...state,
-    notification: action.payload,
+  handleAction(actions.setNotification.trigger, (state, { meta }) => {
+    return {
+      ...state,
+      notification: meta,
+    };
   }),
-  [actions.clearNotification]: (state): NotificationsStore => ({
-    ...state,
-    notification: {
-      message: '',
-      shouldOpen: false,
-      variant: NotificationVariant.ERROR
-    }
+  handleAction(actions.clearNotification.trigger, (state) => {
+    return {
+      ...state,
+      notification: {
+        message: "",
+        shouldOpen: false,
+        variant: NotificationVariant.ERROR,
+      },
+    };
   }),
-};
+]);
 
-export default handleActions(reducerMap, initialState);
+export default notificationsReducer;
