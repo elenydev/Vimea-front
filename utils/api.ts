@@ -3,17 +3,17 @@ import { DATABASE_URL } from "utils/constants";
 export const API_URL = {
     USER: {
         AUTH: {
-            SING_IN: `${DATABASE_URL}/user/signIn`,
-            SIGN_UP: `${DATABASE_URL}/user/signUp`,
-            CHANGE_PASSWORD: `${DATABASE_URL}/user/password/change`,
-            REMIND_PASSWORD: `${DATABASE_URL}/user/password/remind`,
-            CURRENT: `${DATABASE_URL}/user/getCurrent`
+            SING_IN: `${DATABASE_URL}/user/post/login`,
+            SIGN_UP: `${DATABASE_URL}/user/post/create`,
+            CHANGE_PASSWORD: `${DATABASE_URL}/user/put/password`,
+            REMIND_PASSWORD: `${DATABASE_URL}/user/put/remindPassword`,
+            CURRENT: `${DATABASE_URL}/user/get/currentUser`
         },
         DETAILS :{
-            CHANGE_AVATAR: `${DATABASE_URL}/user/avatar/change`,
-            ADD_FAVOURITE_MOVIE: `${DATABASE_URL}/user/favourites/add`,
-            REMOVE_FAVOURITE_MOVIE: `${DATABASE_URL}/user/favourites/remove`,
-            GET_FAVOURITES: `${DATABASE_URL}/user/favourites/current`
+            CHANGE_AVATAR: `${DATABASE_URL}/user/put/avatar`,
+            ADD_FAVOURITE_MOVIE: `${DATABASE_URL}/user/post/favouriteMovie`,
+            REMOVE_FAVOURITE_MOVIE: `${DATABASE_URL}/user/delete/favouriteMovie`,
+            GET_FAVOURITES: `${DATABASE_URL}/user/get/favouriteMovies`
         }
     }
 }

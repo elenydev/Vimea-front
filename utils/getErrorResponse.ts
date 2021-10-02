@@ -1,6 +1,6 @@
 import { ResponseStatus } from "infrastructure/enums/Request/Request";
 
 export const getErrorResponse = (error: string) => ({
-  responseMessage: error,
+  message: error,
   responseStatus: ResponseStatus.FAILED,
 });

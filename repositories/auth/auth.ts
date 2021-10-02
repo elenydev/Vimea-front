@@ -1,7 +1,5 @@
-import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
-import { ResponseStatus } from "infrastructure/enums/Request/Request";
+import { CURRENT_USER_EMAIL_COOKIE } from "utils/constants";
 import {
-  AuthResponse,
   User,
   UserCredentials,
   RemindPasswordResult,
@@ -11,67 +9,36 @@ import {
 } from "infrastructure/interfaces/User/user";
 import { getCookie } from "services/cookieService";
 import { API_URL } from "utils/api";
-import { getErrorResponse } from "utils/getErrorResponse";
+import { postItem } from "factories/PostFactory";
+import { getItem } from "factories/GetFactory";
+import { putItem } from "factories/PutFactory";
 
 export const handleRegistration = async (
   user: User
 ): Promise<AuthorizationRequestResult> => {
   const { firstName, lastName, email, password, avatar, policy } = user;
   const newUser = new FormData();
-  newUser.append("firstName", firstName.toLowerCase());
-  newUser.append("lastName", lastName.toLowerCase());
+  newUser.append("firstName", firstName);
+  newUser.append("lastName", lastName);
   newUser.append("email", email);
   newUser.append("password", password);
   newUser.append("avatar", avatar[0]);
   newUser.append("policy", policy);
 
-  try {
-    const request = await fetch(API_URL.USER.AUTH.SIGN_UP, {
-      method: "POST",
-      body: newUser,
-    });
-    const response: AuthResponse = await request.json();
-    return databaseResponse(request.ok, response);
-  } catch (error) {
-    getErrorResponse(error);
-  }
+  return await postItem(API_URL.USER.AUTH.SIGN_UP, newUser, false, true);
 };
 
 export const handleAuthorization = async (
   userCredentials: UserCredentials
 ): Promise<AuthorizationRequestResult> => {
-  try {
-    const request = await fetch(API_URL.USER.AUTH.SING_IN, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userCredentials),
-    });
-    const response: AuthResponse = await request.json();
-    return databaseResponse(request.ok, response);
-  } catch (error) {
-    getErrorResponse(error);
-  }
+  return await postItem(API_URL.USER.AUTH.SING_IN, userCredentials);
 };
 
 export const handleRemindPassword = async (
   userEmail: string
 ): Promise<RemindPasswordResult> => {
   const body = { email: userEmail };
-  try {
-    const request = await fetch(API_URL.USER.AUTH.REMIND_PASSWORD, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    const response: RemindPasswordResult = await request.json();
-    return databaseResponse(request.ok, response);
-  } catch (error) {
-    getErrorResponse(error);
-  }
+  return await putItem(API_URL.USER.AUTH.REMIND_PASSWORD, body);
 };
 
 export const handleChangePassword = async (
@@ -80,50 +47,12 @@ export const handleChangePassword = async (
   const { password, newPassword } = userCredentials;
   const email = getCookie(CURRENT_USER_EMAIL_COOKIE);
   const body = { password, newPassword, email };
-  const token = getCookie(USER_COOKIE);
-  try {
-    const request = await fetch(API_URL.USER.AUTH.CHANGE_PASSWORD, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(body),
-    });
-    const response: AuthResponse = await request.json();
-    return databaseResponse(request.ok, response);
-  } catch (error) {
-    getErrorResponse(error);
-  }
+
+  return await putItem(API_URL.USER.AUTH.CHANGE_PASSWORD, body, true);
 };
 
 export const getCurrentUser = async (
-  UserCredential: GetCurrentUser
+  userCredentials: GetCurrentUser
 ): Promise<AuthorizationRequestResult> => {
-  try {
-    const request = await fetch(
-      `${API_URL.USER.AUTH.CURRENT}email=${UserCredential.email}`,
-      {
-        method: "GET",
-      }
-    );
-    const response: AuthResponse = await request.json();
-    return databaseResponse(request.ok, response);
-  } catch (error) {
-    getErrorResponse(error);
-  }
-};
-
-export const databaseResponse = (
-  isSuccesfullResponse: boolean,
-  response: AuthResponse | RemindPasswordResult
-): AuthorizationRequestResult => {
-  if (isSuccesfullResponse) {
-    return {
-      user: response.user,
-      responseStatus: ResponseStatus.SUCCESS,
-      responseMessage: response.message,
-    };
-  }
-  getErrorResponse(response.message);
+  return await getItem<User>(API_URL.USER.AUTH.CURRENT, true, userCredentials);
 };

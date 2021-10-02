@@ -6,7 +6,8 @@ import rootSaga from "store/sagas";
 import { getCookie } from "services/cookieService";
 import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
 import { PROTECTED_ROUTES } from "routes";
-import { getCurrentUser, setUserManager } from "components/User/domain/actions";
+import { getCurrentUser } from "components/User/domain/routines";
+import { setUserManager } from "components/User/domain/routines";
 import UserManager from "managers/UserManager/UserManager";
 import NotificationsManager from "components/Notifications/NotificationsManager";
 import { Store as StoreInterface } from "store/interfaces";
@@ -14,19 +15,19 @@ import { setNotificationsManager } from "components/Notifications/domain/actions
 import Navigation from "components/Navigation/index";
 import Router from "next/router";
 
-import 'swiper/swiper.min.css';
-import 'swiper/swiper-bundle.min.css';
-import "swiper/components/pagination/pagination.min.css"
+import "swiper/swiper.min.css";
+import "swiper/swiper-bundle.min.css";
+import "swiper/components/pagination/pagination.min.css";
 
 Store.runSaga(rootSaga);
 
 function MyApp({ Component, pageProps }): JSX.Element {
-  const currentRoutePath = typeof window !== "undefined" ? window.location.href : "";
-  const isProtectedRoute = PROTECTED_ROUTES.some(
-    (route) => currentRoutePath.includes(route)
+  const currentRoutePath =
+    typeof window !== "undefined" ? window.location.href : "";
+  const isProtectedRoute = PROTECTED_ROUTES.some((route) =>
+    currentRoutePath.includes(route)
   );
-  const userManager = (Store.getState() as StoreInterface).userStore
-    ?.manager;
+  const userManager = (Store.getState() as StoreInterface).userStore?.manager;
   const currentUser = (Store.getState() as StoreInterface).userStore?.user;
   const notificationsManager = (Store.getState() as StoreInterface)
     .notificationsStore?.notificationsManager;
@@ -36,7 +37,7 @@ function MyApp({ Component, pageProps }): JSX.Element {
     const currentUserEmail = getCookie(CURRENT_USER_EMAIL_COOKIE);
 
     if (!userManager) {
-      Store.dispatch(setUserManager(new UserManager()));
+      Store.dispatch(setUserManager.success(new UserManager()));
     }
 
     if (!notificationsManager) {
@@ -44,12 +45,12 @@ function MyApp({ Component, pageProps }): JSX.Element {
     }
 
     if (currentUserToken && currentUserEmail && !currentUser) {
-      Store.dispatch(getCurrentUser.trigger({email: currentUserEmail}))
+      Store.dispatch(getCurrentUser.trigger({ email: currentUserEmail }));
     }
 
     if (!currentUserToken) {
       if (isProtectedRoute) {
-        Router.push('/')
+        Router.push("/");
       }
     }
   }, [currentUser, userManager]);

@@ -18,7 +18,7 @@ import {
   getCurrentUser,
   getUserFavourites,
   changeAvatar
-} from "components/User/domain/actions";
+} from "components/User/domain/routines";
 import { deleteCookie } from "services/cookieService";
 import { USER_COOKIE, CURRENT_USER_EMAIL_COOKIE } from "utils/constants";
 import { Text } from "dictionary/text";
@@ -35,7 +35,7 @@ export default class UserManager {
   public removeUser(): void {
     deleteCookie(USER_COOKIE);
     deleteCookie(CURRENT_USER_EMAIL_COOKIE);
-    Store.dispatch(removeUser());
+    Store.dispatch(removeUser.trigger());
   }
 
   public remindPassword(userEmail: string): void {
