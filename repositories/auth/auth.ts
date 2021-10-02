@@ -1,4 +1,4 @@
-import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
+import { CURRENT_USER_EMAIL_COOKIE } from "utils/constants";
 import {
   User,
   UserCredentials,
@@ -18,14 +18,14 @@ export const handleRegistration = async (
 ): Promise<AuthorizationRequestResult> => {
   const { firstName, lastName, email, password, avatar, policy } = user;
   const newUser = new FormData();
-  newUser.append("firstName", firstName.toLowerCase());
-  newUser.append("lastName", lastName.toLowerCase());
+  newUser.append("firstName", firstName);
+  newUser.append("lastName", lastName);
   newUser.append("email", email);
   newUser.append("password", password);
   newUser.append("avatar", avatar[0]);
   newUser.append("policy", policy);
 
-  return postItem(API_URL.USER.AUTH.SIGN_UP, newUser, false, true);
+  return await postItem(API_URL.USER.AUTH.SIGN_UP, newUser, false, true);
 };
 
 export const handleAuthorization = async (

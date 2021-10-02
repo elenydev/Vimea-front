@@ -11,7 +11,7 @@ export const postItem = async <ReturnItemType>(
   body: Object,
   requireAuth = false,
   includeFile = false,
-  queryParams = {},
+  queryParams = {}
 ): Promise<PostItemActionResult<ReturnItemType> | BaseRequestResponse> => {
   try {
     const token = getCookie(USER_COOKIE);
@@ -28,7 +28,7 @@ export const postItem = async <ReturnItemType>(
     };
 
     const contentTypeHeader = !includeFile && {
-        "Content-Type": "application/json",
+      "Content-Type": "application/json",
     };
 
     const request = await fetch(`${path}?${params.join("&")}`, {
@@ -37,23 +37,30 @@ export const postItem = async <ReturnItemType>(
         ...contentTypeHeader,
         ...authorizationHeader,
       },
-      body: (includeFile ? body : JSON.stringify(body))as BodyInit 
+      body: (includeFile ? body : JSON.stringify(body)) as BodyInit,
     });
     const response = await request.json();
-    return databaseResponse<ReturnItemType>(request.ok, response, false);
+    return Promise.resolve(
+      databaseResponse<ReturnItemType>(request.ok, response, false)
+    );
   } catch (error) {
-    getErrorResponse(error.message)
+    return Promise.reject(getErrorResponse(error.message));
   }
 };
 
 export const databaseResponse = <ReturnItemType>(
   isSuccesfullResponse: boolean,
-  response: PostItemActionResult<ReturnItemType> | PostItemsActionResult<ReturnItemType>,
+  response:
+    | PostItemActionResult<ReturnItemType>
+    | PostItemsActionResult<ReturnItemType>,
   multipleResults = false
-): PostItemActionResult<ReturnItemType> | PostItemsActionResult<ReturnItemType> | BaseRequestResponse => {
+):
+  | PostItemActionResult<ReturnItemType>
+  | PostItemsActionResult<ReturnItemType>
+  | BaseRequestResponse => {
   const baseResult = multipleResults
-  ? { results: (response as PostItemsActionResult<ReturnItemType>).results }
-  : { result: (response as PostItemActionResult<ReturnItemType>).result };
+    ? { results: (response as PostItemsActionResult<ReturnItemType>).results }
+    : { result: (response as PostItemActionResult<ReturnItemType>).result };
   if (isSuccesfullResponse) {
     return {
       ...baseResult,
