@@ -403,41 +403,12 @@
     "@types/prop-types" "*"
     csstype "^3.0.2"
 
-"@types/redux-actions@*", "@types/redux-actions@^2.6.1":
-  version "2.6.1"
-  resolved "https://registry.npmjs.org/@types/redux-actions/-/redux-actions-2.6.1.tgz"
-  integrity sha512-zKgK+ATp3sswXs6sOYo1tk8xdXTy4CTaeeYrVQlClCjeOpag5vzPo0ASWiiBJ7vsiQRAdb3VkuFLnDoBimF67g==
-
-"@types/redux-form@*":
-  version "8.3.1"
-  resolved "https://registry.npmjs.org/@types/redux-form/-/redux-form-8.3.1.tgz"
-  integrity sha512-8lmJFxHtUBMWoI7lLX8Q+lhz9/nmkerEtrxgHZzhRwhQzD73MWkP9EA9w6Gx7cc02Fz3FkpYlfTN+9ELGUXZQQ==
-  dependencies:
-    "@types/react" "*"
-    redux "^3.6.0 || ^4.0.0"
-
 "@types/redux-mock-store@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@types/redux-mock-store/-/redux-mock-store-1.0.2.tgz"
   integrity sha512-6LBtAQBN34i7SI5X+Qs4zpTEZO1tTDZ6sZ9fzFjYwTl3nLQXaBtwYdoV44CzNnyKu438xJ1lSIYyw0YMvunESw==
   dependencies:
     redux "^4.0.5"
-
-"@types/redux-saga-routines@^3.1.1":
-  version "3.1.1"
-  resolved "https://registry.npmjs.org/@types/redux-saga-routines/-/redux-saga-routines-3.1.1.tgz"
-  integrity sha512-U/814DcHq/2O2dZzHDL48vp6yYp22Q8ixnqZ4mKg6s/X2w7vDPFV83CmS+j+HrCgVirVqnN2UuczKlmOIzNWyA==
-  dependencies:
-    "@types/redux-actions" "*"
-    "@types/redux-form" "*"
-    redux "^3.6.0 || ^4.0.0"
-
-"@types/redux-saga@^0.10.5":
-  version "0.10.5"
-  resolved "https://registry.npmjs.org/@types/redux-saga/-/redux-saga-0.10.5.tgz"
-  integrity sha1-gL8hB4N568lzh9vlbkRGe1Z3+oU=
-  dependencies:
-    redux-saga "*"
 
 "@types/styled-components@^5.1.7":
   version "5.1.7"
@@ -2168,7 +2139,7 @@ redux-saga-routines@^3.2.3:
   dependencies:
     redux-actions "^2.6.5"
 
-redux-saga@*, redux-saga@^1.1.3:
+redux-saga@^1.1.3:
   version "1.1.3"
   resolved "https://registry.npmjs.org/redux-saga/-/redux-saga-1.1.3.tgz"
   integrity sha512-RkSn/z0mwaSa5/xH/hQLo8gNf4tlvT18qXDNvedihLcfzh+jMchDgaariQoehCpgRltEm4zHKJyINEz6aqswTw==
@@ -2192,7 +2163,7 @@ redux-thunk@^2.2.0:
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
   integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
 
-"redux@^3.6.0 || ^4.0.0", redux@^4.0.0, redux@^4.0.4, redux@^4.0.5:
+redux@^4.0.0, redux@^4.0.4, redux@^4.0.5:
   version "4.0.5"
   resolved "https://registry.npmjs.org/redux/-/redux-4.0.5.tgz"
   integrity sha512-VSz1uMAH24DM6MF72vcojpYPtrTUu3ByVWfPL1nPfVRb5mZVTve5GnNCUV53QM/BZ66xfWrm0CTWoM+Xlz8V1w==
