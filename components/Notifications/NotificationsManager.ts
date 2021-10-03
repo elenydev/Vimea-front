@@ -5,14 +5,14 @@ import { NotificationVariant } from "infrastructure/enums/Notification/notificat
 export default class NotificationsManager {
 
   public setSuccesfullNotifications(message: string): void {
-    Store.dispatch(setNotification({message, shouldOpen: true, variant: NotificationVariant.SUCCESS}))
+    Store.dispatch(setNotification.trigger({message, shouldOpen: true, variant: NotificationVariant.SUCCESS}))
   }
 
   public setErrorNotifications(message: string): void {
-    Store.dispatch(setNotification({message, shouldOpen: true, variant: NotificationVariant.ERROR}))
+    Store.dispatch(setNotification.trigger({message, shouldOpen: true, variant: NotificationVariant.ERROR}))
   }
 
   public clearNotification(): void {
-    Store.dispatch(clearNotification())
+    Store.dispatch(clearNotification.trigger())
   }
 }
