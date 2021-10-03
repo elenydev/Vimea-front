@@ -12,14 +12,14 @@ export default class MovieManager {
   }
 
   setUpcomingMovies(upcomingMovies: Movie[]): void {
-    Store.dispatch(setUpcomingMovies(upcomingMovies));
+    Store.dispatch(setUpcomingMovies.trigger(upcomingMovies));
   }
 
   setTrailerUrl(url: string): void {
-    Store.dispatch(setTrailerUrl(url));
+    Store.dispatch(setTrailerUrl.trigger(url));
   }
 
   toggleTrailerVisibility(): void {
-    Store.dispatch(toggleTrailerVisibility());
+    Store.dispatch(toggleTrailerVisibility.trigger());
   }
 }
