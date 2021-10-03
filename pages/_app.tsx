@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps }): JSX.Element {
     }
 
     if (!notificationsManager) {
-      Store.dispatch(setNotificationsManager(new NotificationsManager()));
+      Store.dispatch(setNotificationsManager.trigger(new NotificationsManager()));
     }
 
     if (currentUserToken && currentUserEmail && !currentUser) {
