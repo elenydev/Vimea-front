@@ -5,7 +5,7 @@ import Hero from "components/Hero/index";
 import { getLatestMovies } from "repositories/movies/movies";
 import { Movie } from "infrastructure/interfaces/Movie/movie";
 import Store from "store/configureStore";
-import { setMovieManager } from "managers/MovieManager/routines";
+import { setMovieManager } from "managers/MovieManager/actions";
 import MovieManager from "managers/MovieManager/MovieManager";
 import { Store as StoreInterface } from "store/interfaces";
 import { CircularProgress } from "@material-ui/core";
@@ -24,9 +24,7 @@ const Home = React.memo(({ upcomingMovies }: ComponentProps): JSX.Element => {
   const movieManager = (Store.getState() as StoreInterface).movieStore?.manager;
   useEffect(() => {
     if (!movieManager) {
-      Store.dispatch(
-        setMovieManager.trigger(new MovieManager({ upcomingMovies }))
-      );
+      Store.dispatch(setMovieManager(new MovieManager({ upcomingMovies })));
     }
   }, [upcomingMovies]);
 

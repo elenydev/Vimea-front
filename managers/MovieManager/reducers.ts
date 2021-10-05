@@ -1,40 +1,38 @@
-import { createReducer } from "deox";
-import * as actions from 'managers/MovieManager/routines';
-import { MovieStore, } from "managers/MovieManager/interfaces";
+import { MovieStore } from "managers/MovieManager/interfaces";
+import { createSliceWithSaga } from "redux-toolkit-with-saga";
+import {
+  setMovieManager,
+  setTrailerUrl,
+  setUpcomingMovies,
+  toggleTrailerVisibility,
+} from "managers/MovieManager/actions";
 
 const initialState: MovieStore = {
   manager: undefined,
   upcomingMovies: [],
   isTrailerVisible: false,
-  movieTrailerUrl: ''
+  movieTrailerUrl: "",
 };
 
-const movieManagerReducer = createReducer(initialState, (handleAction) => [
-  handleAction(actions.setMovieManager.trigger, (state, { meta }) => {
-    return {
-      ...state,
-      manager: meta,
-    };
-  }),
-  handleAction(actions.setTrailerUrl.trigger, (state, { meta }) => {
-    return {
-      ...state,
-      movieTrailerUrl: meta
-    };
-  }),
-  handleAction(actions.setUpcomingMovies.trigger, (state, { meta }) => {
-    return {
-      ...state,
-      upcomingMovies: meta
-    };
-  }),
-  handleAction(actions.toggleTrailerVisibility.trigger, (state) => {
-    return {
-      ...state,
-      isTrailerVisible: !state.isTrailerVisible
-    };
-  }),
-]);
+const movieSlice = createSliceWithSaga({
+  name: "movieStore",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(setMovieManager, (state: MovieStore, action) => {
+        state.manager = action.payload;
+      })
+      .addCase(setTrailerUrl, (state: MovieStore, action) => {
+        state.movieTrailerUrl = action.payload;
+      })
+      .addCase(setUpcomingMovies, (state: MovieStore, action) => {
+        state.upcomingMovies = action.payload;
+      })
+      .addCase(toggleTrailerVisibility, (state: MovieStore) => {
+        state.isTrailerVisible = !state.isTrailerVisible;
+      });
+  },
+});
 
-export default movieManagerReducer;
-
+export default movieSlice.reducer;

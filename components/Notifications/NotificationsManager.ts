@@ -1,18 +1,29 @@
-import { setNotification, clearNotification } from "components/Notifications/domain/routines";
+import * as NotificationsStoreActions from "components/Notifications/domain/actions";
 import Store from "store/configureStore";
 import { NotificationVariant } from "infrastructure/enums/Notification/notification";
 
 export default class NotificationsManager {
-
   public setSuccesfullNotifications(message: string): void {
-    Store.dispatch(setNotification.trigger({message, shouldOpen: true, variant: NotificationVariant.SUCCESS}))
+    Store.dispatch(
+      NotificationsStoreActions.setNotifications({
+        message,
+        shouldOpen: true,
+        variant: NotificationVariant.SUCCESS,
+      })
+    );
   }
 
   public setErrorNotifications(message: string): void {
-    Store.dispatch(setNotification.trigger({message, shouldOpen: true, variant: NotificationVariant.ERROR}))
+    Store.dispatch(
+      NotificationsStoreActions.setNotifications({
+        message,
+        shouldOpen: true,
+        variant: NotificationVariant.ERROR,
+      })
+    );
   }
 
   public clearNotification(): void {
-    Store.dispatch(clearNotification.trigger())
+    Store.dispatch(NotificationsStoreActions.clearNotifications());
   }
 }

@@ -1,19 +1,15 @@
-import { createReducer } from "deox";
-import * as actions from "managers/FormManager/routines";
 import { FormStore } from "managers/FormManager/interfaces";
 import FormManager from "managers/FormManager/FormManager";
+import { createSliceWithSaga } from "redux-toolkit-with-saga";
 
 const initialState: FormStore = {
   manager: new FormManager(),
 };
 
-const formManagerReducer = createReducer(initialState, (handleAction) => [
-  handleAction(actions.setFormManager.trigger, (state, { meta }) => {
-    return {
-      ...state,
-      manager: meta,
-    };
-  }),
-]);
+const formManagerStore = createSliceWithSaga({
+  name: "formManagerStore",
+  initialState,
+  reducers: {},
+});
 
-export default formManagerReducer;
+export default formManagerStore.reducer;
