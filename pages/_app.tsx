@@ -2,24 +2,23 @@ import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import Store from "store/configureStore";
 import Layout from "layout/Layout";
-import rootSaga from "store/sagas";
 import { getCookie } from "services/cookieService";
 import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
 import { PROTECTED_ROUTES } from "routes";
-import { getCurrentUser } from "components/User/domain/routines";
-import { setUserManager } from "components/User/domain/routines";
+import {
+  setUserManager,
+  getCurrentUserTrigger,
+} from "components/User/domain/actions";
 import UserManager from "managers/UserManager/UserManager";
 import NotificationsManager from "components/Notifications/NotificationsManager";
 import { Store as StoreInterface } from "store/interfaces";
-import { setNotificationsManager } from "components/Notifications/domain/routines";
+import { setNotificationsManager } from "components/Notifications/domain/actions";
 import Navigation from "components/Navigation/index";
 import Router from "next/router";
 
 import "swiper/swiper.min.css";
 import "swiper/swiper-bundle.min.css";
 import "swiper/components/pagination/pagination.min.css";
-
-Store.runSaga(rootSaga);
 
 function MyApp({ Component, pageProps }): JSX.Element {
   const currentRoutePath =
@@ -37,7 +36,7 @@ function MyApp({ Component, pageProps }): JSX.Element {
     const currentUserEmail = getCookie(CURRENT_USER_EMAIL_COOKIE);
 
     if (!userManager) {
-      Store.dispatch(setUserManager.success(new UserManager()));
+      Store.dispatch(setUserManager(new UserManager()));
     }
 
     if (!notificationsManager) {
@@ -45,7 +44,7 @@ function MyApp({ Component, pageProps }): JSX.Element {
     }
 
     if (currentUserToken && currentUserEmail && !currentUser) {
-      Store.dispatch(getCurrentUser.trigger({ email: currentUserEmail }));
+      Store.dispatch(getCurrentUserTrigger({ email: currentUserEmail }));
     }
 
     if (!currentUserToken) {

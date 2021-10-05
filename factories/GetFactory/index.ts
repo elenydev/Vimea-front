@@ -9,7 +9,11 @@ import { GetItemActionResult } from "factories/interfaces/getItem";
 export const getList = async <ListItemType>(
   path: string,
   requireAuth = false,
-  queryParams = {}
+  queryParams = {},
+  pagination = {
+    pageNumber: 1,
+    pageSize: 20
+  }
 ): Promise<GetListActionResult<ListItemType> | BaseRequestResponse> => {
   try {
     const token = getCookie(USER_COOKIE);

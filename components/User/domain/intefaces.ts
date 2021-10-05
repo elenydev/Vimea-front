@@ -4,4 +4,5 @@ import { User } from "infrastructure/interfaces/User/user";
 export interface UserStore {
   manager: UserManager;
   user: User;
+  isLoading: boolean;
 }

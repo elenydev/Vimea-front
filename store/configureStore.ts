@@ -1,23 +1,26 @@
-import { applyMiddleware, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import createSagaMiddleware, { Saga } from "redux-saga";
-import createRootReducer from "store/reducers";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import userStore from "components/User/domain/reducers";
+import notificationsStore from "components/Notifications/domain/reducers";
+import movieStore from "managers/MovieManager/reducers";
+import formStore from "managers/FormManager/reducers";
+import createSagaMiddleware from "@redux-saga/core";
+import { userStoreCallEffects } from "components/User/domain/reducers";
+import { createRootSaga } from "redux-toolkit-with-saga";
 
-const sagaMiddleware = createSagaMiddleware();
+const rootSaga = createRootSaga([userStoreCallEffects]);
 
-const runSagaMiddleware = (args: Saga): any => {
-  if (store.isSagaRunning) return;
-  store.isSagaRunning = true; 
-  return sagaMiddleware.run(args);
-}
+let sagaMiddleware = createSagaMiddleware();
 
-const store = {
-  ...createStore(
-    createRootReducer(),
-    composeWithDevTools(applyMiddleware(sagaMiddleware))
-  ),
-  runSaga: runSagaMiddleware,
-  isSagaRunning: false
-};
+const store = configureStore({
+  reducer: {
+    userStore,
+    notificationsStore,
+    movieStore,
+    formStore,
+  },
+  middleware: [...getDefaultMiddleware({ serializableCheck: false}), sagaMiddleware],
+});
+
+sagaMiddleware.run(rootSaga);
 
 export default store;
