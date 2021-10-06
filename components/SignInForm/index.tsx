@@ -12,7 +12,7 @@ import {
   InputElement,
 } from "./signInForm.styles";
 import RemindPasswordForm from "components/RemindPasswordForm";
-import { CHECK_IF_EMAIL_REGEX } from "utils/constants";
+import { CHECK_IF_EMAIL_REGEX } from "contants";
 import { UserCredentials } from "infrastructure/interfaces/User/user";
 import { useSelector } from "react-redux";
 import { getUserManager } from "components/User/domain/selectors";

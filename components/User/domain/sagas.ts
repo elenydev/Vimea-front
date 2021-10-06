@@ -27,7 +27,7 @@ import {
   CURRENT_USER_EMAIL_COOKIE,
   CURRENT_USER_ID,
   USER_COOKIE,
-} from "utils/constants";
+} from "contants";
 import { getNotificationManager } from "components/Notifications/domain/selectors";
 import NotificationsManager from "managers/NotificationsManager/NotificationsManager";
 import Router from "next/router";

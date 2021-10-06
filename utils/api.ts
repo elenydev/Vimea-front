@@ -1,4 +1,4 @@
-import { DATABASE_URL } from "utils/constants";
+import { DATABASE_URL } from "contants";
 
 export const API_URL = {
     USER: {

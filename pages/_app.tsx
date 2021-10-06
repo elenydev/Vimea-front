@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import Store from "store/configureStore";
 import Layout from "layout/Layout";
 import { getCookie } from "services/cookieService";
-import { CURRENT_USER_ID, USER_COOKIE } from "utils/constants";
+import { CURRENT_USER_ID, USER_COOKIE } from "contants";
 import { PROTECTED_ROUTES } from "routes";
 import {
   setUserManager,
