@@ -1,5 +1,5 @@
 import { Movie } from "infrastructure/interfaces/Movie/movie";
-import React, { SyntheticEvent, useMemo } from "react";
+import React, { SyntheticEvent, useCallback, useMemo } from "react";
 import Rating from "@material-ui/lab/Rating";
 import {
   Wrapper,
@@ -32,11 +32,12 @@ const index = (props: ComponentProps): JSX.Element => {
 
   const isAddingDisabled = useMemo(() => !currentUser?.accessToken, [currentUser?.accessToken]);
 
-  const addToFavourites = (e: SyntheticEvent): void => {
+  const addToFavourites = useCallback((e: SyntheticEvent): void => {
     e.stopPropagation();
     const mappedFavouriteMovie = getMappedFavouriteMovie(props.currentMovie);
     userManager.addFavourite(mappedFavouriteMovie);
-  };
+  }, [userManager, props.currentMovie]);
+
   return (
     <Wrapper>
       <Heading>{original_title}</Heading>

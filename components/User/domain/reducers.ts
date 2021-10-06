@@ -1,6 +1,5 @@
 import { UserStore } from "components/User/domain/intefaces";
 import { createSliceWithSaga } from "redux-toolkit-with-saga";
-import { sagas } from "components/User/domain/sagas";
 import {
   setUserManager,
   authorizationTrigger,
@@ -63,24 +62,10 @@ const userStore = createSliceWithSaga({
         state.isLoading = false;
       })
       .addCase(closeUserSession, (state: UserStore) => {
-        state.user = undefined
-      })
+        state.user = undefined;
+      });
   },
   reducers: {},
-  effects: { ...sagas },
 });
-
-export const {
-  authorization,
-  registerUser,
-  remindUserPassword,
-  addFavouriteMovie,
-  removeFavouriteMovie,
-  changeUserPassword,
-  getCurrentUserCredentials,
-  getFavouriteMovies,
-  changeUserAvatar,
-} = userStore.effectActions;
-export const userStoreCallEffects = userStore.callEffects;
 
 export default userStore.reducer;

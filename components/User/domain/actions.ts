@@ -8,6 +8,7 @@ import {
   UserFavouriteMovie,
 } from "infrastructure/interfaces/User/user";
 import { Movie } from "infrastructure/interfaces/Movie/movie";
+import { createActionWithPayload } from "utils/redux/actions";
 
 export enum UserStoreActions {
   SetUserManager = "userStore/setUserManager",
@@ -32,20 +33,20 @@ export enum UserStoreActions {
   ChangeUserPasswordTrigger = "userStore/ChangeUserPasswordTrigger",
 }
 
-export const setUserManager = createAction<UserManager>(
+export const setUserManager = createActionWithPayload<UserManager>(
   UserStoreActions.SetUserManager
 );
 export const closeUserSession = createAction(UserStoreActions.CloseUserSession);
-export const authorizationTrigger = createAction<UserCredentials>(
+export const authorizationTrigger = createActionWithPayload<UserCredentials>(
   UserStoreActions.AuthorizationTrigger
 );
-export const authorizationSuccess = createAction<User>(
+export const authorizationSuccess = createActionWithPayload<User>(
   UserStoreActions.AuthorizationSuccess
 );
 export const authorizationFailure = createAction(
   UserStoreActions.AuthorizationFailure
 );
-export const registerUserTrigger = createAction<User>(
+export const registerUserTrigger = createActionWithPayload<User>(
   UserStoreActions.RegisterUserTrigger
 );
 export const registerUserSuccess = createAction(
@@ -54,19 +55,19 @@ export const registerUserSuccess = createAction(
 export const registerUserFailure = createAction(
   UserStoreActions.RegisterUserFailure
 );
-export const getCurrentUserTrigger = createAction<GetCurrentUser>(
+export const getCurrentUserTrigger = createActionWithPayload<GetCurrentUser>(
   UserStoreActions.GetCurrentUserTrigger
 );
-export const getCurrentUserSuccess = createAction<User>(
+export const getCurrentUserSuccess = createActionWithPayload<User>(
   UserStoreActions.GetCurrentUserSuccess
 );
-export const getCurrentUserFailure = createAction<User>(
+export const getCurrentUserFailure = createActionWithPayload<User>(
   UserStoreActions.GetCurrentUserFailure
 );
-export const getUserFavouriteMoviesTrigger = createAction<string>(
+export const getUserFavouriteMoviesTrigger = createAction(
   UserStoreActions.GetUserFavouriteMoviesTrigger
 );
-export const getUserFavouriteMoviesSuccess = createAction<Movie[]>(
+export const getUserFavouriteMoviesSuccess = createActionWithPayload<Movie[]>(
   UserStoreActions.GetUserFavouriteMoviesSuccess
 );
 export const getUserFavouriteMoviesFailure = createAction(
@@ -74,19 +75,19 @@ export const getUserFavouriteMoviesFailure = createAction(
 );
 
 export const changePasswordTrigger =
-  createAction<ChangePasswordUserCredentials>(
+createActionWithPayload<ChangePasswordUserCredentials>(
     UserStoreActions.ChangePasswordTrigger
   );
-export const remindPasswordTrigger = createAction<string>(
+export const remindPasswordTrigger = createActionWithPayload<string>(
   UserStoreActions.RemindPasswordTrigger
 );
-export const addUserFavouriteMovieTrigger = createAction<UserFavouriteMovie>(
+export const addUserFavouriteMovieTrigger = createActionWithPayload<UserFavouriteMovie>(
   UserStoreActions.AddUserFavouriteMovieTrigger
 );
-export const removeUserFavouriteMovieTrigger = createAction<string>(
+export const removeUserFavouriteMovieTrigger = createActionWithPayload<string>(
   UserStoreActions.RemoveUserFavouriteMovieTrigger
 );
-export const changeUserAvatarTrigger = createAction<File>(
+export const changeUserAvatarTrigger = createActionWithPayload<File>(
   UserStoreActions.ChangeUserAvatarTrigger
 );
 export const changeUserPasswordTrigger = createAction(

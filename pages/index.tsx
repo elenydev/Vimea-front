@@ -20,7 +20,7 @@ interface ComponentProps {
   upcomingMovies: Movie[];
 }
 
-const Home = React.memo(({ upcomingMovies }: ComponentProps): JSX.Element => {
+const Home = ({ upcomingMovies }: ComponentProps): JSX.Element => {
   const movieManager = (Store.getState() as StoreInterface).movieStore?.manager;
   useEffect(() => {
     if (!movieManager) {
@@ -41,7 +41,7 @@ const Home = React.memo(({ upcomingMovies }: ComponentProps): JSX.Element => {
       </BackgroundWrapper>
     </>
   );
-});
+};
 
 export async function getServerSideProps() {
   const movieRequest = await getLatestMovies();
@@ -53,4 +53,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default Home;
+export default React.memo(Home);
