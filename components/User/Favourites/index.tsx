@@ -4,8 +4,6 @@ import { useSelector } from "react-redux";
 import { getUserManager, getUserMovies } from "components/User/domain/selectors";
 import { MoviesWrapper } from "./favourites.styles";
 import MovieCard from "components/LatestSection/MovieCard/";
-import { getCookie } from "services/cookieService";
-import { CURRENT_USER_EMAIL_COOKIE } from "utils/constants";
 import { getIsTrailerVisible } from "managers/MovieManager/selectors";
 import VideoWrapper from "components/VideoWrapper";
 
@@ -15,8 +13,7 @@ const index = () => {
   const isMovieTrailerVisible = useSelector(getIsTrailerVisible);
 
   useEffect(() => {
-    const userEmail = getCookie(CURRENT_USER_EMAIL_COOKIE);
-    userManager?.getCurrentUserFavourites(userEmail);
+    userManager?.getCurrentUserFavourites();
   }, []);
 
   return (

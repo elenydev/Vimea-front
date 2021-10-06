@@ -63,7 +63,7 @@ export const getCurrentUserSuccess = createAction<User>(
 export const getCurrentUserFailure = createAction<User>(
   UserStoreActions.GetCurrentUserFailure
 );
-export const getUserFavouriteMoviesTrigger = createAction<string>(
+export const getUserFavouriteMoviesTrigger = createAction(
   UserStoreActions.GetUserFavouriteMoviesTrigger
 );
 export const getUserFavouriteMoviesSuccess = createAction<Movie[]>(

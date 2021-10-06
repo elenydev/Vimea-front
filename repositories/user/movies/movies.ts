@@ -24,20 +24,22 @@ export const addUserFavouriteMovie = async (
 
 export const removeUserFavouriteMovie = async (
   movieId: string,
-  email: string
+  userId: string
 ): Promise<UserMovieActionResult> => {
   return await deleteItem(API_URL.USER.DETAILS.REMOVE_FAVOURITE_MOVIE, true, {
     movieId,
-    email,
+    userId,
   });
 };
 
 export const fetchUserFavouriteMovies = async (
-  email: string
+  userId: string,
+  pageNumber: number,
+  pageSize: number
 ): Promise<GetListActionResult<UserFavouriteMovie> | BaseRequestResponse> => {
   return await getList<UserFavouriteMovie>(
     API_URL.USER.DETAILS.GET_FAVOURITES,
     true,
-    { email: email }
+    { userId, pageNumber, pageSize }
   );
 };

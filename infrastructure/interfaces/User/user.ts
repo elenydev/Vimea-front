@@ -66,7 +66,7 @@ export interface UserMovieActionResult extends BaseRequestResponse {
 }
 
 export interface GetCurrentUser {
-  email: string;
+  userId: string;
 }
 
 export interface RemindPasswordCredentials {

@@ -5,7 +5,7 @@ import NotificationsManager from "components/Notifications/NotificationsManager"
 export enum NotificationsStoreActions {
   SetNotificationsManager = "notificationsStore/setNotificationsManager",
   SetNotifications = "notificationsStore/setNotifications",
-  ClearNotifications = "notificationsStore/ClearNotifications",
+  ClearNotifications = "notificationsStore/clearNotifications",
 }
 
 export const setNotificationsManager = createAction<NotificationsManager>(

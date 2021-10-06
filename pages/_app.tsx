@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import Store from "store/configureStore";
 import Layout from "layout/Layout";
 import { getCookie } from "services/cookieService";
-import { CURRENT_USER_EMAIL_COOKIE, USER_COOKIE } from "utils/constants";
+import { CURRENT_USER_EMAIL_COOKIE, CURRENT_USER_ID, USER_COOKIE } from "utils/constants";
 import { PROTECTED_ROUTES } from "routes";
 import {
   setUserManager,
@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }): JSX.Element {
 
   useEffect(() => {
     const currentUserToken = getCookie(USER_COOKIE);
-    const currentUserEmail = getCookie(CURRENT_USER_EMAIL_COOKIE);
+    const currentUserId = getCookie(CURRENT_USER_ID);
 
     if (!userManager) {
       Store.dispatch(setUserManager(new UserManager()));
@@ -43,11 +43,11 @@ function MyApp({ Component, pageProps }): JSX.Element {
       Store.dispatch(setNotificationsManager(new NotificationsManager()));
     }
 
-    if (currentUserToken && currentUserEmail && !currentUser) {
-      Store.dispatch(getCurrentUserTrigger({ email: currentUserEmail }));
+    if (currentUserToken && currentUserId && !currentUser) {
+      Store.dispatch(getCurrentUserTrigger({ userId: currentUserId }));
     }
 
-    if (!currentUserToken) {
+    if (!currentUserToken || !currentUserId || !currentUser) {
       if (isProtectedRoute) {
         Router.push("/");
       }

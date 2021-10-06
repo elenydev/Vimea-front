@@ -9,7 +9,7 @@ import {
 } from "infrastructure/interfaces/User/user";
 import * as UserStoreActions from "components/User/domain/actions";
 import { deleteCookie } from "services/cookieService";
-import { USER_COOKIE, CURRENT_USER_EMAIL_COOKIE } from "utils/constants";
+import { USER_COOKIE, CURRENT_USER_EMAIL_COOKIE, CURRENT_USER_ID } from "utils/constants";
 import { Text } from "dictionary/text";
 
 export default class UserManager {
@@ -24,7 +24,8 @@ export default class UserManager {
   public removeUser(): void {
     deleteCookie(USER_COOKIE);
     deleteCookie(CURRENT_USER_EMAIL_COOKIE);
-    Store.dispatch(UserStoreActions.closeUserSession);
+    deleteCookie(CURRENT_USER_ID);
+    Store.dispatch(UserStoreActions.closeUserSession());
   }
 
   public remindPassword(userEmail: string): void {
@@ -55,8 +56,8 @@ export default class UserManager {
     Store.dispatch(UserStoreActions.getCurrentUserTrigger(credentials));
   }
 
-  public getCurrentUserFavourites(email: string): void {
-    Store.dispatch(UserStoreActions.getUserFavouriteMoviesTrigger(email));
+  public getCurrentUserFavourites(): void {
+    Store.dispatch(UserStoreActions.getUserFavouriteMoviesTrigger());
   }
 
   public getStoreInstance(): StoreInterface {
