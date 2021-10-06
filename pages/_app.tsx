@@ -1,9 +1,9 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import Store from "store/configureStore";
 import Layout from "layout/Layout";
 import { getCookie } from "services/cookieService";
-import { CURRENT_USER_ID, USER_COOKIE } from "constants";
+import { CURRENT_USER_ID, USER_COOKIE } from "constants/index";
 import { PROTECTED_ROUTES } from "routes";
 import {
   setUserManager,

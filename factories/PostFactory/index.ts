@@ -1,7 +1,7 @@
 import { getCookie } from "services/cookieService";
 import { getErrorResponse } from "utils/getErrorResponse";
 import { ResponseStatus } from "infrastructure/enums/Request/Request";
-import { USER_COOKIE } from "constants";
+import { USER_COOKIE } from "constants/index";
 import { BaseRequestResponse } from "infrastructure/interfaces/User/user";
 import { PostItemActionResult } from "factories/interfaces/postItem";
 import { PostItemsActionResult } from "factories/interfaces/postItems";
