@@ -1,6 +1,6 @@
 import { createAction } from "@reduxjs/toolkit";
 import { Notification } from "infrastructure/interfaces/Notification/notification";
-import NotificationsManager from "components/Notifications/NotificationsManager";
+import NotificationsManager from "managers/NotificationsManager/NotificationsManager";
 
 export enum NotificationsStoreActions {
   SetNotificationsManager = "notificationsStore/setNotificationsManager",

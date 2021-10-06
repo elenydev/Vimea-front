@@ -22,10 +22,10 @@ export default class UserManager {
   }
 
   public removeUser(): void {
+    Store.dispatch(UserStoreActions.closeUserSession());
     deleteCookie(USER_COOKIE);
     deleteCookie(CURRENT_USER_EMAIL_COOKIE);
     deleteCookie(CURRENT_USER_ID);
-    Store.dispatch(UserStoreActions.closeUserSession());
   }
 
   public remindPassword(userEmail: string): void {

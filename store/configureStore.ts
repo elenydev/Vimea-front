@@ -4,7 +4,6 @@ import notificationsStore from "components/Notifications/domain/reducers";
 import movieStore from "managers/MovieManager/reducers";
 import formStore from "managers/FormManager/reducers";
 import createSagaMiddleware from "redux-saga";
-import { userStoreCallEffects } from "components/User/domain/reducers";
 import userSagas from "components/User/domain/sagas";
 
 
@@ -17,7 +16,7 @@ const store = configureStore({
     movieStore,
     formStore,
   },
-  middleware: [...getDefaultMiddleware({ serializableCheck: false}), sagaMiddleware],
+  middleware: [sagaMiddleware],
 });
 
 sagaMiddleware.run(userSagas);

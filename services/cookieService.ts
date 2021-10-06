@@ -2,8 +2,7 @@ export const setCookie = (key: string, value: string | number) => {
   let expirationTime = new Date();
   expirationTime.setTime(expirationTime.getTime() + 30 * 60 * 1000 );
 
-  document.cookie =
-    key + "=" + value + ";path=/;expires=" + expirationTime.toUTCString();
+  document.cookie = key + "=" + value + ";path=/;expires=" + expirationTime.toUTCString();
 };
 
 export const getCookie = (cookieKey: string) => {
@@ -24,5 +23,8 @@ export const getCookie = (cookieKey: string) => {
 };
 
 export const deleteCookie = (name: string) => {
-  document.cookie = `${name}=""; max-age=-1`;
+  let expirationTime = new Date();
+  expirationTime.setTime(expirationTime.getTime() + 30 * 60 * 1000 * -1 );
+
+  document.cookie = name + "=" + '' + ";path=/;expires=" + expirationTime.toUTCString();
 };

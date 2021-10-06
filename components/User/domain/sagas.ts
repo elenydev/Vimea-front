@@ -29,7 +29,7 @@ import {
   USER_COOKIE,
 } from "utils/constants";
 import { getNotificationManager } from "components/Notifications/domain/selectors";
-import NotificationsManager from "components/Notifications/NotificationsManager";
+import NotificationsManager from "managers/NotificationsManager/NotificationsManager";
 import Router from "next/router";
 import { ROUTES } from "routes";
 import {

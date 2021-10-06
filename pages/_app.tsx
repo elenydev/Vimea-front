@@ -1,20 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { Provider } from "react-redux";
 import Store from "store/configureStore";
 import Layout from "layout/Layout";
 import { getCookie } from "services/cookieService";
-import { CURRENT_USER_EMAIL_COOKIE, CURRENT_USER_ID, USER_COOKIE } from "utils/constants";
+import { CURRENT_USER_ID, USER_COOKIE } from "utils/constants";
 import { PROTECTED_ROUTES } from "routes";
 import {
   setUserManager,
   getCurrentUserTrigger,
 } from "components/User/domain/actions";
 import UserManager from "managers/UserManager/UserManager";
-import NotificationsManager from "components/Notifications/NotificationsManager";
+import NotificationsManager from "managers/NotificationsManager/NotificationsManager";
 import { Store as StoreInterface } from "store/interfaces";
 import { setNotificationsManager } from "components/Notifications/domain/actions";
 import Navigation from "components/Navigation/index";
 import Router from "next/router";
+import { CircularProgress, Box } from "@material-ui/core";
 
 import "swiper/swiper.min.css";
 import "swiper/swiper-bundle.min.css";
@@ -30,10 +31,15 @@ function MyApp({ Component, pageProps }): JSX.Element {
   const currentUser = (Store.getState() as StoreInterface).userStore?.user;
   const notificationsManager = (Store.getState() as StoreInterface)
     .notificationsStore?.notificationsManager;
+  const currentUserToken = getCookie(USER_COOKIE);
+  const currentUserId = getCookie(CURRENT_USER_ID);
 
   useEffect(() => {
-    const currentUserToken = getCookie(USER_COOKIE);
-    const currentUserId = getCookie(CURRENT_USER_ID);
+    if (!currentUser) {
+      if (isProtectedRoute && !currentUserToken) {
+        Router.push("/");
+      }
+    }
 
     if (!userManager) {
       Store.dispatch(setUserManager(new UserManager()));
@@ -46,21 +52,21 @@ function MyApp({ Component, pageProps }): JSX.Element {
     if (currentUserToken && currentUserId && !currentUser) {
       Store.dispatch(getCurrentUserTrigger({ userId: currentUserId }));
     }
-
-    if (!currentUserToken || !currentUserId || !currentUser) {
-      if (isProtectedRoute) {
-        Router.push("/");
-      }
-    }
   }, [currentUser, userManager]);
 
   return (
     <>
       <Provider store={Store}>
-        <Layout>
-          <Navigation />
-          <Component {...pageProps} />
-        </Layout>
+        {isProtectedRoute && !currentUser && !currentUserToken ? (
+          <Box>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Layout>
+            <Navigation />
+            <Component {...pageProps} />
+          </Layout>
+        )}
       </Provider>
     </>
   );
