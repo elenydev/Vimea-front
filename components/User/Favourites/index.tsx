@@ -14,7 +14,7 @@ const index = () => {
 
   useEffect(() => {
     userManager?.getCurrentUserFavourites();
-  }, []);
+  }, [userManager]);
 
   return (
     <BackgroundWrapper>

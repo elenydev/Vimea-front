@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -21,17 +21,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CustomizedSnackbars = (props: { notification: Notification }): JSX.Element => {
-  const classes = useStyles();
   const { shouldOpen, message, variant } = props.notification;
+  const classes = useStyles();
+  const [open, setOpen] = useState(shouldOpen || false);
   const notificationsManager = useSelector(getNotificationManager);
 
-  const [open, setOpen] = useState(shouldOpen || false);
-  const handleClose = (event, reason: string) => {
+  const handleClose = useCallback((event, reason: string) => {
     if (reason === "clickaway") {
       return;
     }
     setOpen(false);
-  };
+  }, []);
 
 
   useEffect(() => {
@@ -53,4 +53,4 @@ const CustomizedSnackbars = (props: { notification: Notification }): JSX.Element
   );
 };
 
-export default CustomizedSnackbars;
+export default React.memo(CustomizedSnackbars);

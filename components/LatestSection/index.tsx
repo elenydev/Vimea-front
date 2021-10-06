@@ -38,7 +38,7 @@ const breakpoints = {
   },
 };
 
-const index = React.memo((props: ComponentProps): JSX.Element => {
+const index = (props: ComponentProps): JSX.Element => {
   const { upcomingMovies } = props;
   const [randomMovieId, setRandomMovieId] = useState<number>(undefined);
   const randomIndex = Math.floor(Math.random() * 19);
@@ -63,7 +63,6 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
     [filteredUpcomingMovies]
   );
 
-  
   const setRandomMovie = useCallback(
     (movieId: number | string): void => {
       setRandomMovieId(+movieId);
@@ -99,6 +98,6 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
       </BackgroundWrapper>
     </Wrapper>
   );
-});
+};
 
-export default index;
+export default React.memo(index);

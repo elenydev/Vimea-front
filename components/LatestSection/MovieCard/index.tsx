@@ -1,14 +1,17 @@
-import React, { SyntheticEvent, useState, useEffect, useCallback, useMemo } from "react";
+import React, {
+  SyntheticEvent,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 import {
   Wrapper,
-  ContentWrapper
+  ContentWrapper,
 } from "components/LatestSection/MovieCard/moviecard.styles";
 import Button from "@material-ui/core/Button";
 import { Text } from "dictionary/text";
-import {
-  YOUTUBE_MOVIE_URL,
-  VIMEO_MOVIE_URL,
-} from "utils/constants";
+import { YOUTUBE_MOVIE_URL, VIMEO_MOVIE_URL } from "utils/constants";
 import { useSelector } from "react-redux";
 import { getUserManager, getUser } from "components/User/domain/selectors";
 import { getMappedFavouriteMovie } from "utils/getMappedFavouriteMovie";
@@ -24,11 +27,8 @@ interface ComponentProps {
   setRandomMovie?: (movieId: string) => void;
 }
 
-const index = React.memo((props: ComponentProps): JSX.Element => {
+const index = (props: ComponentProps): JSX.Element => {
   const { movie, setRandomMovie } = props;
-  const setCurrentRandomMovie = (): void => {
-    setRandomMovie ? setRandomMovie(movie.id) : null;
-  };
   const currentUser = useSelector(getUser);
   const userManager = useSelector(getUserManager);
   const movieManager = useSelector(getMovieManager);
@@ -37,18 +37,25 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
   const [isMovieFavourite, setIsMovieFavourite] = useState(isInFavourites);
   const [movieTrailerUrl, setMovieTrailerUrl] = useState("");
 
-  const isAddingDisabled = useMemo(() => !currentUser?.accessToken, [currentUser?.accessToken]);
+  const isAddingDisabled = useMemo(
+    () => !currentUser?.accessToken,
+    [currentUser?.accessToken]
+  );
+
+  const setCurrentRandomMovie = useCallback((): void => {
+    setRandomMovie ? setRandomMovie(movie.id) : null;
+  }, [movie.id, setRandomMovie]);
 
   const addToFavourites = useCallback((e: SyntheticEvent): void => {
     e.stopPropagation();
     const mappedFavouriteMovie = getMappedFavouriteMovie(movie);
     userManager.addFavourite(mappedFavouriteMovie);
-  }, []);
+  }, [movie]);
 
   const removeFromFavourites = useCallback((e: SyntheticEvent): void => {
     e.stopPropagation();
     userManager.removeFavourite(movie.id);
-  }, []);
+  }, [movie.id]);
 
   const handleButtonClick = useCallback(
     (e: SyntheticEvent) => {
@@ -70,7 +77,7 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
     userMovies?.find(({ id }) => movie.id === id)
       ? setIsMovieFavourite(true)
       : setIsMovieFavourite(false);
-  }, [userMovies]);
+  }, [userMovies, movie.id]);
 
   useEffect(() => {
     (async () => {
@@ -85,7 +92,6 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
 
   return (
     <>
-
       <Wrapper
         onClick={setCurrentRandomMovie}
         backgroundImage={movie.backdrop_path}
@@ -124,6 +130,6 @@ const index = React.memo((props: ComponentProps): JSX.Element => {
       </Wrapper>
     </>
   );
-});
+};
 
-export default index;
+export default React.memo(index);
