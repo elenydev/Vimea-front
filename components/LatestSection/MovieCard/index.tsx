@@ -11,7 +11,7 @@ import {
 } from "components/LatestSection/MovieCard/moviecard.styles";
 import Button from "@material-ui/core/Button";
 import { Text } from "dictionary/text";
-import { YOUTUBE_MOVIE_URL, VIMEO_MOVIE_URL } from "contants";
+import { YOUTUBE_MOVIE_URL, VIMEO_MOVIE_URL } from "constants";
 import { useSelector } from "react-redux";
 import { getUserManager, getUser } from "components/User/domain/selectors";
 import { getMappedFavouriteMovie } from "utils/getMappedFavouriteMovie";

@@ -15,7 +15,7 @@ import {
   CheckBox,
   ImagePreviewBox,
 } from "./signUpForm.styles";
-import { CHECK_IF_EMAIL_REGEX } from "contants";
+import { CHECK_IF_EMAIL_REGEX } from "constants";
 import { User } from "infrastructure/interfaces/User/user";
 import { useSelector } from "react-redux";
 import { getUserManager } from "components/User/domain/selectors";

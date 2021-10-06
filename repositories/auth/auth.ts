@@ -1,4 +1,4 @@
-import { CURRENT_USER_EMAIL_COOKIE } from "contants";
+import { CURRENT_USER_EMAIL_COOKIE } from "constants";
 import {
   User,
   UserCredentials,
