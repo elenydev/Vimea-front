@@ -12,7 +12,7 @@ import {
   ErrorSpan,
   Form,
 } from "./remindPasswordForm.styles";
-import { CHECK_IF_EMAIL_REGEX } from "constants";
+import { CHECK_IF_EMAIL_REGEX } from "constants/index";
 import { useSelector } from "react-redux";
 import { getUserManager } from "components/User/domain/selectors";
 import { Text } from 'dictionary/text';

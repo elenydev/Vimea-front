@@ -1,4 +1,4 @@
-import { DATABASE_URL } from "constants";
+import { DATABASE_URL } from "constants/index";
 
 export const API_URL = {
     USER: {

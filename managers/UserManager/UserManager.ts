@@ -9,7 +9,7 @@ import {
 } from "infrastructure/interfaces/User/user";
 import * as UserStoreActions from "components/User/domain/actions";
 import { deleteCookie } from "services/cookieService";
-import { USER_COOKIE, CURRENT_USER_EMAIL_COOKIE, CURRENT_USER_ID } from "constants";
+import { USER_COOKIE, CURRENT_USER_EMAIL_COOKIE, CURRENT_USER_ID } from "constants/index";
 import { Text } from "dictionary/text";
 
 export default class UserManager {

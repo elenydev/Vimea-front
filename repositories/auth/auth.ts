@@ -1,4 +1,4 @@
-import { CURRENT_USER_EMAIL_COOKIE } from "constants";
+import { CURRENT_USER_EMAIL_COOKIE } from "constants/index";
 import {
   User,
   UserCredentials,
