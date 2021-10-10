@@ -61,13 +61,13 @@ export const getCurrentUserTrigger = createActionWithPayload<GetCurrentUser>(
 export const getCurrentUserSuccess = createActionWithPayload<User>(
   UserStoreActions.GetCurrentUserSuccess
 );
-export const getCurrentUserFailure = createActionWithPayload<User>(
+export const getCurrentUserFailure = createAction(
   UserStoreActions.GetCurrentUserFailure
 );
 export const getUserFavouriteMoviesTrigger = createAction(
   UserStoreActions.GetUserFavouriteMoviesTrigger
 );
-export const getUserFavouriteMoviesSuccess = createActionWithPayload<Movie[]>(
+export const getUserFavouriteMoviesSuccess = createActionWithPayload<UserFavouriteMovie[]>(
   UserStoreActions.GetUserFavouriteMoviesSuccess
 );
 export const getUserFavouriteMoviesFailure = createAction(
@@ -75,15 +75,16 @@ export const getUserFavouriteMoviesFailure = createAction(
 );
 
 export const changePasswordTrigger =
-createActionWithPayload<ChangePasswordUserCredentials>(
+  createActionWithPayload<ChangePasswordUserCredentials>(
     UserStoreActions.ChangePasswordTrigger
   );
 export const remindPasswordTrigger = createActionWithPayload<string>(
   UserStoreActions.RemindPasswordTrigger
 );
-export const addUserFavouriteMovieTrigger = createActionWithPayload<UserFavouriteMovie>(
-  UserStoreActions.AddUserFavouriteMovieTrigger
-);
+export const addUserFavouriteMovieTrigger =
+  createActionWithPayload<UserFavouriteMovie>(
+    UserStoreActions.AddUserFavouriteMovieTrigger
+  );
 export const removeUserFavouriteMovieTrigger = createActionWithPayload<string>(
   UserStoreActions.RemoveUserFavouriteMovieTrigger
 );

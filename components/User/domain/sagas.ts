@@ -66,9 +66,7 @@ function* authorization(action: Action<UserCredentials>) {
     }
     notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
-    yield put({
-      type: UserStoreActions.authorizationFailure,
-    });
+    yield put(UserStoreActions.authorizationFailure());
     notificationsManager.setErrorNotifications(errorMessage);
   }
 }
@@ -84,12 +82,12 @@ function* registerUser(action: Action<User>) {
     if (response.responseStatus === ResponseStatus.SUCCESS) {
       notificationsManager.setSuccesfullNotifications(response.message);
       formManager.clearCurrentForm(FORM_INSTANCE_NAME.REGISTRATION);
-      yield put({ type: UserStoreActions.registerUserSuccess });
+      yield put(UserStoreActions.registerUserSuccess);
       return Router.replace(ROUTES.AUTH.SIGN_IN);
     }
     notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
-    yield put({ type: UserStoreActions.registerUserFailure });
+    yield put(UserStoreActions.registerUserFailure());
     notificationsManager.setErrorNotifications(errorMessage);
   }
 }
@@ -128,9 +126,7 @@ function* addFavouriteMovie(action: Action<UserFavouriteMovie>) {
     );
     if (response.responseStatus === ResponseStatus.SUCCESS) {
       notificationsManager.setSuccesfullNotifications(response.message);
-      return yield put({
-        type: UserStoreActions.getUserFavouriteMoviesTrigger,
-      });
+      return yield put(UserStoreActions.getUserFavouriteMoviesTrigger());
     }
     notificationsManager.setErrorNotifications(response.message);
   } catch (errorMessage) {
@@ -151,9 +147,7 @@ function* removeFavouriteMovie(action: Action<string>) {
     );
     if (response.responseStatus === ResponseStatus.SUCCESS) {
       notificationsManager.setSuccesfullNotifications(response.message);
-      return yield put({
-        type: UserStoreActions.getUserFavouriteMoviesTrigger,
-      });
+      return yield put(UserStoreActions.getUserFavouriteMoviesTrigger());
     }
 
     notificationsManager.setErrorNotifications(response.message);
@@ -196,7 +190,7 @@ function* getCurrentUserCredentials(action: Action<GetCurrentUser>) {
       return;
     }
   } catch (errorMessage) {
-    yield put({ type: UserStoreActions.getCurrentUserFailure });
+    yield put(UserStoreActions.getCurrentUserFailure());
   }
 }
 
@@ -210,12 +204,11 @@ function* getFavouriteMovies() {
       pageNumber,
       pageSize
     );
-    yield put({
-      type: UserStoreActions.getUserFavouriteMoviesSuccess,
-      payload: response.favouriteMovies,
-    });
+    yield put(
+      UserStoreActions.getUserFavouriteMoviesSuccess(response.favouriteMovies)
+    );
   } catch (errorMessage) {
-    yield put({ type: UserStoreActions.getUserFavouriteMoviesFailure });
+    yield put(UserStoreActions.getUserFavouriteMoviesFailure());
   }
 }
 
