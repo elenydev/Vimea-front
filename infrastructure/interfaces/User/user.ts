@@ -50,6 +50,7 @@ export interface RemindPasswordResult extends BaseRequestResponse {
 
 export interface UserFavouriteMovie {
   id: string,
+  externalApiId: string;
   title: string,
   backdrop_path: string,
   overview: string,

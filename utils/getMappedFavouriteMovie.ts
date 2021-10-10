@@ -4,6 +4,7 @@ export const getMappedFavouriteMovie = (movie: Movie | UserFavouriteMovie): User
   return {
     ...movie,
     id: movie.id as string,
+    externalApiId: movie.id.toString(),
     title: movie.title,
     backdrop_path: movie.backdrop_path,
     overview: movie.overview,

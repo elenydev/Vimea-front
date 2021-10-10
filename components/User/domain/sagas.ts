@@ -122,7 +122,7 @@ function* addFavouriteMovie(action: Action<UserFavouriteMovie>) {
   try {
     const response: UserMovieActionResult = yield addUserFavouriteMovie(
       newFavouriteUserMovie,
-      currentUser.email
+      currentUser.userId
     );
     if (response.responseStatus === ResponseStatus.SUCCESS) {
       notificationsManager.setSuccesfullNotifications(response.message);

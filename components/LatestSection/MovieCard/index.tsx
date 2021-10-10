@@ -49,13 +49,13 @@ const index = (props: ComponentProps): JSX.Element => {
   const addToFavourites = useCallback((e: SyntheticEvent): void => {
     e.stopPropagation();
     const mappedFavouriteMovie = getMappedFavouriteMovie(movie);
-    userManager.addFavourite(mappedFavouriteMovie);
-  }, [movie]);
+    userManager?.addFavourite(mappedFavouriteMovie);
+  }, [movie, userManager]);
 
   const removeFromFavourites = useCallback((e: SyntheticEvent): void => {
     e.stopPropagation();
-    userManager.removeFavourite(movie.id);
-  }, [movie.id]);
+    userManager?.removeFavourite(movie.id);
+  }, [movie.id, userManager]);
 
   const handleButtonClick = useCallback(
     (e: SyntheticEvent) => {

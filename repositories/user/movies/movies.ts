@@ -11,14 +11,16 @@ import { API_URL } from "utils/api";
 
 export const addUserFavouriteMovie = async (
   movie: UserFavouriteMovie,
-  email: string
+  userId: string
 ): Promise<UserMovieActionResult> => {
-  const body = { movie, email };
+  const body = { movie };
+  const params = { userId };
   return await postItem<UserFavouriteMovie[]>(
     API_URL.USER.DETAILS.ADD_FAVOURITE_MOVIE,
     body,
     true,
-    false
+    false,
+    params
   );
 };
 
