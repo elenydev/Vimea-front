@@ -19,6 +19,17 @@ const Wrapper = styled.div`
   .swiper-pagination-bullet-active {
     background: var(--swiper-pagination-color, var(--swiper-theme-color));
   }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: ${({ theme }) => theme.colors.crimsonRed};
+  }
 `;
 
 const BackgroundWrapper = styled.div`

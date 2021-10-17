@@ -204,9 +204,7 @@ function* getFavouriteMovies() {
       pageNumber,
       pageSize
     );
-    yield put(
-      UserStoreActions.getUserFavouriteMoviesSuccess(response.favouriteMovies)
-    );
+    yield put(UserStoreActions.getUserFavouriteMoviesSuccess(response));
   } catch (errorMessage) {
     yield put(UserStoreActions.getUserFavouriteMoviesFailure());
   }

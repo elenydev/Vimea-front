@@ -21,9 +21,10 @@ import IconButton from "@material-ui/core/IconButton";
 import { getCurrentMovieTrailer } from "repositories/movies/movies";
 import { UserFavouriteMovie } from "infrastructure/interfaces/User/user";
 import { getMovieManager } from "managers/MovieManager/selectors";
+import { Movie } from "infrastructure/interfaces/Movie/movie";
 
 interface ComponentProps {
-  movie: UserFavouriteMovie;
+  movie: UserFavouriteMovie | Movie;
   setRandomMovie?: (movieId: string) => void;
 }
 
@@ -46,16 +47,22 @@ const index = (props: ComponentProps): JSX.Element => {
     setRandomMovie ? setRandomMovie(movie.id) : null;
   }, [movie.id, setRandomMovie]);
 
-  const addToFavourites = useCallback((e: SyntheticEvent): void => {
-    e.stopPropagation();
-    const mappedFavouriteMovie = getMappedFavouriteMovie(movie);
-    userManager?.addFavourite(mappedFavouriteMovie);
-  }, [movie, userManager]);
+  const addToFavourites = useCallback(
+    (e: SyntheticEvent): void => {
+      e.stopPropagation();
+      const mappedFavouriteMovie = getMappedFavouriteMovie(movie);
+      userManager?.addFavourite(mappedFavouriteMovie);
+    },
+    [movie, userManager]
+  );
 
-  const removeFromFavourites = useCallback((e: SyntheticEvent): void => {
-    e.stopPropagation();
-    userManager?.removeFavourite(movie.id);
-  }, [movie.id, userManager]);
+  const removeFromFavourites = useCallback(
+    (e: SyntheticEvent): void => {
+      e.stopPropagation();
+      userManager?.removeFavourite(movie.id);
+    },
+    [movie.id, userManager]
+  );
 
   const handleButtonClick = useCallback(
     (e: SyntheticEvent) => {
@@ -74,14 +81,18 @@ const index = (props: ComponentProps): JSX.Element => {
   );
 
   useEffect(() => {
-    userMovies?.find(({ id }) => movie.id === id)
+    userMovies?.find(
+      ({ externalApiId }) => movie.externalApiId === externalApiId
+    )
       ? setIsMovieFavourite(true)
       : setIsMovieFavourite(false);
-  }, [userMovies, movie.id]);
+  }, [userMovies, movie.externalApiId]);
 
   useEffect(() => {
     (async () => {
-      const currentMovieTrailer = await getCurrentMovieTrailer(movie.id);
+      const currentMovieTrailer = await getCurrentMovieTrailer(
+        movie.externalApiId || movie.id
+      );
       if (currentMovieTrailer?.site === "YouTube") {
         setMovieTrailerUrl(`${YOUTUBE_MOVIE_URL}${currentMovieTrailer.key}`);
       } else {
@@ -94,7 +105,10 @@ const index = (props: ComponentProps): JSX.Element => {
     <>
       <Wrapper
         onClick={setCurrentRandomMovie}
-        backgroundImage={movie.backdrop_path}
+        backgroundImage={
+          (movie as UserFavouriteMovie).backdropPathUrl ||
+          (movie as Movie).backdrop_path
+        }
       >
         <ContentWrapper>
           <label className="view__trailer">

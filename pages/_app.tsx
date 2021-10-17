@@ -20,6 +20,9 @@ import { CircularProgress, Box } from "@material-ui/core";
 import "swiper/swiper.min.css";
 import "swiper/swiper-bundle.min.css";
 import "swiper/components/pagination/pagination.min.css";
+import "swiper/components/navigation/navigation.min.css";
+import { setMovieManager } from "managers/MovieManager/actions";
+import MovieManager from "managers/MovieManager/MovieManager";
 
 function MyApp({ Component, pageProps }): JSX.Element {
   const currentRoutePath =
@@ -31,6 +34,7 @@ function MyApp({ Component, pageProps }): JSX.Element {
   const currentUser = (Store.getState() as StoreInterface).userStore?.user;
   const notificationsManager = (Store.getState() as StoreInterface)
     .notificationsStore?.notificationsManager;
+  const movieManager = (Store.getState() as StoreInterface).movieStore?.manager;
   const currentUserToken = getCookie(USER_COOKIE);
   const currentUserId = getCookie(CURRENT_USER_ID);
 
@@ -39,6 +43,10 @@ function MyApp({ Component, pageProps }): JSX.Element {
       if (isProtectedRoute && !currentUserToken) {
         Router.push("/");
       }
+    }
+
+    if (!movieManager) {
+      Store.dispatch(setMovieManager(new MovieManager({ upcomingMovies: [] })));
     }
 
     if (!userManager) {
@@ -52,7 +60,7 @@ function MyApp({ Component, pageProps }): JSX.Element {
     if (currentUserToken && currentUserId && !currentUser) {
       Store.dispatch(getCurrentUserTrigger({ userId: currentUserId }));
     }
-  }, [currentUser, userManager]);
+  }, [currentUser, userManager, movieManager]);
 
   return (
     <>

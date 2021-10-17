@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   background: rgba(0, 0, 0, 0.3);
   padding: 15px;
 
-  ${({ theme }) => theme.mq.xl} {
+  ${({ theme }) => theme.mq.md} {
     padding: 40px;
   }
 `;

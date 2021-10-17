@@ -23,21 +23,23 @@ export interface RegistrationRequestResult extends BaseRequestResponse {
 }
 
 export interface AuthorizationRequestResult extends BaseRequestResponse {
-  result?: User | Partial<User>
+  result?: User | Partial<User>;
 }
 
 export interface UserDetailsChangeRequestResult extends BaseRequestResponse {
   result?: User;
 }
 
-export interface UserDetailsChangeResponse extends UserDetailsChangeRequestResult {};
+export interface UserDetailsChangeResponse
+  extends UserDetailsChangeRequestResult {}
 
 export interface UserCredentials {
   email: string;
   password: string;
 }
 
-export interface ChangePasswordUserCredentials extends Omit<UserCredentials, "email"> {
+export interface ChangePasswordUserCredentials
+  extends Omit<UserCredentials, "email"> {
   newPassword: string;
   newPasswordConfirmation: string;
 }
@@ -45,33 +47,42 @@ export interface ChangePasswordUserCredentials extends Omit<UserCredentials, "em
 export interface AuthResponse extends RegistrationRequestResult, Response {}
 
 export interface RemindPasswordResult extends BaseRequestResponse {
-  result?: Partial<User>,
+  result?: Partial<User>;
+}
+
+export interface GetUserFavouriteMoviesSuccess {
+  results: UserFavouriteMovie[];
+  pageSize: number;
+  pageNumber: number;
+  totalCount: {
+    favouriteMovies: number;
+  };
 }
 
 export interface UserFavouriteMovie {
-  id: string,
+  id: string;
   externalApiId: string;
-  title: string,
-  backdrop_path: string,
-  overview: string,
-  vote_average: number
+  title: string;
+  backdropPathUrl: string;
+  overview: string;
+  vote_average: number;
 }
 
 export interface UserMovieActionResponse {
-  favouriteMovies: UserFavouriteMovie[],
-  message: string
+  favouriteMovies: UserFavouriteMovie[];
+  message: string;
 }
 
-export interface UserMovieActionResult extends BaseRequestResponse {
-  favouriteMovies?: UserFavouriteMovie[]
-}
+export interface UserMovieActionResult
+  extends BaseRequestResponse,
+    GetUserFavouriteMoviesSuccess {}
 
 export interface GetCurrentUser {
   userId: string;
 }
 
 export interface RemindPasswordCredentials {
-  email: string | null,
-  password: string | null,
-  passwordConfirm: string | null
+  email: string | null;
+  password: string | null;
+  passwordConfirm: string | null;
 }
