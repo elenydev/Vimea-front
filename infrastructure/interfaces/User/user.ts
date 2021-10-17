@@ -73,6 +73,8 @@ export interface UserMovieActionResponse {
   message: string;
 }
 
+export interface UserMovieUpdateActionResult extends BaseRequestResponse {}
+
 export interface UserMovieActionResult
   extends BaseRequestResponse,
     GetUserFavouriteMoviesSuccess {}
