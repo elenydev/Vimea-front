@@ -56,7 +56,7 @@ const userStore = createSliceWithSaga({
       })
       .addCase(getUserFavouriteMoviesSuccess, (state: UserStore, action) => {
         state.isLoading = false;
-        state.user.favouriteMovies = action.payload;
+        state.user.favouriteMovies = action.payload.results;
       })
       .addCase(getUserFavouriteMoviesFailure, (state: UserStore) => {
         state.isLoading = false;

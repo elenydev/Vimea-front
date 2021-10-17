@@ -6,6 +6,7 @@ export const getMappedMovies = (movies: Movie[]): Movie[] => {
     ? movies.map((movie) => {
         movie.backdrop_path = `${baseMovieBackdropPath}${movie.backdrop_path}`;
         movie.poster_path = `${baseMovieBackdropPath}${movie.poster_path}`;
+        movie.externalApiId = movie.id;
         return movie;
       })
     : [];

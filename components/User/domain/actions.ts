@@ -3,6 +3,7 @@ import UserManager from "managers/UserManager/UserManager";
 import {
   ChangePasswordUserCredentials,
   GetCurrentUser,
+  GetUserFavouriteMoviesSuccess,
   User,
   UserCredentials,
   UserFavouriteMovie,
@@ -67,9 +68,10 @@ export const getCurrentUserFailure = createAction(
 export const getUserFavouriteMoviesTrigger = createAction(
   UserStoreActions.GetUserFavouriteMoviesTrigger
 );
-export const getUserFavouriteMoviesSuccess = createActionWithPayload<UserFavouriteMovie[]>(
-  UserStoreActions.GetUserFavouriteMoviesSuccess
-);
+export const getUserFavouriteMoviesSuccess =
+  createActionWithPayload<GetUserFavouriteMoviesSuccess>(
+    UserStoreActions.GetUserFavouriteMoviesSuccess
+  );
 export const getUserFavouriteMoviesFailure = createAction(
   UserStoreActions.GetUserFavouriteMoviesFailure
 );

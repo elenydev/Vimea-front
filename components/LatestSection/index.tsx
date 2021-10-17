@@ -9,12 +9,12 @@ import { Movie } from "infrastructure/interfaces/Movie/movie";
 import LatestCurrentMovie from "components/LatestSection/LatestCurrentMovie/";
 import MovieCard from "components/LatestSection/MovieCard/";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination } from "swiper/core";
+import SwiperCore, { Navigation } from "swiper/core";
 import VideoWrapper from "components/VideoWrapper";
 import { getIsTrailerVisible } from "managers/MovieManager/selectors";
 import { useSelector } from "react-redux";
 
-SwiperCore.use([Pagination]);
+SwiperCore.use([Navigation]);
 
 interface ComponentProps {
   upcomingMovies: Movie[];
@@ -84,7 +84,7 @@ const index = (props: ComponentProps): JSX.Element => {
             <Swiper
               spaceBetween={25}
               breakpoints={breakpoints}
-              pagination={true}
+              navigation
               className="mySwiper"
             >
               {randomUpcomingMovies.map((movie) => (

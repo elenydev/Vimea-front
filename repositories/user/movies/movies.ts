@@ -6,13 +6,14 @@ import {
   UserMovieActionResult,
   UserFavouriteMovie,
   BaseRequestResponse,
+  UserMovieUpdateActionResult,
 } from "infrastructure/interfaces/User/user";
 import { API_URL } from "utils/api";
 
 export const addUserFavouriteMovie = async (
   movie: UserFavouriteMovie,
   userId: string
-): Promise<UserMovieActionResult> => {
+): Promise<UserMovieUpdateActionResult> => {
   const body = { movie };
   const params = { userId };
   return await postItem<UserFavouriteMovie[]>(
@@ -27,7 +28,7 @@ export const addUserFavouriteMovie = async (
 export const removeUserFavouriteMovie = async (
   movieId: string,
   userId: string
-): Promise<UserMovieActionResult> => {
+): Promise<UserMovieUpdateActionResult> => {
   return await deleteItem(API_URL.USER.DETAILS.REMOVE_FAVOURITE_MOVIE, true, {
     movieId,
     userId,

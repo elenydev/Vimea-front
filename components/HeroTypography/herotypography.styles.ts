@@ -8,7 +8,6 @@ export const Header = styled.header`
   text-align: center;
   justify-content: center;
   margin-bottom: 60px;
-  padding-top: 15%;
 
   ${({ theme }) => theme.mq.md} {
     margin-bottom: 80px;

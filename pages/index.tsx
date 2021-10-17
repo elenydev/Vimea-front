@@ -23,10 +23,8 @@ interface ComponentProps {
 const Home = ({ upcomingMovies }: ComponentProps): JSX.Element => {
   const movieManager = (Store.getState() as StoreInterface).movieStore?.manager;
   useEffect(() => {
-    if (!movieManager) {
-      Store.dispatch(setMovieManager(new MovieManager({ upcomingMovies })));
-    }
-  }, [upcomingMovies]);
+    movieManager?.setUpcomingMovies(upcomingMovies);
+  }, [upcomingMovies, movieManager]);
 
   return (
     <>
