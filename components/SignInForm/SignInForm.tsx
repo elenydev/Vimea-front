@@ -11,7 +11,7 @@ import {
   LoginDiv,
   InputElement,
 } from "./signInForm.styles";
-import RemindPasswordForm from "components/RemindPasswordForm";
+import RemindPasswordForm from "components/RemindPasswordForm/RemindPasswordForm";
 import { CHECK_IF_EMAIL_REGEX } from "constants/index";
 import { UserCredentials } from "infrastructure/interfaces/User/user";
 import { useSelector } from "react-redux";

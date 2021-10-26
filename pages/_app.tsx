@@ -13,7 +13,7 @@ import UserManager from "managers/UserManager/UserManager";
 import NotificationsManager from "managers/NotificationsManager/NotificationsManager";
 import { Store as StoreInterface } from "store/interfaces";
 import { setNotificationsManager } from "components/Notifications/domain/actions";
-import Navigation from "components/Navigation/index";
+import Navigation from "components/Navigation/Navigation.server";
 import Router from "next/router";
 import { CircularProgress, Box } from "@material-ui/core";
 

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { BackgroundWrapper } from "components/BackgroundWrapper/index";
+import { BackgroundWrapper } from "components/BackgroundWrapper/BackgroundWrapper.server";
 import { useSelector } from "react-redux";
 import { getUserManager, getUserMovies } from "components/User/domain/selectors";
 import { MoviesWrapper } from "./favourites.styles";
-import MovieCard from "components/LatestSection/MovieCard/";
+import MovieCard from "components/LatestSection/MovieCard/MovieCard";
 import { getIsTrailerVisible } from "managers/MovieManager/selectors";
-import VideoWrapper from "components/VideoWrapper";
+import VideoWrapper from "components/VideoWrapper/VideoWrapper";
 
 const index = () => {
   const userMovies = useSelector(getUserMovies)

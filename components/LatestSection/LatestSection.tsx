@@ -6,11 +6,11 @@ import {
   MoviesWrapper,
 } from "./latestsection.styles";
 import { Movie } from "infrastructure/interfaces/Movie/movie";
-import LatestCurrentMovie from "components/LatestSection/LatestCurrentMovie/";
-import MovieCard from "components/LatestSection/MovieCard/";
+import LatestCurrentMovie from "components/LatestSection/LatestCurrentMovie/LatestCurrentMovie";
+import MovieCard from "components/LatestSection/MovieCard/MovieCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation } from "swiper/core";
-import VideoWrapper from "components/VideoWrapper";
+import VideoWrapper from "components/VideoWrapper/VideoWrapper";
 import { getIsTrailerVisible } from "managers/MovieManager/selectors";
 import { useSelector } from "react-redux";
 
