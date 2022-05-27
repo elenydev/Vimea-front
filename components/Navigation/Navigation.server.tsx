@@ -20,7 +20,7 @@ import { Text } from "dictionary/text";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { useSelector } from "react-redux";
 import { getUser } from "components/User/domain/selectors";
-import DropdownMenu from "components/User/DropdownMenu";
+import DropdownMenu from "components/User/DropdownMenu/DropdownMenu.server";
 
 const index = (): JSX.Element => {
   const [handleScroll, setHandleScroll] = useState(0);
